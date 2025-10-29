@@ -131,14 +131,18 @@ export default function Navigation() {
 
             <button
               onClick={() => setIsOpen((prev) => !prev)}
-              className="rounded-lg border border-cyan/20 p-2 text-white transition hover:border-cyan md:hidden"
+              className={`rounded-lg border p-2 text-white transition md:hidden ${
+                showCompact
+                  ? 'border-cyan/20 hover:border-cyan'
+                  : 'border-white/40 bg-white/10 backdrop-blur-sm hover:border-white hover:bg-white/20'
+              }`}
               aria-label="Toggle navigation menu"
             >
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 {isOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                 )}
               </svg>
             </button>
@@ -150,7 +154,7 @@ export default function Navigation() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="block rounded-lg px-3 py-2 text-sm font-medium text-white transition hover:bg-cyan/10 hover:text-cyan"
+                  className="block rounded-lg px-4 py-3 text-base font-medium text-white transition hover:bg-cyan/10 hover:text-cyan"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
@@ -158,7 +162,7 @@ export default function Navigation() {
               ))}
               <Link
                 href="/book"
-                className="block rounded-lg bg-cyan px-4 py-3 text-center text-sm font-semibold text-navy shadow-[0_6px_12px_rgba(0,217,255,0.3)] transition hover:bg-blue"
+                className="block rounded-lg bg-cyan px-4 py-4 text-center text-base font-semibold text-navy shadow-[0_6px_12px_rgba(0,217,255,0.3)] transition hover:bg-blue"
                 onClick={() => setIsOpen(false)}
               >
                 Get Started

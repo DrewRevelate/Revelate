@@ -218,7 +218,7 @@ export default function Home() {
             <span className="text-xs font-semibold uppercase tracking-[0.05em] text-cyan">
               Why choose Drew
             </span>
-            <h2 id="differentiators-heading" className="mt-5 text-4xl font-semibold leading-[1.2] md:text-5xl">
+            <h2 id="differentiators-heading" className="mt-5 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl lg:text-5xl">
               Four things that make this different
             </h2>
             <p className="mt-6 text-lg leading-8 text-[#334155]">
@@ -272,7 +272,7 @@ export default function Home() {
             <span className="text-xs font-semibold uppercase tracking-[0.05em] text-magenta">
               Documented outcomes
             </span>
-            <h2 id="outcomes-heading" className="mt-5 text-4xl font-semibold leading-[1.2] md:text-5xl">
+            <h2 id="outcomes-heading" className="mt-5 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl lg:text-5xl">
               Results that speak for themselves
             </h2>
             <p className="mt-6 text-lg leading-8 text-white/80">
@@ -280,7 +280,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="mt-16 grid gap-6 sm:grid-cols-3">
+          <div className="mt-16 grid gap-6 md:grid-cols-3">
             <div className="relative flex h-full flex-col justify-between rounded-2xl border border-white/15 bg-white/10 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.14)_0%,rgba(26,31,58,0)_70%)]" />
               <div className="relative space-y-3">
@@ -363,7 +363,7 @@ export default function Home() {
             <span className="text-xs font-semibold uppercase tracking-[0.05em] text-cyan">
               Two paths forward
             </span>
-            <h2 id="approach-heading" className="mt-5 text-4xl font-semibold leading-[1.2] md:text-5xl">
+            <h2 id="approach-heading" className="mt-5 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl lg:text-5xl">
               Hire a conglomerate that bills you. Or a boutique consultant who joins your team.
             </h2>
             <p className="mt-6 text-lg leading-8 text-[#334155]">
@@ -556,7 +556,7 @@ export default function Home() {
             <span className="text-xs font-semibold uppercase tracking-[0.05em] text-blue">
               How the sprint runs
             </span>
-            <h2 id="process-heading" className="mt-5 text-4xl font-semibold leading-[1.2]">
+            <h2 id="process-heading" className="mt-5 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl">
               Sprints that protect revenue while we modernize.
             </h2>
             <p className="mt-4 text-base leading-7 text-[#334155] md:text-lg">
@@ -609,7 +609,7 @@ export default function Home() {
             <span className="text-xs font-semibold uppercase tracking-[0.05em] text-cyan">
               Still deciding?
             </span>
-            <h2 id="faq-heading" className="mt-5 text-4xl font-semibold leading-[1.2]">
+            <h2 id="faq-heading" className="mt-5 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl">
               Fast answers before we hop on a call.
             </h2>
             <p className="mt-4 text-base leading-7 text-[#334155] md:text-lg">
@@ -671,9 +671,9 @@ export default function Home() {
         </div>
 
         <motion.div style={{ y: prefersReducedMotion ? '0%' : ctaContentY }} className="relative mx-auto max-w-4xl px-6 text-center">
-          <div className="overflow-hidden rounded-[28px] border border-white/30 bg-white/10 px-8 py-12 shadow-[0_8px_12px_rgba(8,13,40,0.6)] backdrop-blur-xl">
+          <div className="overflow-hidden rounded-xl border border-white/30 bg-white/10 px-6 py-10 shadow-[0_8px_12px_rgba(8,13,40,0.6)] backdrop-blur-xl sm:rounded-2xl sm:px-8 sm:py-12">
             <span className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan">Next step</span>
-            <h2 id="cta-heading" className="mt-6 text-4xl font-semibold leading-[1.2]">
+            <h2 id="cta-heading" className="mt-6 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl">
               Bring the messy org to a working session. We'll map the fixes together.
             </h2>
             <p className="mt-6 text-base leading-7 text-white/90 md:text-lg md:leading-8">

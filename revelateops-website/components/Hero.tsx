@@ -110,7 +110,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            className="text-5xl font-bold leading-[1.2] tracking-[-0.02em] text-white"
+            className="text-3xl font-bold leading-[1.2] tracking-[-0.02em] text-white sm:text-4xl md:text-5xl"
           >
             {executivePainPoints[currentPainIndex]}
           </motion.h1>

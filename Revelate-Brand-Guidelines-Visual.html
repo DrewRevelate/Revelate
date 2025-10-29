@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revelate Operations - Brand Guidelines</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #1a1f3a;
+            --white: #ffffff;
+            --cyan: #00d9ff;
+            --blue: #0084ff;
+            --magenta: #d946ef;
+            --slate: #64748b;
+            --light-gray: #f1f5f9;
+            --charcoal: #334155;
+            --very-light-gray: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--charcoal);
+            line-height: 1.6;
+            background: white;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 288px;
+            background: var(--navy);
+            border-right: 1px solid #2a2f4a;
+            display: none;
+            flex-direction: column;
+        }
+
+        @media (min-width: 1024px) {
+            .sidebar {
+                display: flex;
+            }
+        }
+
+        .sidebar-header {
+            padding: 32px;
+            border-bottom: 1px solid #2a2f4a;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-brand h2 {
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .sidebar-tagline {
+            color: var(--cyan);
+            font-size: 0.875rem;
+        }
+
+        .sidebar-subtitle {
+            color: var(--slate);
+            font-size: 0.875rem;
+            margin-top: 16px;
+            line-height: 1.5;
+        }
+
+        .sidebar-nav {
+            padding: 24px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-item.active {
+            background: rgba(0, 217, 255, 0.1);
+            color: var(--cyan);
+        }
+
+        .sidebar-footer {
+            padding: 24px;
+            border-top: 1px solid #2a2f4a;
+            font-size: 0.75rem;
+            color: var(--slate);
+        }
+
+        /* Mobile Menu */
+        .mobile-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--navy);
+            border-bottom: 1px solid #2a2f4a;
+            z-index: 50;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+            .mobile-header {
+                display: none;
+            }
+        }
+
+        .mobile-brand h2 {
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 700;
+        }
+
+        .mobile-brand p {
+            color: var(--cyan);
+            font-size: 0.75rem;
+        }
+
+        .menu-toggle {
+            background: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 80px;
+        }
+
+        @media (min-width: 1024px) {
+            .main-content {
+                margin-left: 288px;
+                padding-top: 0;
+            }
+        }
+
+        /* Section */
+        section {
+            padding: 64px 24px;
+        }
+
+        @media (min-width: 1024px) {
+            section {
+                padding: 64px;
+            }
+        }
+
+        .container {
+            max-width: 1152px;
+            margin: 0 auto;
+        }
+
+        .bg-gradient {
+            background: linear-gradient(to bottom right, var(--light-gray), white);
+        }
+
+        .bg-gray {
+            background: var(--very-light-gray);
+        }
+
+        .bg-navy {
+            background: var(--navy);
+        }
+
+        .border-b {
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        /* Hero */
+        .hero-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .hero-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--cyan);
+        }
+
+        .hero-badge span {
+            color: var(--slate);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        @media (min-width: 1024px) {
+            .hero h1 {
+                font-size: 3.75rem;
+            }
+        }
+
+        .hero h1 span {
+            color: var(--cyan);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: var(--charcoal);
+            max-width: 48rem;
+        }
+
+        /* Section Headers */
+        section h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+
+        section h3 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 16px;
+            margin-top: 48px;
+        }
+
+        section h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--slate);
+            margin-bottom: 48px;
+        }
+
+        .bg-navy h2,
+        .bg-navy h3,
+        .bg-navy h4 {
+            color: white;
+        }
+
+        /* Card */
+        .card {
+            background: white;
+            border: 2px solid var(--light-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--cyan);
+        }
+
+        .card-header {
+            padding: 24px;
+            background: var(--very-light-gray);
+        }
+
+        .card-content {
+            padding: 24px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        /* Grid */
+        .grid {
+            display: grid;
+            gap: 32px;
+        }
+
+        .grid-2 {
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .grid-3 {
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 768px) {
+            .grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(0, 217, 255, 0.1);
+            color: var(--blue);
+            border: 1px solid var(--cyan);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 0.875rem;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--light-gray);
+            font-size: 0.875rem;
+        }
+
+        .bg-navy th {
+            color: var(--cyan);
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .bg-navy td {
+            color: #cbd5e1;
+            border-bottom-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Color Swatch */
+        .color-swatch {
+            height: 128px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .stats {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--cyan);
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--slate);
+            font-size: 0.875rem;
+            margin-top: 8px;
+        }
+
+        /* Lists */
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        /* Utilities */
+        .mb-4 { margin-bottom: 16px; }
+        .mb-6 { margin-bottom: 24px; }
+        .mb-8 { margin-bottom: 32px; }
+        .mb-12 { margin-bottom: 48px; }
+        .mt-4 { margin-top: 16px; }
+        .mt-8 { margin-top: 32px; }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--very-light-gray);
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: var(--cyan);
+            font-size: 0.875rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <div class="mobile-brand">
+            <h2>REVELATE</h2>
+            <p>Brand Guidelines</p>
+        </div>
+        <button class="menu-toggle" id="menuToggle">☰</button>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <h2>REVELATE</h2>
+            </div>
+            <div class="sidebar-tagline">Brand Guidelines</div>
+            <div class="sidebar-subtitle">Revealing Revenue Potential</div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#overview" class="nav-item active">Overview</a>
+            <a href="#colors" class="nav-item">Color System</a>
+            <a href="#typography" class="nav-item">Typography</a>
+            <a href="#logo" class="nav-item">Logo Guidelines</a>
+            <a href="#visual" class="nav-item">Visual Language</a>
+            <a href="#voice" class="nav-item">Voice & Messaging</a>
+            <a href="#quality" class="nav-item">Quality Gate</a>
+            <a href="#reference" class="nav-item">Quick Reference</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <p>Version 1.0</p>
+            <p>Updated October 27, 2025</p>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Overview -->
+        <section id="overview" class="bg-gradient border-b">
+            <div class="container">
+                <div class="hero-badge">
+                    <div class="hero-dot"></div>
+                    <span>Version 1.0</span>
+                </div>
+                <div class="hero">
+                    <h1>Revelate Operations<br><span>Brand Guidelines</span></h1>
+                    <p>Fractional revenue operations for startups who need expert-level RevOps without the cost of full-time hires. Our brand balances the grounding professionalism of deep navy with the energetic revelation of vibrant cyan.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Brand Foundation -->
+        <section class="bg-navy">
+            <div class="container">
+                <h2 style="color: white;">Brand Foundation</h2>
+                <p class="section-subtitle" style="color: #cbd5e1;">The emotions we evoke in everything we create</p>
+
+                <div class="grid grid-2 mb-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <div style="font-size: 4rem; font-weight: 700; color: var(--navy); line-height: 1; margin-bottom: 16px;">70%</div>
+                            <h3 style="margin-top: 0;">TRUST</h3>
+                            <ul>
+                                <li>Reliability and expertise</li>
+                                <li>Professional partnership</li>
+                                <li>Methodical precision</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <div style="font-size: 4rem; font-weight: 700; color: var(--magenta); line-height: 1; margin-bottom: 16px;">30%</div>
+                            <h3 style="margin-top: 0;">AMAZEMENT</h3>
+                            <ul>
+                                <li>Breakthrough insights</li>
+                                <li>Revelation moments</li>
+                                <li>Transformative discovery</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <blockquote style="font-size: 1.5rem; font-style: italic; color: #cbd5e1; text-align: center; line-height: 1.6; max-width: 48rem; margin: 0 auto;">
+                    "Like a seasoned guide leading into an undiscovered cave, where reliable torchlight suddenly illuminates ancient crystals that take your breath away."
+                </blockquote>
+            </div>
+        </section>
+
+        <!-- Colors -->
+        <section id="colors" class="bg-gradient border-b">
+            <div class="container">
+                <div class="hero-badge">
+                    <div class="hero-dot"></div>
+                    <span>Color System</span>
+                </div>
+                <h1>Navy anchors,<br><span style="color: var(--cyan);">Cyan amazes</span></h1>
+                <p style="font-size: 1.25rem; line-height: 1.7; max-width: 48rem; margin-bottom: 48px;">Our strategic color palette balances the grounding professionalism of deep navy with the energetic revelation of vibrant cyan.</p>
+
+                <h3>Primary Palette</h3>
+                <p class="section-subtitle">The foundation of every Revelate touchpoint</p>
+
+                <div class="grid grid-2 mb-12">
+                    <div class="card">
+                        <div class="color-swatch" style="background: #1a1f3a;"></div>
+                        <div class="card-content">
+                            <h4>Revelate Navy</h4>
+                            <div class="mb-4">
+                                <span style="color: var(--slate); font-size: 0.875rem;">HEX</span>
+                                <code>#1a1f3a</code>
+                            </div>
+                            <div class="mb-4">
+                                <span class="badge">60-70% of composition</span>
+                            </div>
+                            <p style="font-size: 0.875rem; color: var(--slate);"><strong>Usage:</strong> Body text, primary typography, backgrounds</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="color-swatch" style="background: #ffffff; border-bottom: 2px solid var(--light-gray);"></div>
+                        <div class="card-content">
+                            <h4>Revelate White</h4>
+                            <div class="mb-4">
+                                <span style="color: var(--slate); font-size: 0.875rem;">HEX</span>
+                                <code>#ffffff</code>
+                            </div>
+                            <div class="mb-4">
+                                <span class="badge">Generous use</span>
+                            </div>
+                            <p style="font-size: 0.875rem; color: var(--slate);"><strong>Usage:</strong> Backgrounds, white space, breathing room</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="color-swatch" style="background: #00d9ff;"></div>
+                        <div class="card-content">
+                            <h4>Revelate Cyan</h4>
+                            <div class="mb-4">
+                                <span style="color: var(--slate); font-size: 0.875rem;">HEX</span>
+                                <code>#00d9ff</code>
+                            </div>
+                            <div class="mb-4">
+                                <span class="badge">20-30% strategic</span>
+                            </div>
+                            <p style="font-size: 0.875rem; color: var(--slate);"><strong>Usage:</strong> CTAs, interactive elements, data highlights</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="color-swatch" style="background: #d946ef;"></div>
+                        <div class="card-content">
+                            <h4>Revelate Magenta</h4>
+                            <div class="mb-4">
+                                <span style="color: var(--slate); font-size: 0.875rem;">HEX</span>
+                                <code>#d946ef</code>
+                            </div>
+                            <div class="mb-4">
+                                <span class="badge">5-10% MAX</span>
+                            </div>
+                            <p style="font-size: 0.875rem; color: var(--slate);"><strong>Usage:</strong> Critical CTAs only (SPARINGLY)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typography -->
+        <section id="typography" class="bg-gray">
+            <div class="container">
+                <h2>Typography</h2>
+                <p class="section-subtitle">Space Grotesk commands attention. Inter builds trust through clarity.</p>
+
+                <div class="grid grid-2 mb-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h4 style="margin: 0;">Space Grotesk</h4>
+                                <span class="badge">Headings</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div style="font-size: 2.5rem; font-weight: 700; color: var(--navy); margin-bottom: 24px;">
+                                Stop Guessing.<br>Start Knowing.
+                            </div>
+                            <p style="font-size: 0.875rem; color: var(--slate);">Weights: Bold (700), Semibold (600), Medium (500)</p>
+                            <p style="font-size: 0.875rem; color: var(--slate); margin-top: 8px;">Character: Confident expert who commands attention</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h4 style="margin: 0;">Inter</h4>
+                                <span class="badge">Body Text</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <p style="font-size: 1rem; color: var(--navy); margin-bottom: 24px; line-height: 1.6;">
+                                We analyze your sales data to find revenue opportunities backed by evidence and delivered with clarity.
+                            </p>
+                            <p style="font-size: 0.875rem; color: var(--slate);">Weights: Regular (400), Medium (500), Semibold (600)</p>
+                            <p style="font-size: 0.875rem; color: var(--slate); margin-top: 8px;">Character: Thorough analyst who backs up claims</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quality Gate -->
+        <section id="quality" class="bg-navy">
+            <div class="container">
+                <h2 style="color: white;">Quality Gate Audit</h2>
+                <p class="section-subtitle" style="color: #cbd5e1;">56-point checklist ensuring authentically Revelate design</p>
+
+                <div class="card mb-12">
+                    <div class="card-content">
+                        <h3 style="margin-top: 0; color: #ef4444;">Red Flags: Automatic Failure</h3>
+                        <div class="grid grid-2">
+                            <div>
+                                <h4 style="color: #ef4444;">Visual Red Flags</h4>
+                                <ul style="font-size: 0.875rem;">
+                                    <li>Use of emojis anywhere in content</li>
+                                    <li>ANY accent left borders on cards/alerts</li>
+                                    <li>Heavy black shadows or gloss</li>
+                                    <li>Generic purple-blue gradients</li>
+                                    <li>Default blue #3B82F6</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 style="color: #ef4444;">Content Red Flags</h4>
+                                <ul style="font-size: 0.875rem;">
+                                    <li>Buzzword overload</li>
+                                    <li>Vague value propositions</li>
+                                    <li>Generic CTAs ("Learn more")</li>
+                                    <li>No specific data/metrics</li>
+                                    <li>AI-generated filler text</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Reference -->
+        <section id="reference" class="bg-gray">
+            <div class="container">
+                <h2>Quick Reference</h2>
+                <p class="section-subtitle">Everything at your fingertips</p>
+
+                <div class="stats mb-12">
+                    <div>
+                        <div class="stat-number">9</div>
+                        <div class="stat-label">Brand Colors</div>
+                    </div>
+                    <div>
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">Font Families</div>
+                    </div>
+                    <div>
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Spacing Values</div>
+                    </div>
+                    <div>
+                        <div class="stat-number">56</div>
+                        <div class="stat-label">Quality Checks</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-3">
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 style="color: var(--cyan);">Color Usage</h4>
+                            <ul style="font-size: 0.875rem;">
+                                <li>Navy for 60-70%</li>
+                                <li>Cyan for 20-30%</li>
+                                <li>Magenta max 5-10%</li>
+                                <li>WCAG AA contrast always</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 style="color: var(--cyan);">Typography</h4>
+                            <ul style="font-size: 0.875rem;">
+                                <li>Space Grotesk headings</li>
+                                <li>Inter body text</li>
+                                <li>16px base size</li>
+                                <li>Max 75 chars per line</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 style="color: var(--cyan);">Voice</h4>
+                            <ul style="font-size: 0.875rem;">
+                                <li>Clear over clever</li>
+                                <li>Confident but humble</li>
+                                <li>Data-grounded claims</li>
+                                <li>Partnership language</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Active nav
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-item');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

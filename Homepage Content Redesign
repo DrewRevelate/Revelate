@@ -1,0 +1,169 @@
+Homepage Content Redesign - Implementation Plan
+Overview
+Transform homepage from personal metrics to industry-validated problem/solution narrative with 11 credible statistics, remove testimonials, merge sections, and add visual effects.
+Phase 1: Content Removal & Restructuring
+1.1 Remove Testimonials Section
+Delete: Entire testimonials section (~lines 469-497 in page.tsx)
+Impact: Removes 6 testimonial cards and section wrapper
+Rationale: No verified testimonials available yet
+1.2 Remove Week Numbers from Process Section
+Modify: Process section (~lines 381-423)
+Change: Remove "Week 0", "Weeks 1-4", "Weeks 5-8" from phase labels
+Keep: Step numbers (1, 2, 3) and all deliverables
+New labels: "Discovery & Audit", "Stabilize Production", "Instrument & Hand Off"
+Phase 2: Create Unified "The Crisis" Section
+2.1 Replace "Proof over Pitch" + Merge "Why Teams"
+Current: Two separate sections (Results + Approach) New: Single unified section - "The Revenue Operations Crisis" Content Structure:
+THE CRISIS SECTION
+├─ Heading: "The breaking points"
+├─ Subheading: "Your Salesforce chaos isn't unique. The data proves it."
+├─ Industry Stats Cards (4 featured stats - Option B format)
+│  ├─ Card 1: "91%" - CRM data decays annually
+│  ├─ Card 2: "$12.9M" - Average annual cost of poor data quality
+│  ├─ Card 3: "72%" - Time sales reps spend NOT selling
+│  └─ Card 4: "30%" - SaaS spend wasted on unused tools
+├─ Transition text: "Most consultants pitch $200K rebuilds..."
+├─ Your Differentiators (4 existing cards from "Why Teams")
+│  ├─ Principal-only execution
+│  ├─ Transparency baked in
+│  ├─ Operations-first rigor
+│  └─ Designed to stick post-engagement
+└─ Your Results (3 existing metric cards with benchmark comparisons)
+   ├─ ±3% forecast variance vs. "Industry: 45% within 5%"
+   ├─ -62% backlog reduction vs. "Industry: grows 15-20% annually"
+   └─ $200K rebuild avoided vs. "Average rebuild: $50K-$200K"
+Phase 3: Signals Section Enhancement
+3.1 Rename to "The Breaking Points"
+Change: Section title from "Signals" to "The breaking points"
+Update: aria-label and heading ID
+3.2 Add Ripple Alarm Effect (Option C)
+Technical Implementation:
+CSS keyframe animation: Cyan ripple emanates from card center
+Animation properties:
+Duration: 3 seconds
+Easing: ease-out
+Iteration: infinite
+Scale: 0.8 → 1.2
+Opacity: 0.6 → 0
+Trigger: Always active (continuous slow pulse)
+Accessibility: Respects prefers-reduced-motion
+Visual Effect:
+@keyframes ripple-alarm {
+  0% { transform: scale(0.8); opacity: 0.6; }
+  100% { transform: scale(1.2); opacity: 0; }
+}
+3.3 Add Industry Stats to Signal Cards
+Overlay relevant stat on each signal card:
+Forecast drift → "Only 45% of forecasts accurate within 5%"
+Automations cascade → "23% of tech budget wasted on legacy maintenance"
+Integrations blame → "86% cite integration as top challenge"
+Backlog balloons → "Sales teams spend 72% of time NOT selling"
+Phase 4: Statistics Implementation
+4.1 Create Stat Card Component
+Visual Format (Option B):
+┌─────────────────────────┐
+│   [Large Number: 91%]   │
+│   in cyan, 4xl size     │
+│                         │
+│   CRM data decays       │
+│   annually              │
+│                         │
+│   Source: ZoomInfo 2024 │
+│   (small text, hover)   │
+└─────────────────────────┘
+4.2 Featured Statistics (4 cards)
+91% - CRM data decays annually (ZoomInfo, 2024)
+$12.9M - Average annual cost of poor data quality (Gartner, 2021)
+72% - Time sales reps spend NOT selling (Salesforce, 2024)
+30% - SaaS spend wasted on unused tools (Productiv, 2024)
+4.3 Citation Implementation (Options A & C)
+Inline Links (Option A):
+Source text is clickable link
+Links to placeholder URLs (to be updated with actual sources)
+Hover Tooltips (Option C):
+Hover over source text shows full citation
+Tooltip includes: Full report title, organization, year, URL
+Example:
+<a 
+  href="#" 
+  className="text-cyan/80 hover:text-cyan text-xs"
+  title="Source: 'The State of CRM Data in 2024' - ZoomInfo Research, 2024. Click for full report."
+>
+  (ZoomInfo, 2024)
+</a>
+Phase 5: FAQ Enhancement
+5.1 Add "See More FAQs" Link
+Location: Bottom of FAQ section, centered Link destination: /faq Styling: Cyan text with arrow, hover effect
+<div className="mt-8 text-center">
+  <Link 
+    href="/faq" 
+    className="inline-flex items-center gap-2 text-cyan hover:text-blue transition"
+  >
+    See all FAQs
+    <svg>→</svg>
+  </Link>
+</div>
+5.2 Create /faq Placeholder Page
+New file: app/faq/page.tsx Content:
+Hero section: "Frequently Asked Questions"
+Placeholder text: "More FAQs coming soon. For now, email drew@revelateops.com"
+Link back to homepage
+Uses existing layout/navigation
+Phase 6: Visual Effects & Animations
+6.1 Ripple Alarm Effect (for "The Breaking Points")
+CSS animation added to globals.css
+Applied to signal cards as pseudo-element
+Respects reduced motion preference
+Cyan color (#00d9ff) at 40% opacity
+6.2 Stat Card Animations
+Fade-in on scroll (Framer Motion)
+Stagger delay: 100ms between cards
+Subtle scale on hover (1.02x)
+Implementation Details
+Files to Modify:
+app/page.tsx - Main changes
+Remove testimonials section (~30 lines)
+Replace "Proof over Pitch" section content
+Merge in "Why Teams" differentiators
+Update "Signals" to "The breaking points"
+Add industry stat cards
+Add FAQ link
+Remove weeks from process section
+app/globals.css - Add animations
+Add @keyframes ripple-alarm
+Add hover tooltip styles
+app/faq/page.tsx - Create new file
+FAQ placeholder page
+~50 lines
+Files to Create:
+app/faq/page.tsx (new)
+Estimated Changes:
+Lines modified: ~200
+Lines added: ~150
+Lines removed: ~50
+New components: Stat card structure, ripple animation
+Content Data Structure
+Industry Statistics Array:
+const industryStats = [
+  {
+    number: "91%",
+    label: "CRM data decays annually",
+    source: "ZoomInfo",
+    year: "2024",
+    url: "#", // Update with actual URL
+    tooltip: "Source: 'The State of CRM Data in 2024' - ZoomInfo Research"
+  },
+  // ... 3 more featured stats
+];
+Signal Card Stats Overlay:
+const signalsWithStats = [
+  {
+    title: "Forecast drift every Monday",
+    detail: "Board deck and Salesforce...",
+    stat: "Only 45% of forecasts accurate within 5%",
+    source: "(Salesforce, 2024)"
+  },
+  // ... 3 more signals
+];
+Success Criteria
+✅ Testimonials section completely removed ✅ Process section shows steps without week numbers ✅ Single unified "Crisis" section with industry stats ✅ "The breaking points" section with ripple effect ✅ 4 industry stat cards with visual emphasis ✅ Citations as inline links + hover tooltips ✅ /faq page created with placeholder content ✅ All animations respect reduced motion ✅ Build succeeds with no errors ✅ Maintains existing brand compliance (50/56 score)
