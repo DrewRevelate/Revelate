@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #1a1f3a;
+  --navy-ink: #131735;
+  --background: #ffffff;
+  --surface: #f8fafc;
+  --foreground: #1a1f3a;
+  --cyan: #00d9ff;
+  --blue: #0084ff;
+  --magenta: #d946ef;
+  --charcoal: #334155;
+  --slate: #64748b;
+  --light-gray: #f1f5f9;
+  --border: #dbe3f0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-navy: var(--navy);
+  --color-navy-ink: var(--navy-ink);
+  --color-surface: var(--surface);
+  --color-cyan: var(--cyan);
+  --color-blue: var(--blue);
+  --color-magenta: var(--magenta);
+  --color-muted: var(--charcoal);
+  --color-muted-light: var(--slate);
+  --color-light-gray: var(--light-gray);
+  --font-sans: var(--font-body, "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+  --font-heading: var(--font-heading, "Space Grotesk", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", "SFMono-Regular", "Menlo", monospace;
+}
+
+body {
+  background: var(--background);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Removed global section background rule - using explicit Tailwind bg-* classes instead */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+p {
+  line-height: 1.6;
+}
+
+/* Removed global element selectors - using explicit Tailwind utility classes instead */
+/* Removed 'a { color: inherit }' - it was overriding all Link utility classes */
+
+/* Font utility classes for explicit usage */
+.font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+.font-body {
+  font-family: var(--font-sans);
+}
+
+.skip-link {
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.skip-link:focus {
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateY(0);
+}

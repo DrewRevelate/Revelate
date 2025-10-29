@@ -1,0 +1,35 @@
+<svg width="800" height="1000" viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#051937" />
+      <stop offset="50%" stop-color="#142B4F" />
+      <stop offset="100%" stop-color="#234565" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.35" r="0.6">
+      <stop offset="0%" stop-color="#5DD6FF" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#5DD6FF" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="suit" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1B1F3A" />
+      <stop offset="100%" stop-color="#0D0F1D" />
+    </linearGradient>
+    <clipPath id="portraitFrame">
+      <rect x="80" y="80" width="640" height="840" rx="48" ry="48" />
+    </clipPath>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)" />
+  <g clip-path="url(#portraitFrame)">
+    <rect x="80" y="80" width="640" height="840" fill="url(#bg)" />
+    <circle cx="400" cy="420" r="340" fill="url(#glow)" />
+    <circle cx="400" cy="360" r="140" fill="#E4EEF8" />
+    <path d="M220 760C244 620 302 540 400 540C498 540 556 620 580 760L400 920Z" fill="url(#suit)" />
+    <path d="M400 540C332 540 288 500 276 430C312 404 348 392 400 392C452 392 488 404 524 430C512 500 468 540 400 540Z" fill="#F5FAFF" opacity="0.75" />
+  </g>
+  <rect x="80" y="80" width="640" height="840" rx="48" ry="48" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="2" />
+  <text x="400" y="880" text-anchor="middle" font-family="'Space Grotesk', 'Helvetica Neue', Arial, sans-serif" font-size="36" fill="rgba(255,255,255,0.75)">
+    Portrait Placeholder
+  </text>
+  <text x="400" y="920" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="20" fill="rgba(255,255,255,0.45)">
+    Replace with photography of Drew Lambert
+  </text>
+</svg>
