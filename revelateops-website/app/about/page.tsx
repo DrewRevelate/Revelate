@@ -329,7 +329,7 @@ export default function AboutPage() {
                 <span>Drew Lambert</span>
               </div>
               <h1
-                className="font-heading text-5xl leading-tight text-white"
+                className="font-heading text-3xl leading-tight text-white sm:text-4xl md:text-5xl"
               >
                 I build revenue architecture because I have been the operator who needed it most.
               </h1>
@@ -388,7 +388,7 @@ export default function AboutPage() {
           </motion.section>
 
           <motion.section
-            className="relative mb-24 overflow-hidden rounded-xl border border-white/10 bg-white/5 p-10 lg:mb-32 lg:p-16"
+            className="relative mb-24 overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 sm:p-10 lg:mb-32 lg:p-16"
             {...getFadeProps(0)}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-cyan/15 to-cyan/5 opacity-60" />
@@ -396,7 +396,7 @@ export default function AboutPage() {
               <div>
                 <p className="text-xs uppercase tracking-[0.4em] text-white/50">Why Revelate exists</p>
                 <h2
-                  className="font-heading mt-5 text-5xl font-bold leading-tight text-white"
+                  className="font-heading mt-5 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl"
                 >
                   I am building the consultancy I needed when revenue truth was on the line.
                 </h2>
@@ -449,7 +449,7 @@ export default function AboutPage() {
             <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-2xl">
                 <h2
-                  className="font-heading text-5xl font-bold text-white"
+                  className="font-heading text-2xl font-bold text-white sm:text-3xl md:text-4xl lg:text-5xl"
                 >
                   Recent engagements at a glance
                 </h2>
@@ -485,7 +485,7 @@ export default function AboutPage() {
             <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-2xl">
                 <h2
-                  className="font-heading text-5xl font-bold text-white"
+                  className="font-heading text-2xl font-bold text-white sm:text-3xl md:text-4xl lg:text-5xl"
                 >
                   The road here
                 </h2>
@@ -548,7 +548,7 @@ export default function AboutPage() {
             <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-2xl">
                 <h2
-                  className="font-heading text-5xl font-bold text-white"
+                  className="font-heading text-2xl font-bold text-white sm:text-3xl md:text-4xl lg:text-5xl"
                 >
                   What I am working on now
                 </h2>
@@ -576,7 +576,7 @@ export default function AboutPage() {
               <div>
                 <p className="text-xs uppercase tracking-[0.4em] text-white/50">Operator toolkit</p>
                 <h2
-                  className="font-heading mt-5 text-5xl font-bold leading-tight text-white"
+                  className="font-heading mt-5 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl"
                 >
                   Systems I live in every week.
                 </h2>
@@ -584,7 +584,7 @@ export default function AboutPage() {
                   Seven-plus years in the Salesforce ecosystem, 300+ Trailhead badges, and a career built on stitching finance, GTM, and product data into one understandable story.
                 </p>
               </div>
-              <div className="grid gap-6 sm:grid-cols-2">
+              <div className="grid gap-6 md:grid-cols-2">
                 {capabilityStack.map((stack) => (
                   <div key={stack.category} className="rounded-xl border border-white/10 bg-white/5 p-6">
                     <p className="text-xs uppercase tracking-[0.3em] text-cyan/70">{stack.category}</p>
@@ -607,7 +607,7 @@ export default function AboutPage() {
               <div>
                 <p className="text-xs uppercase tracking-[0.4em] text-white/50">How engagements run</p>
                 <h2
-                  className="font-heading mt-5 text-5xl font-bold leading-tight text-white"
+                  className="font-heading mt-5 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl"
                 >
                   A consultancy built for focus and transparency.
                 </h2>
@@ -633,7 +633,7 @@ export default function AboutPage() {
               <div>
                 <p className="text-xs uppercase tracking-[0.4em] text-white/50">Operating principles</p>
                 <h2
-                  className="font-heading mt-5 text-5xl font-bold leading-tight text-white"
+                  className="font-heading mt-5 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl"
                 >
                   The guardrails I bring into every engagement.
                 </h2>
@@ -685,7 +685,7 @@ export default function AboutPage() {
           </motion.section>
 
           <motion.section
-            className="relative mx-auto max-w-4xl overflow-hidden rounded-xl border border-white/10 bg-white/5 p-12 text-center lg:p-16"
+            className="relative mx-auto max-w-4xl overflow-hidden rounded-xl border border-white/10 bg-white/5 p-8 text-center sm:p-12 lg:p-16"
             {...getFadeProps(0.18)}
           >
             <div className="absolute inset-0 bg-gradient-to-b from-cyan/20 via-transparent to-transparent" />
