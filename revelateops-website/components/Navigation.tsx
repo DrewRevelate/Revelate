@@ -58,7 +58,7 @@ export default function Navigation() {
       {isHomepage && (
         <Link
           href="/"
-          className={`group fixed left-1/2 top-12 z-40 hidden -translate-x-1/2 flex-col items-center gap-4 transition-all duration-500 ease-out md:flex ${
+          className={`group fixed left-1/2 top-[76px] z-40 hidden -translate-x-1/2 flex-col items-center gap-4 transition-all duration-500 ease-out md:flex ${
             showCompact ? 'pointer-events-none -translate-y-12 scale-75 opacity-0' : 'scale-100 opacity-100'
           }`}
           aria-label="Revelate home"
@@ -81,7 +81,7 @@ export default function Navigation() {
       </Link>
       )}
 
-      <nav className="fixed inset-x-0 top-0 z-50 py-4 transition-all duration-500 lg:py-6" aria-label="Primary navigation">
+      <nav className="fixed inset-x-0 top-[28px] z-50 py-4 transition-all duration-500 lg:py-6" aria-label="Primary navigation">
         <div
           className={`mx-auto max-w-[1280px] rounded-2xl border px-6 py-3 transition-all duration-500 lg:px-8 ${
             showCompact
