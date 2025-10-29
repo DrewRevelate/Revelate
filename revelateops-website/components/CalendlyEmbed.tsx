@@ -42,9 +42,9 @@ export default function CalendlyEmbed() {
 
   return (
     <div
-      className="calendly-inline-widget"
+      className="calendly-inline-widget w-full"
       data-url="https://calendly.com/drewlambert/15-minute-intro-call?hide_gdpr_banner=1&background_color=1a1f3a&text_color=ffffff&primary_color=d946ef"
-      style={{ minWidth: '320px', height: '700px' }}
+      style={{ minHeight: '750px', height: '750px' }}
     />
   );
 }
