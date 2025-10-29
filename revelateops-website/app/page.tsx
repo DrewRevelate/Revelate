@@ -128,9 +128,11 @@ const faqs = [
 export default function Home() {
   const differentiatorsSectionRef = useRef<HTMLElement>(null);
   const resultsRef = useRef<HTMLElement>(null);
+  const outcomesRef = useRef<HTMLElement>(null);
   const ctaRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const withMotion = (value: string) => (prefersReducedMotion ? '0%' : value);
+  const [expandedCard, setExpandedCard] = useState<number | null>(null);
 
   // Parallax for Differentiators section
   const { scrollYProgress: differentiatorScrollProgress } = useScroll({
@@ -184,6 +186,24 @@ export default function Home() {
     resultsScrollProgress,
     [0, 1],
     ['0%', withMotion('-18%')]
+  );
+
+  // Parallax for Outcomes section
+  const { scrollYProgress: outcomesScrollProgress } = useScroll({
+    target: outcomesRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const outcomesContentY = useTransform(
+    outcomesScrollProgress,
+    [0, 1],
+    ['0%', withMotion('-12%')]
+  );
+
+  const outcomesCardsY = useTransform(
+    outcomesScrollProgress,
+    [0, 1],
+    ['0%', withMotion('8%')]
   );
 
   // Parallax for CTA section
@@ -266,37 +286,67 @@ export default function Home() {
           </div>
 
           <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {differentiators.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{
-                  duration: 0.5,
-                  delay: prefersReducedMotion ? 0 : index * 0.1,
-                  ease: "easeOut"
-                }}
-                className="relative overflow-hidden rounded-xl border border-[#dbe3f0] bg-white p-6 shadow-[0_6px_12px_rgba(17,27,58,0.12)] transition-all duration-200 hover:shadow-[0_8px_16px_rgba(0,217,255,0.2)] hover:border-cyan/40"
-              >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,132,255,0.08)_0%,rgba(255,255,255,0)_70%)]" />
-                <div className="relative">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue/10">
-                    <svg className="h-6 w-6 text-blue" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                      <path d="M5 13l4 4L19 7" />
-                    </svg>
+            {differentiators.map((item, index) => {
+              const isExpanded = expandedCard === index;
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{
+                    duration: 0.5,
+                    delay: prefersReducedMotion ? 0 : index * 0.1,
+                    ease: "easeOut"
+                  }}
+                  onHoverStart={() => setExpandedCard(index)}
+                  onHoverEnd={() => setExpandedCard(null)}
+                  onClick={() => setExpandedCard(isExpanded ? null : index)}
+                  className="relative overflow-hidden rounded-xl border border-[#dbe3f0] bg-white p-6 shadow-[0_6px_12px_rgba(17,27,58,0.12)] transition-all duration-200 hover:shadow-[0_8px_16px_rgba(0,217,255,0.2)] hover:border-cyan/40 cursor-pointer"
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,132,255,0.08)_0%,rgba(255,255,255,0)_70%)]" />
+                  <div className="relative">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue/10">
+                      <svg className="h-6 w-6 text-blue" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <h3 className="mt-5 text-lg font-semibold text-navy">{item.title}</h3>
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: isExpanded ? 'auto' : 0,
+                        opacity: isExpanded ? 1 : 0,
+                        marginTop: isExpanded ? 12 : 0
+                      }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      className="overflow-hidden"
+                    >
+                      <p className="text-sm leading-6 text-[#64748b]">{item.detail}</p>
+                    </motion.div>
+                    {!isExpanded && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="mt-3 flex items-center gap-2 text-xs font-medium text-cyan"
+                      >
+                        <span>Learn more</span>
+                        <svg className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                          <path d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </motion.div>
+                    )}
                   </div>
-                  <h3 className="mt-5 text-lg font-semibold text-navy">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-[#64748b]">{item.detail}</p>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* NEW: Documented Outcomes Section */}
       <section
+        ref={outcomesRef}
         id="outcomes"
         className="relative overflow-hidden bg-navy py-28 text-white"
         aria-labelledby="outcomes-heading"
@@ -306,7 +356,10 @@ export default function Home() {
         </div>
 
         <div className="relative mx-auto max-w-6xl px-6 lg:px-8">
-          <div className="max-w-3xl text-center mx-auto">
+          <motion.div
+            style={{ y: prefersReducedMotion ? 0 : outcomesContentY }}
+            className="max-w-3xl text-center mx-auto"
+          >
             <span className="text-xs font-semibold uppercase tracking-[0.05em] text-magenta">
               Documented outcomes
             </span>
@@ -316,10 +369,13 @@ export default function Home() {
             <p className="mt-6 text-lg leading-8 text-white/80">
               Compared against industry benchmarks from recent research
             </p>
-          </div>
+          </motion.div>
 
           {/* Concrete Client Outcome Example */}
-          <div className="mt-10 mx-auto max-w-2xl">
+          <motion.div
+            style={{ y: prefersReducedMotion ? 0 : outcomesContentY }}
+            className="mt-10 mx-auto max-w-2xl"
+          >
             <div className="relative overflow-hidden rounded-xl border border-cyan/30 bg-cyan/[0.08] p-6 backdrop-blur-md shadow-[0_12px_32px_rgba(0,217,255,0.15)]">
               <div className="flex items-start gap-3">
                 <svg className="h-5 w-5 text-cyan flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -330,9 +386,12 @@ export default function Home() {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <motion.div
+            style={{ y: prefersReducedMotion ? 0 : outcomesCardsY }}
+            className="mt-12 grid gap-6 md:grid-cols-3"
+          >
             <div className="relative flex h-full flex-col justify-between rounded-2xl border border-white/15 bg-white/10 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.14)_0%,rgba(26,31,58,0)_70%)]" />
               <div className="relative space-y-3">
@@ -384,7 +443,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
