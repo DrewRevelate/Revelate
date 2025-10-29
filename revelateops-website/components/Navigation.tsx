@@ -85,7 +85,7 @@ export default function Navigation() {
         <div
           className={`mx-auto max-w-[1280px] rounded-2xl border px-6 py-3 transition-all duration-500 lg:px-8 ${
             showCompact
-              ? 'border-white/20 bg-white/10 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)]'
+              ? 'border-white/30 bg-gradient-to-b from-navy/95 via-navy/90 to-navy/85 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.1)] ring-1 ring-white/10'
               : 'border-transparent bg-transparent shadow-none backdrop-blur-0'
           }`}
         >
@@ -147,7 +147,7 @@ export default function Navigation() {
               onClick={() => setIsOpen((prev) => !prev)}
               className={`rounded-lg border p-2 text-white transition md:hidden ${
                 showCompact
-                  ? 'border-cyan/20 hover:border-cyan'
+                  ? 'border-cyan/30 bg-navy/60 backdrop-blur-sm hover:border-cyan hover:bg-navy/80'
                   : 'border-white/40 bg-white/10 backdrop-blur-sm hover:border-white hover:bg-white/20'
               }`}
               aria-label="Toggle navigation menu"
@@ -163,7 +163,7 @@ export default function Navigation() {
           </div>
 
           {isOpen && (
-            <div className="mt-4 space-y-2 border-t border-cyan/20 pt-4 md:hidden">
+            <div className="mt-4 space-y-2 border-t border-cyan/30 bg-gradient-to-b from-navy/40 to-transparent pt-4 md:hidden">
               {links.map((link) => (
                 <Link
                   key={link.label}
