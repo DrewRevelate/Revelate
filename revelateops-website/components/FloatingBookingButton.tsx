@@ -99,6 +99,8 @@ export default function FloatingBookingButton() {
   const [unreadMessageCount, setUnreadMessageCount] = useState(0);
   const [activeConversationId, setActiveConversationId] = useState<number | null>(null);
   const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [showPackageNotification, setShowPackageNotification] = useState(false);
+  const [isNotificationVisible, setIsNotificationVisible] = useState(false);
 
   // Button always visible
   useEffect(() => {
@@ -117,17 +119,35 @@ export default function FloatingBookingButton() {
             if (Array.isArray(services) && services.length > 0) {
               setHasCustomPackage(true);
               setSelectedServiceIds(services);
+
+              // Show notification when package is updated (items added)
+              if (services.length > selectedServiceIds.length) {
+                setIsNotificationVisible(true);
+                setShowPackageNotification(true);
+                // Start pop-out animation after 3 seconds
+                setTimeout(() => {
+                  setShowPackageNotification(false);
+                  // Remove from DOM after animation completes (300ms)
+                  setTimeout(() => setIsNotificationVisible(false), 300);
+                }, 3000);
+              }
             } else {
               setHasCustomPackage(false);
               setSelectedServiceIds([]);
+              setShowPackageNotification(false);
+              setIsNotificationVisible(false);
             }
           } catch {
             setHasCustomPackage(false);
             setSelectedServiceIds([]);
+            setShowPackageNotification(false);
+            setIsNotificationVisible(false);
           }
         } else {
           setHasCustomPackage(false);
           setSelectedServiceIds([]);
+          setShowPackageNotification(false);
+          setIsNotificationVisible(false);
         }
       }, 0);
     };
@@ -143,7 +163,7 @@ export default function FloatingBookingButton() {
       window.removeEventListener('storage', checkCustomPackage);
       window.removeEventListener('customPackageUpdated', checkCustomPackage);
     };
-  }, []);
+  }, [hasCustomPackage, selectedServiceIds.length]);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -303,34 +323,19 @@ export default function FloatingBookingButton() {
           className="h-full w-full object-contain relative z-10 overflow-hidden rounded-full"
         />
 
-        {/* Badge - Shows Calendar, Package Count, or Chat Notification */}
+        {/* Badge - Shows Chat Notification or Package Indicator */}
         {unreadMessageCount > 0 ? (
           /* Chat Notification Badge */
           <span className="absolute -top-1 -right-1 z-20 flex h-7 w-7 items-center justify-center rounded-full bg-red-500 border-2 border-white shadow-[0_4px_12px_rgba(239,68,68,0.5)] transition-all duration-200 group-hover:scale-110 animate-in zoom-in">
             <span className="text-xs font-bold text-white">{unreadMessageCount > 9 ? '9+' : unreadMessageCount}</span>
           </span>
         ) : hasCustomPackage ? (
-          /* Package Indicator Badge */
-          <span className="absolute -top-1 -right-1 z-20 flex h-7 w-7 items-center justify-center rounded-full bg-magenta border-2 border-white shadow-[0_4px_12px_rgba(217,70,239,0.5)] transition-all duration-200 group-hover:scale-110 animate-in zoom-in">
-            <span className="text-xs font-bold text-white">{selectedServiceIds.length}</span>
+          /* Subtle Package Indicator Badge */
+          <span className="absolute -top-1 -right-1 z-20 flex h-6 w-6 items-center justify-center rounded-full bg-white border-2 border-white shadow-[0_2px_8px_rgba(255,255,255,0.3)] transition-all duration-200 group-hover:scale-110 animate-in zoom-in">
+            <span className="text-xs font-bold text-navy">{selectedServiceIds.length}</span>
           </span>
-        ) : (
-          /* Calendar Badge */
-          <span className="absolute -top-1 -right-1 z-20 flex h-7 w-7 items-center justify-center rounded-full bg-cyan border-2 border-white shadow-[0_4px_12px_rgba(0,217,255,0.5)] transition-all duration-200 group-hover:scale-110">
-            <svg className="h-4 w-4 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-          </span>
-        )}
+        ) : null}
 
-        {/* Additional notification dot if there's both unread messages and custom package */}
-        {unreadMessageCount > 0 && hasCustomPackage && (
-          <span className="absolute -bottom-1 -left-1 z-20 flex h-4 w-4 rounded-full bg-magenta border-2 border-white shadow-[0_2px_8px_rgba(217,70,239,0.5)]" />
-        )}
 
         {/* Hover Glow Effect */}
         <span className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
@@ -339,6 +344,79 @@ export default function FloatingBookingButton() {
         {/* Pulse Animation Ring */}
         <span className="absolute inset-0 rounded-full border-2 border-cyan/40 animate-ping opacity-20" />
       </button>
+
+        {/* Package Notification Banner - Subtle pop animation */}
+        {isNotificationVisible && (
+          <div
+            className={`
+              absolute bottom-20 left-0 sm:left-auto sm:right-0
+              transition-all duration-300 ease-out
+              ${showPackageNotification
+                ? 'opacity-100 scale-100'
+                : 'opacity-0 scale-90 pointer-events-none'
+              }
+            `}
+          >
+            <button
+              onClick={() => {
+                setIsMenuOpen(false);
+                setIsPackageModalOpen(true);
+                setShowPackageNotification(false);
+                setIsNotificationVisible(false);
+              }}
+              className="
+                group/banner
+                relative flex items-center justify-between gap-3 px-6 py-4
+                min-w-[280px] sm:min-w-[320px]
+                rounded-xl
+                bg-gradient-to-r from-navy/95 via-navy to-navy/90
+                border-2 border-cyan/30
+                shadow-[0_8px_24px_rgba(0,217,255,0.2),0_0_12px_rgba(0,217,255,0.1)]
+                hover:shadow-[0_12px_32px_rgba(0,217,255,0.3),0_0_16px_rgba(0,217,255,0.15)]
+                transition-all duration-300
+                hover:scale-105
+                backdrop-blur-sm
+              "
+              aria-label="View custom package"
+            >
+              {/* Subtle glow effect */}
+              <span className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan/5 to-transparent opacity-50" />
+
+              {/* Text Content */}
+              <div className="flex-1 text-left">
+                <div className="font-bold text-white text-lg leading-tight">
+                  {showPackageNotification ? 'Item Added!' : 'Custom Package Ready'}
+                </div>
+                <div className="text-sm text-cyan/90 font-medium mt-1">
+                  {selectedServiceIds.length} {selectedServiceIds.length === 1 ? 'service' : 'services'} selected
+                </div>
+              </div>
+
+              {/* Arrow */}
+              <svg className="h-6 w-6 text-cyan flex-shrink-0 group-hover/banner:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* Dismiss button */}
+            {showPackageNotification && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowPackageNotification(false);
+                  // Remove from DOM after pop animation completes
+                  setTimeout(() => setIsNotificationVisible(false), 300);
+                }}
+                className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-navy border border-cyan/40 text-cyan hover:bg-cyan hover:text-navy shadow-lg transition-all hover:scale-110"
+                aria-label="Dismiss notification"
+              >
+                <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
+        )}
 
         {/* Dropdown Menu */}
         {isMenuOpen && (
@@ -349,10 +427,10 @@ export default function FloatingBookingButton() {
                 setIsMenuOpen(false);
                 setIsOpen(true);
               }}
-              className="w-full flex items-center gap-3 px-5 py-4 text-left text-white hover:bg-cyan/10 transition-colors duration-200 border-b border-white/10"
+              className="w-full flex items-center gap-3 px-5 py-4 text-left text-white hover:bg-white/10 transition-colors duration-200 border-b border-white/10"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-cyan/20">
-                <svg className="h-5 w-5 text-cyan" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
+                <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
@@ -405,12 +483,17 @@ export default function FloatingBookingButton() {
                   router.push('/services');
                 }
               }}
-              className="w-full flex items-center gap-3 px-5 py-4 text-left text-white hover:bg-cyan/10 transition-colors duration-200"
+              className="w-full flex items-center gap-3 px-5 py-4 text-left text-white hover:bg-white/10 transition-colors duration-200"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-magenta/20">
-                <svg className="h-5 w-5 text-magenta" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 relative">
+                <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
+                {hasCustomPackage && (
+                  <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-white text-navy text-xs font-bold shadow-lg">
+                    {selectedServiceIds.length}
+                  </span>
+                )}
               </div>
               <div>
                 <div className="font-semibold text-sm">
@@ -428,7 +511,7 @@ export default function FloatingBookingButton() {
       {/* Modal - Compact Popup Style */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-[60] flex items-start justify-center pt-20 pb-20 px-4 overflow-y-auto"
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
           aria-labelledby="modal-title"
           role="dialog"
           aria-modal="true"
@@ -441,29 +524,29 @@ export default function FloatingBookingButton() {
 
           {/* Modal Panel - Compact and Centered */}
           <div
-            className="relative w-full max-w-xl my-auto transform overflow-hidden rounded-2xl bg-white shadow-2xl transition-all animate-in fade-in slide-in-from-bottom-4 duration-200"
+            className="relative w-full max-w-4xl my-auto max-h-[90vh] flex flex-col transform overflow-hidden rounded-xl sm:rounded-2xl bg-white shadow-2xl transition-all animate-in fade-in slide-in-from-bottom-4 duration-200"
             onClick={(e) => e.stopPropagation()}
           >
               {/* Header */}
-              <div className="relative border-b border-gray-200 bg-gradient-to-r from-navy to-navy/95 px-6 py-5">
-                <div className="flex items-center justify-between">
-                  <div>
+              <div className="relative border-b border-gray-200 bg-gradient-to-r from-navy to-navy/95 px-4 sm:px-6 py-4 sm:py-5 flex-shrink-0">
+                <div className="flex items-start sm:items-center justify-between gap-3">
+                  <div className="min-w-0 flex-1">
                     <h2
                       id="modal-title"
-                      className="text-2xl font-bold text-white font-heading"
+                      className="text-lg sm:text-2xl font-bold text-white font-heading leading-tight"
                     >
                       Schedule Your Discovery Call
                     </h2>
-                    <p className="mt-1 text-sm text-white/80">
+                    <p className="mt-1 text-xs sm:text-sm text-white/80">
                       Pick a time that works for you
                     </p>
                   </div>
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="rounded-full p-2 text-white/70 transition hover:bg-white/10 hover:text-white"
+                    className="rounded-full p-1.5 sm:p-2 text-white/70 transition hover:bg-white/10 hover:text-white flex-shrink-0"
                     aria-label="Close modal"
                   >
-                    <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -475,16 +558,33 @@ export default function FloatingBookingButton() {
                 </div>
               </div>
 
+              {/* Meeting Info */}
+              <div className="px-4 sm:px-6 py-4 bg-gray-50 border-b border-gray-200 flex-shrink-0">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-cyan/10 flex-shrink-0">
+                    <svg className="h-6 w-6 text-cyan" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base sm:text-lg font-semibold text-navy">15-Minute Discovery Call</h3>
+                    <p className="text-sm text-gray-600 mt-1 leading-relaxed">
+                      Let's discuss your revenue operations challenges and explore how we can help you optimize your systems and processes.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* Content */}
-              <div className="p-6">
+              <div className="p-4 sm:p-6 overflow-y-auto flex-1">
                 <CalendlyWidgetSimple url="https://calendly.com/drewlambert/15-minute-consultation" />
               </div>
 
               {/* Footer */}
-              <div className="border-t border-gray-200 bg-gray-50 px-6 py-4">
-                <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
+              <div className="border-t border-gray-200 bg-gray-50 px-4 sm:px-6 py-3 sm:py-4 flex-shrink-0">
+                <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center justify-between gap-3 sm:gap-4 text-xs sm:text-sm">
                   <div className="flex items-center gap-2 text-gray-600">
-                    <svg className="h-4 w-4 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="h-4 w-4 text-cyan flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -495,7 +595,7 @@ export default function FloatingBookingButton() {
                     <span>Free 15-minute consultation</span>
                   </div>
                   <div className="flex items-center gap-2 text-gray-600">
-                    <svg className="h-4 w-4 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="h-4 w-4 text-cyan flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -514,7 +614,7 @@ export default function FloatingBookingButton() {
       {/* Custom Package Modal */}
       {isPackageModalOpen && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center p-4"
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6"
           aria-labelledby="package-modal-title"
           role="dialog"
           aria-modal="true"
@@ -527,42 +627,36 @@ export default function FloatingBookingButton() {
 
           {/* Modal Panel */}
           <div
-            className="relative w-full max-w-2xl my-auto transform overflow-hidden rounded-2xl bg-white shadow-[0_20px_60px_rgba(26,31,58,0.15)] border border-navy/10 transition-all animate-in fade-in zoom-in duration-200"
+            className="relative w-full max-w-3xl my-auto max-h-[90vh] flex flex-col transform overflow-hidden rounded-xl bg-white shadow-[0_24px_48px_rgba(0,0,0,0.12)] transition-all animate-in fade-in zoom-in duration-200"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Header with gradient background */}
-            <div className="relative px-8 pt-8 pb-6 bg-gradient-to-br from-navy via-navy to-navy/95">
-              <div className="relative flex items-start justify-between mb-2">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-cyan/15 border border-cyan/20">
-                      <svg className="h-6 w-6 text-cyan" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h2
-                        id="package-modal-title"
-                        className="text-3xl font-bold text-white font-heading"
-                      >
-                        Your Custom Package
-                      </h2>
-                      <div className="flex items-center gap-2 mt-1">
-                        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan/15 border border-cyan/20">
-                          <div className="w-1.5 h-1.5 rounded-full bg-cyan"></div>
-                          <span className="text-sm font-semibold text-cyan">{selectedServiceIds.length} {selectedServiceIds.length === 1 ? 'service' : 'services'}</span>
-                        </div>
-                        <span className="text-sm text-white/70">• Ready to download</span>
-                      </div>
-                    </div>
+            {/* Header - Clean and Professional */}
+            <div className="relative px-4 sm:px-8 py-4 sm:py-6 border-b border-gray-200 flex-shrink-0">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                  <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg bg-navy/5 flex-shrink-0">
+                    <svg className="h-5 w-5 sm:h-6 sm:w-6 text-navy" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                  </div>
+                  <div className="min-w-0">
+                    <h2
+                      id="package-modal-title"
+                      className="text-xl sm:text-2xl font-semibold text-navy font-heading truncate"
+                    >
+                      Custom Package
+                    </h2>
+                    <p className="text-xs sm:text-sm text-gray-600 mt-0.5">
+                      {selectedServiceIds.length} {selectedServiceIds.length === 1 ? 'service' : 'services'} selected
+                    </p>
                   </div>
                 </div>
                 <button
                   onClick={() => setIsPackageModalOpen(false)}
-                  className="flex h-10 w-10 items-center justify-center rounded-lg text-white/60 transition-all hover:bg-white/10 hover:text-white flex-shrink-0"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg text-gray-400 transition-all hover:bg-gray-100 hover:text-gray-600 flex-shrink-0"
                   aria-label="Close modal"
                 >
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -574,27 +668,26 @@ export default function FloatingBookingButton() {
             </div>
 
             {/* Content - Selected Services List */}
-            <div className="px-8 py-6 max-h-96 overflow-y-auto">
-              <div className="grid gap-3">
+            <div className="px-4 sm:px-8 py-4 sm:py-6 overflow-y-auto flex-1">
+              <div className="space-y-2">
                 {selectedServiceIds.length > 0 ? (
                   selectedServiceIds.map((serviceId, index) => (
                     <div
                       key={serviceId}
-                      className="relative flex items-center gap-4 p-4 rounded-lg bg-gray-50 border border-navy/10 hover:border-cyan/30 hover:bg-white transition-all duration-200 group"
+                      className="relative flex items-start gap-3 sm:gap-4 px-3 sm:px-4 py-3 rounded-lg hover:bg-gray-50 transition-all duration-150 group"
                     >
-                      {/* Magenta accent bar - small accent only */}
-                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-magenta rounded-r-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-cyan to-blue flex-shrink-0">
-                        <span className="text-base font-bold text-navy">{index + 1}</span>
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-semibold text-navy capitalize leading-tight">
-                          {capabilities.find(c => c.id === serviceId)?.title || serviceId.replace(/-/g, ' ')}
-                        </h3>
-                        <p className="text-sm text-navy/60 mt-0.5">
-                          {capabilities.find(c => c.id === serviceId)?.description || 'Custom service'}
-                        </p>
+                      <div className="flex items-start gap-2 sm:gap-3 flex-1 min-w-0">
+                        <span className="text-sm font-medium text-gray-400 w-5 sm:w-6 flex-shrink-0 mt-0.5">
+                          {index + 1}.
+                        </span>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-sm sm:text-base font-medium text-navy leading-snug">
+                            {capabilities.find(c => c.id === serviceId)?.title || serviceId.replace(/-/g, ' ')}
+                          </h3>
+                          <p className="text-xs sm:text-sm text-gray-500 mt-1 leading-relaxed">
+                            {capabilities.find(c => c.id === serviceId)?.description || 'Custom service'}
+                          </p>
+                        </div>
                       </div>
                       <button
                         onClick={() => {
@@ -607,34 +700,37 @@ export default function FloatingBookingButton() {
                             setIsPackageModalOpen(false);
                           }
                         }}
-                        className="flex-shrink-0 p-2 rounded-lg text-navy/40 hover:text-red-600 hover:bg-red-50 transition-all opacity-0 group-hover:opacity-100"
+                        className="flex-shrink-0 p-1.5 sm:p-2 rounded-md text-gray-300 hover:text-red-600 hover:bg-red-50 transition-all sm:opacity-0 sm:group-hover:opacity-100"
                         aria-label="Remove service"
                       >
-                        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                       </button>
                     </div>
                   ))
                 ) : (
-                  <div className="text-center py-12 text-navy/50">
-                    <p>No services selected</p>
+                  <div className="text-center py-12 sm:py-16 text-gray-400">
+                    <svg className="h-10 w-10 sm:h-12 sm:w-12 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    <p className="text-sm font-medium">No services selected</p>
                   </div>
                 )}
               </div>
             </div>
 
             {/* Footer - Action Buttons */}
-            <div className="border-t border-navy/10 px-8 py-6 bg-gray-50">
-              <div className="flex flex-col sm:flex-row gap-3">
+            <div className="border-t border-gray-200 px-4 sm:px-8 py-4 sm:py-6 bg-gray-50 flex-shrink-0">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                 <button
                   onClick={() => {
                     setIsPackageModalOpen(false);
                     setIsUserInfoModalOpen(true);
                   }}
-                  className="flex-1 flex items-center justify-center gap-2.5 px-6 py-4 bg-gradient-to-r from-cyan to-blue text-navy font-bold text-lg rounded-lg hover:shadow-lg transition-all duration-200"
+                  className="flex-1 flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-3.5 bg-navy text-white font-semibold text-sm sm:text-base rounded-lg hover:bg-navy/90 hover:shadow-md transition-all duration-200"
                 >
-                  <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                  <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                   <span>Download PDF</span>
@@ -644,9 +740,9 @@ export default function FloatingBookingButton() {
                     setIsPackageModalOpen(false);
                     router.push('/services');
                   }}
-                  className="sm:w-auto flex items-center justify-center gap-2 px-6 py-4 bg-white border border-navy/20 text-navy font-semibold text-base rounded-lg hover:border-cyan/30 hover:bg-gray-50 transition-all duration-200"
+                  className="sm:w-auto flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-3.5 bg-white border border-gray-300 text-gray-700 font-medium text-sm sm:text-base rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all duration-200"
                 >
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                  <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                   </svg>
                   <span>Edit Package</span>
@@ -663,7 +759,7 @@ export default function FloatingBookingButton() {
                       setIsPackageModalOpen(false);
                     }
                   }}
-                  className="w-full mt-4 px-6 py-2.5 text-sm text-navy/50 hover:text-red-600 transition-colors rounded-lg hover:bg-red-50"
+                  className="w-full mt-2 sm:mt-3 px-4 py-2 text-xs sm:text-sm text-gray-500 hover:text-red-600 transition-colors rounded-lg hover:bg-red-50"
                 >
                   Clear all services
                 </button>

@@ -1,0 +1,72 @@
+{
+  "workflow_version": "1.2.0",
+  "timestamps": {
+    "started": "2025-10-30T02:30:00Z",
+    "last_updated": "2025-10-30T02:45:00Z",
+    "completed": "2025-10-30T02:45:00Z"
+  },
+  "mode": "initial_scan",
+  "scan_level": "deep",
+  "project_root": "/Users/drewlambert/Desktop/Revelate/revelateops-website",
+  "output_folder": "/Users/drewlambert/Desktop/Revelate/docs",
+  "completed_steps": [
+    {
+      "step": "step_1",
+      "status": "completed",
+      "timestamp": "2025-10-30T02:31:00Z",
+      "summary": "Classified as monolith with 1 part, Next.js web app"
+    },
+    {
+      "step": "step_2",
+      "status": "completed",
+      "timestamp": "2025-10-30T02:32:00Z",
+      "summary": "Found 23 existing docs (integration guides, setup, features)"
+    },
+    {
+      "step": "step_3",
+      "status": "completed",
+      "timestamp": "2025-10-30T02:33:00Z",
+      "summary": "Tech stack analyzed: Next.js 16, React 19, TypeScript 5"
+    },
+    {
+      "step": "step_4",
+      "status": "completed",
+      "timestamp": "2025-10-30T02:40:00Z",
+      "summary": "Deep scan complete: 10 APIs, 21 components, 2 DB tables documented"
+    },
+    {
+      "step": "step_5_to_10",
+      "status": "completed",
+      "timestamp": "2025-10-30T02:45:00Z",
+      "summary": "Generated 6 documentation files: overview, tech stack, API, components, data models, source tree, index"
+    }
+  ],
+  "current_step": "completed",
+  "findings": {
+    "project_classification": "Monolith, 1 part, Next.js 16.0.0, TypeScript",
+    "existing_docs_count": 23,
+    "technology_stack": "Next.js 16.0.0, React 19.2.0, TypeScript 5, Tailwind CSS 4, Material-UI 7.3.4",
+    "total_api_endpoints": 10,
+    "total_components": 21,
+    "database_tables": 2,
+    "files_generated": 7
+  },
+  "project_types": [
+    {
+      "part_id": "main",
+      "project_type_id": "web",
+      "display_name": "Next.js Web Application"
+    }
+  ],
+  "outputs_generated": [
+    "project-scan-report.json",
+    "technology-stack.md",
+    "api-contracts.md",
+    "component-inventory.md",
+    "data-models.md",
+    "source-tree-analysis.md",
+    "project-overview.md",
+    "index.md"
+  ],
+  "resume_instructions": "Workflow complete. Documentation ready for use."
+}

@@ -315,22 +315,6 @@ const capabilities = [
       </svg>
     ),
   },
-  {
-    id: 'appexchange',
-    title: 'AppExchange App Selection & Setup',
-    description: 'Research, evaluate, and implement the right AppExchange apps',
-    category: 'experience',
-    detailedDescription: 'Navigate the overwhelming AppExchange marketplace. We research your requirements, evaluate vendor options, negotiate pricing, and implement the right apps for your needs. Includes integration setup, user training, and vendor management. We help you avoid expensive mistakes.',
-    deliverables: ['Requirements analysis', 'Vendor evaluation matrix', 'App implementation', 'Integration configuration'],
-    icon: (
-      <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-        <rect x="3" y="3" width="7" height="7" />
-        <rect x="14" y="3" width="7" height="7" />
-        <rect x="14" y="14" width="7" height="7" />
-        <rect x="3" y="14" width="7" height="7" />
-      </svg>
-    ),
-  },
 ];
 
 // Package offerings
@@ -356,9 +340,9 @@ const packages = [
     timeline: '8-16 weeks',
     investment: '$35K-70K',
     roi: '571% in year one',
-    gradient: 'from-cyan to-blue',
+    gradient: 'from-white/10 to-white/5',
     icon: (
-      <svg className="h-8 w-8 text-cyan" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+      <svg className="h-8 w-8 text-white/70" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
         <rect x="3" y="3" width="7" height="7" />
         <rect x="14" y="3" width="7" height="7" />
         <rect x="14" y="14" width="7" height="7" />
@@ -387,9 +371,9 @@ const packages = [
     timeline: '6-12 weeks',
     investment: '$25K-50K',
     roi: 'Save $150K+ rebuild costs',
-    gradient: 'from-blue to-cyan',
+    gradient: 'from-white/10 to-white/5',
     icon: (
-      <svg className="h-8 w-8 text-blue" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+      <svg className="h-8 w-8 text-white/70" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
         <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
       </svg>
     ),
@@ -415,18 +399,12 @@ const packages = [
     timeline: '10-16 weeks',
     investment: '$40K-70K',
     roi: 'Competitive advantage + efficiency gains',
-    gradient: 'from-magenta to-magenta/50',
+    gradient: 'from-white/10 to-white/5',
     icon: (
-      <svg className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-        <defs>
-          <linearGradient id="aiPackageIcon" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#d946ef" />
-            <stop offset="100%" stopColor="#d946ef" stopOpacity="0.5" />
-          </linearGradient>
-        </defs>
-        <circle stroke="url(#aiPackageIcon)" cx="12" cy="12" r="10" />
-        <path stroke="url(#aiPackageIcon)" d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-        <circle stroke="url(#aiPackageIcon)" cx="12" cy="17" r="0.5" fill="url(#aiPackageIcon)" />
+      <svg className="h-8 w-8 text-white/70" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+        <circle cx="12" cy="17" r="0.5" fill="currentColor" />
       </svg>
     ),
   },
@@ -755,114 +733,79 @@ export default function ServicesPage() {
         </svg>
       </div>
 
-      {/* Hero Section - Asymmetric Layout */}
+      {/* Hero Section */}
       <section className="relative pt-24 pb-16 sm:pt-32 sm:pb-20 lg:pt-40 text-white z-10">
+        <div className="relative mx-auto max-w-4xl px-6 lg:px-8 text-center">
+          <motion.span
+            className="text-xs font-semibold uppercase tracking-[0.05em] text-cyan"
+            initial={motionDisabled ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: motionDisabled ? 0 : 0.1 }}
+          >
+            Salesforce Expertise for Series B SaaS
+          </motion.span>
 
-        <div className="relative mx-auto max-w-6xl px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
-            {/* Left: Headline & CTA */}
-            <div className="flex flex-col justify-center">
-              <motion.span
-                className="text-xs font-semibold uppercase tracking-[0.05em] text-cyan"
-                initial={motionDisabled ? false : { opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: motionDisabled ? 0 : 0.1 }}
-              >
-                Salesforce Expertise for Series B SaaS
-              </motion.span>
-              <motion.h1
-                className="mt-5 text-3xl font-semibold leading-[1.2] tracking-[-0.02em] text-white sm:text-4xl md:text-5xl"
-                initial={motionDisabled ? false : { opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: motionDisabled ? 0 : 0.2 }}
-              >
-                Stop Losing Deals to Salesforce Chaos
-              </motion.h1>
+          <motion.h1
+            className="mt-5 text-4xl font-semibold leading-[1.2] tracking-[-0.02em] text-white sm:text-5xl md:text-6xl"
+            initial={motionDisabled ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: motionDisabled ? 0 : 0.2 }}
+          >
+            Fix Your Salesforce, Close More Deals
+          </motion.h1>
 
-              <motion.p
-                className="mt-6 max-w-xl text-lg leading-[1.6] text-white/80"
-                initial={motionDisabled ? false : { opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: motionDisabled ? 0 : 0.3 }}
-              >
-                Series B SaaS companies ($10-50M ARR) fix the revenue
-                architecture that's costing them deals—without hiring a full-time team or
-                rebuilding from scratch.
-              </motion.p>
+          <motion.p
+            className="mt-6 mx-auto max-w-2xl text-lg leading-[1.6] text-white/80 md:text-xl"
+            initial={motionDisabled ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: motionDisabled ? 0 : 0.3 }}
+          >
+            Stop losing revenue to broken forecasting, manual data entry, and disconnected systems. Get your revenue operations fixed in 6-16 weeks—no full rebuild required.
+          </motion.p>
 
-              <motion.div
-                className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center"
-                initial={motionDisabled ? false : { opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: motionDisabled ? 0 : 0.4 }}
-              >
-                <Link
-                  href="/book"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan px-10 py-4 text-base font-semibold text-navy shadow-[0_8px_16px_rgba(0,217,255,0.25)] transition-all duration-200 hover:bg-[#00c4e6] hover:shadow-[0_8px_16px_rgba(0,217,255,0.35)]"
-                >
-                  Get Your Free Salesforce Assessment
-                  <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.7} viewBox="0 0 24 24">
-                    <path d="M5 12h14" />
-                    <path d="m12 5 7 7-7 7" />
-                  </svg>
-                </Link>
-              </motion.div>
-
-              <motion.div
-                className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm font-medium text-white/90"
-                initial={motionDisabled ? false : { opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: motionDisabled ? 0 : 0.5 }}
-              >
-                <span className="flex items-center gap-2">
-                  <svg className="h-4 w-4 text-cyan" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                    <path d="M5 13l4 4L19 7" />
-                  </svg>
-                  Week 1 insights
-                </span>
-                <span className="flex items-center gap-2">
-                  <svg className="h-4 w-4 text-cyan" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                    <path d="M5 13l4 4L19 7" />
-                  </svg>
-                  100% completion rate
-                </span>
-                <span className="flex items-center gap-2">
-                  <svg className="h-4 w-4 text-cyan" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                    <path d="M5 13l4 4L19 7" />
-                  </svg>
-                  46% backlog reduction
-                </span>
-              </motion.div>
-            </div>
-
-            {/* Right: Key Metric Callout */}
-            <motion.div
-              className="flex items-center justify-center lg:justify-end"
-              initial={motionDisabled ? false : { opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: motionDisabled ? 0 : 0.3 }}
+          <motion.div
+            className="mt-10"
+            initial={motionDisabled ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: motionDisabled ? 0 : 0.4 }}
+          >
+            <Link
+              href="/book"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan px-10 py-4 text-base font-semibold text-navy shadow-[0_8px_16px_rgba(0,217,255,0.25)] transition-all duration-200 hover:bg-[#00c4e6] hover:shadow-[0_8px_16px_rgba(0,217,255,0.35)]"
             >
-              <div className="relative max-w-sm">
-                <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-8 shadow-[0_8px_24px_rgba(0,0,0,0.3)] backdrop-blur-xl">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,217,255,0.1)_0%,rgba(255,255,255,0)_70%)]" />
-                  <div className="relative">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-cyan/20">
-                      <svg className="h-5 w-5 text-cyan" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                      </svg>
-                    </div>
-                    <div className="mt-6 text-xs font-semibold uppercase tracking-[0.05em] text-white/60">
-                      Typical Agency Alternative
-                    </div>
-                    <div className="mt-4 text-6xl font-bold tracking-[-0.02em] text-cyan">$150K-$200K</div>
-                    <div className="mt-6 text-base leading-[1.7] text-white/80">
-                      Average cost of agency "rip and replace" rebuild over 9 months—avoid this with incremental improvements
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
+              Get Your Free Assessment
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={1.7} viewBox="0 0 24 24">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </Link>
+          </motion.div>
+
+          <motion.div
+            className="mt-12 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-medium text-white/80"
+            initial={motionDisabled ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: motionDisabled ? 0 : 0.5 }}
+          >
+            <span className="flex items-center gap-2">
+              <svg className="h-4 w-4 text-cyan" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                <path d="M5 13l4 4L19 7" />
+              </svg>
+              Week 1 insights
+            </span>
+            <span className="flex items-center gap-2">
+              <svg className="h-4 w-4 text-cyan" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                <path d="M5 13l4 4L19 7" />
+              </svg>
+              46% backlog reduction
+            </span>
+            <span className="flex items-center gap-2">
+              <svg className="h-4 w-4 text-cyan" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                <path d="M5 13l4 4L19 7" />
+              </svg>
+              $35K-70K vs $150K+ agency rebuild
+            </span>
+          </motion.div>
         </div>
       </section>
 
@@ -952,7 +895,7 @@ export default function ServicesPage() {
       <section className="relative py-20 text-white z-10">
         <div className="relative mx-auto max-w-[1600px] px-6 lg:px-8">
           <div className="mb-16 max-w-3xl text-center mx-auto">
-            <span className="text-xs font-semibold uppercase tracking-[0.05em] text-cyan">
+            <span className="text-xs font-semibold uppercase tracking-[0.05em] text-white/60">
               Our Expertise
             </span>
             <h2 className="mt-5 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl lg:text-5xl">
@@ -973,19 +916,19 @@ export default function ServicesPage() {
               {packages.map((pkg, index) => {
                 const isExpanded = expandedPackage === pkg.id;
                 const accentColors = [
-                  { border: 'border-cyan', bg: 'bg-cyan', text: 'text-cyan', gradient: 'from-cyan to-blue' },
-                  { border: 'border-blue', bg: 'bg-blue', text: 'text-blue', gradient: 'from-blue to-cyan' },
-                  { border: 'border-magenta', bg: 'bg-magenta', text: 'text-magenta', gradient: 'from-magenta via-cyan to-blue' },
+                  { border: 'border-white/30', bg: 'bg-white', text: 'text-white/90', gradient: 'from-white/10 to-white/5' },
+                  { border: 'border-white/30', bg: 'bg-white', text: 'text-white/90', gradient: 'from-white/10 to-white/5' },
+                  { border: 'border-white/30', bg: 'bg-white', text: 'text-white/90', gradient: 'from-white/10 to-white/5' },
                 ];
                 const accent = accentColors[index];
 
                 return (
                   <motion.div
                     key={pkg.id}
-                    className={`relative overflow-hidden rounded-2xl border bg-white/5 cursor-pointer transition-all duration-300 ${
+                    className={`relative overflow-hidden rounded-xl border cursor-pointer transition-all duration-300 ${
                       isExpanded
-                        ? 'border-cyan/40 bg-cyan/5 shadow-lg'
-                        : 'border-white/10 hover:border-white/20 hover:shadow-md'
+                        ? 'border-white/50 bg-white/25 shadow-lg'
+                        : 'border-white/30 bg-white/15 hover:border-white/40 hover:bg-white/20'
                     }`}
                     onClick={() => togglePackage(pkg.id)}
                     initial={motionDisabled ? false : { opacity: 0, x: -20 }}
@@ -995,19 +938,38 @@ export default function ServicesPage() {
                   >
 
                     <div className="p-6">
-                      {/* Icon and Title */}
+                      {/* Icon, Title, and Checkbox */}
                       <div className="flex items-start gap-4 mb-4">
-                        <div className={`flex h-12 w-12 items-center justify-center rounded-xl transition-all duration-300 ${
-                          isExpanded ? `${accent.bg}/20` : `${accent.bg}/10`
+                        <div className={`flex h-12 w-12 items-center justify-center rounded-lg transition-all duration-300 ${
+                          isExpanded ? 'bg-white/10' : 'bg-white/5'
                         }`}>
                           {pkg.icon}
                         </div>
                         <div className="flex-1">
-                          <h4 className="text-lg font-semibold text-white leading-tight">
+                          <h4 className="text-base font-semibold text-white leading-tight">
                             {pkg.title}
                           </h4>
                           <p className="text-xs text-white/60 mt-1">{pkg.subtitle}</p>
                         </div>
+                        {/* Checkbox */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            togglePackage(pkg.id);
+                          }}
+                          className={`flex h-5 w-5 items-center justify-center rounded border transition-all duration-300 flex-shrink-0 ${
+                            isExpanded
+                              ? 'bg-white border-white'
+                              : 'border-white/30 hover:border-white/50'
+                          }`}
+                          aria-label={isExpanded ? `Deselect ${pkg.title}` : `Select ${pkg.title}`}
+                        >
+                          {isExpanded && (
+                            <svg className="h-3 w-3 text-navy" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                              <path d="M5 13l4 4L19 7" />
+                            </svg>
+                          )}
+                        </button>
                       </div>
 
                       {/* Expanded Content */}
@@ -1030,7 +992,7 @@ export default function ServicesPage() {
                             <ul className="space-y-1">
                               {pkg.includedServices.map((service) => (
                                 <li key={service} className="flex items-start gap-2 text-xs text-white/80">
-                                  <svg className={`mt-0.5 h-3.5 w-3.5 ${accent.text} flex-shrink-0`} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                  <svg className="mt-0.5 h-3.5 w-3.5 text-white/70 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                                     <path d="M5 13l4 4L19 7" />
                                   </svg>
                                   {service}
@@ -1039,9 +1001,8 @@ export default function ServicesPage() {
                             </ul>
                           </div>
 
-                          <div className="flex items-center justify-between pt-2 text-xs">
-                            <span className="text-white/60">{pkg.timeline}</span>
-                            <span className="font-semibold text-white">{pkg.investment}</span>
+                          <div className="pt-2 text-xs">
+                            <span className="font-semibold text-white/80">{pkg.roi}</span>
                           </div>
                         </motion.div>
                       )}
@@ -1050,10 +1011,10 @@ export default function ServicesPage() {
                       {!isExpanded && (
                         <div className="flex items-center justify-between pt-2">
                           <span className="text-xs font-medium text-white/60">
-                            {pkg.serviceIds.length} services
+                            {pkg.serviceIds.length} services included
                           </span>
-                          <span className={`text-xs font-semibold ${accent.text}`}>
-                            Click to select →
+                          <span className="text-xs font-semibold text-white/70">
+                            Select →
                           </span>
                         </div>
                       )}
@@ -1073,8 +1034,8 @@ export default function ServicesPage() {
                     onClick={() => setActiveCategory(category.id)}
                     className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-300 ${
                       activeCategory === category.id
-                        ? 'bg-cyan text-navy shadow-[0_2px_8px_rgba(0,217,255,0.25)]'
-                        : 'bg-white/10 border border-white/10 text-white hover:border-cyan'
+                        ? 'bg-white/25 text-white border border-white/50'
+                        : 'bg-white/15 border border-white/30 text-white/80 hover:border-white/40 hover:bg-white/20 hover:text-white'
                     }`}
                   >
                     {category.label}
@@ -1083,82 +1044,64 @@ export default function ServicesPage() {
               </div>
 
               {/* Services Grid */}
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                 {capabilities
                   .filter(c => activeCategory === 'all' || c.category === activeCategory)
                   .map((capability, index) => {
                   const isSelected = selectedServices.includes(capability.id);
-                  const categoryTheme = categories.find(cat => cat.id === capability.category) || categories[0];
-                  const iconColor = categoryTheme.iconColor;
-                  const bgColor = categoryTheme.bgColor;
 
                   return (
                     <motion.div
                       key={capability.id}
-                      className="group relative"
+                      className="group relative h-full"
                       initial={motionDisabled ? false : { opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: '-60px' }}
                       transition={{ duration: 0.5, delay: motionDisabled ? 0 : index * 0.03 }}
                     >
-                      <div className={`relative h-full overflow-hidden rounded-lg border p-5 shadow-md transition-all duration-300 cursor-pointer ${
-                        isSelected
-                          ? 'border-cyan/40 bg-cyan/5'
-                          : 'border-white/10 bg-white/5 group-hover:border-white/20 group-hover:bg-white/8'
-                      }`}
-                      onClick={() => openDetailModal(capability)}
+                      <div
+                        onClick={() => openDetailModal(capability)}
+                        className={`relative h-full flex flex-col overflow-hidden rounded-lg border p-4 transition-all duration-200 cursor-pointer ${
+                          isSelected
+                            ? 'border-white/50 bg-white/25'
+                            : 'border-white/30 bg-white/15 hover:border-white/40 hover:bg-white/20'
+                        }`}
                       >
-
-                        {/* Subtle gradient background */}
-                        <div className={`absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,217,255,0.08)_0%,rgba(255,255,255,0)_70%)] transition-opacity duration-300 ${
-                          isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
-                        }`} />
-
-                        <div className="relative">
-                          {/* Icon and Checkbox */}
-                          <div className="mb-3 flex items-start justify-between">
-                            <div className={`flex h-9 w-9 items-center justify-center rounded-lg ${iconColor} transition-all duration-300 ${
-                              isSelected ? `${bgColor}/20 scale-110` : `${bgColor}/10 group-hover:${bgColor}/15 group-hover:scale-105`
-                            }`}>
-                              {capability.icon}
-                            </div>
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                toggleService(capability.id);
-                              }}
-                              className={`flex h-5 w-5 items-center justify-center rounded border-2 transition-all duration-300 ${
-                                isSelected
-                                  ? 'bg-cyan border-cyan'
-                                  : 'border-white/20 hover:border-cyan'
-                              }`}
-                            >
-                              {isSelected && (
-                                <svg className="h-3.5 w-3.5 text-white" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
-                                  <path d="M5 13l4 4L19 7" />
-                                </svg>
-                              )}
-                            </button>
+                        <div className="flex items-start gap-3 mb-3">
+                          <div className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-white/60 transition-all duration-200 ${
+                            isSelected ? 'bg-white/10' : 'bg-white/5'
+                          }`}>
+                            {capability.icon}
                           </div>
-
-                          {/* Title */}
-                          <h3 className="text-sm font-semibold text-white leading-tight">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleService(capability.id);
+                            }}
+                            className={`flex h-4 w-4 flex-shrink-0 items-center justify-center rounded border transition-all duration-200 ml-auto ${
+                              isSelected
+                                ? 'bg-white border-white'
+                                : 'border-white/20 hover:border-white/40'
+                            }`}
+                          >
+                            {isSelected && (
+                              <svg className="h-2.5 w-2.5 text-navy" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                                <path d="M5 13l4 4L19 7" />
+                              </svg>
+                            )}
+                          </button>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-sm font-semibold text-white leading-snug mb-3">
                             {capability.title}
                           </h3>
-
-                          {/* Description */}
-                          <p className="mt-2 text-xs leading-relaxed text-white/60">
-                            {capability.description}
-                          </p>
-
-                          {/* Learn more indicator */}
-                          <div className={`mt-2 flex items-center gap-1 text-[10px] font-medium ${iconColor} opacity-0 transition-opacity duration-300 group-hover:opacity-100`}>
-                            <span>Click for details</span>
-                            <svg className="h-2.5 w-2.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                          <p className="text-xs text-white/60 group-hover:text-white/80 transition-colors duration-200 flex items-center gap-1">
+                            Learn more
+                            <svg className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                               <path d="M5 12h14" />
                               <path d="m12 5 7 7-7 7" />
                             </svg>
-                          </div>
+                          </p>
                         </div>
                       </div>
                     </motion.div>
@@ -1285,6 +1228,16 @@ export default function ServicesPage() {
                 </tbody>
               </table>
             </div>
+            <div className="mt-6 flex items-start gap-2 text-xs text-white/60">
+              <svg className="h-4 w-4 flex-shrink-0 mt-0.5 text-cyan/60" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 16v-4" />
+                <circle cx="12" cy="8" r="0.5" fill="currentColor" />
+              </svg>
+              <p className="leading-relaxed">
+                <span className="font-medium">Note:</span> Revelate pricing represents typical engagement ranges. All figures are estimates and non-binding. Actual project costs are determined through consultation and tailored to your specific requirements, scope, and organizational context.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -1301,8 +1254,7 @@ export default function ServicesPage() {
               See what's hiding in your Salesforce instance
             </h2>
             <p className="mt-6 text-base leading-7 text-white/90 md:text-lg md:leading-8">
-              Free 15-minute consultation for Series B SaaS leaders. We'll identify at least one
-              $50K+ opportunity in your first call.
+              Free 15-minute consultation for Series B SaaS leaders. We'll identify concrete opportunities to optimize your revenue operations in your first call.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Link

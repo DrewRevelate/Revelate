@@ -340,7 +340,7 @@ export default function AboutPage() {
               <div className="font-body mt-10 grid gap-4 text-base text-white/60 sm:grid-cols-2">
                 <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
                   <span className="inline-flex h-2.5 w-2.5 rounded-full bg-cyan" />
-                  Based in Milford, NH working with distributed teams
+                  US-based, working with distributed teams nationwide
                 </div>
                 <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
                   <span className="inline-flex h-2.5 w-2.5 rounded-full bg-magenta" />
@@ -675,42 +675,88 @@ export default function AboutPage() {
           </motion.section>
 
           <motion.section
-            className="relative mx-auto max-w-4xl overflow-hidden rounded-xl border border-white/10 bg-white/5 p-8 text-center sm:p-12 lg:p-16"
+            className="relative mx-auto max-w-5xl"
             {...getFadeProps(0.18)}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-cyan/20 via-transparent to-transparent" />
-            <div className="font-body relative space-y-6 text-white/80">
-              <h2
-                className="font-heading text-3xl font-semibold text-white sm:text-4xl"
-              >
-                Let me know what you are wrestling with.
-              </h2>
-              <p className="text-lg">
-                Whether you are untangling ARR definitions, preparing for diligence, or simply want to compare notes on revenue instrumentation, I am a message away.
-              </p>
-              <div className="pt-6 text-sm uppercase tracking-[0.3em] text-white/50">
-                <p>Drew Lambert, Founder</p>
-                <p className="mt-2 text-white/40">Milford, NH</p>
-              </div>
-              <div className="flex flex-col items-center gap-4 pt-4 text-base text-cyan">
-                <a href="mailto:drew@revelateops.com" className="transition-colors duration-200 hover:text-cyan/80">
-                  drew@revelateops.com
-                </a>
-                <a href="tel:+16037551646" className="transition-colors duration-200 hover:text-cyan/80">
-                  (603) 755-1646
-                </a>
-              </div>
-              <div className="pt-8">
-                <Link
-                  href="/book"
-                  className="inline-flex items-center justify-center gap-3 rounded-2xl border border-cyan/40 bg-cyan/20 px-10 py-4 text-lg font-semibold text-white transition-all duration-200 hover:border-cyan/60 hover:bg-cyan/25"
-                                 >
-                  Book a conversation
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 12h14" />
-                    <path d="m13 6 6 6-6 6" />
-                  </svg>
-                </Link>
+            <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-white/[0.08] shadow-[0_20px_60px_rgba(0,0,0,0.3)] backdrop-blur-xl">
+              {/* Subtle gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-cyan/5 via-transparent to-transparent" />
+
+              <div className="relative p-10 sm:p-14 lg:p-20">
+                {/* Content */}
+                <div className="text-center space-y-8">
+                  <div className="space-y-4">
+                    <span className="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-cyan">
+                      Let's connect
+                    </span>
+                    <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+                      Ready to talk revenue architecture?
+                    </h2>
+                    <p className="mx-auto max-w-2xl text-lg text-white/80 leading-relaxed">
+                      Whether you're untangling ARR definitions, preparing for diligence, or simply want to compare notes on revenue operations—let's connect. I respond to every message within one business day.
+                    </p>
+                  </div>
+
+                  {/* Contact grid */}
+                  <div className="grid gap-4 sm:grid-cols-2 max-w-2xl mx-auto">
+                    <a
+                      href="mailto:drew@revelateops.com"
+                      className="group flex items-center gap-3 rounded-xl border border-white/20 bg-white/[0.08] p-5 transition-all duration-200 hover:border-cyan/40 hover:bg-white/[0.12] hover:shadow-[0_8px_20px_rgba(0,217,255,0.2)]"
+                    >
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-cyan/20 text-cyan transition-colors group-hover:bg-cyan/30">
+                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                          <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <div className="text-left">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-white/50">Email</p>
+                        <p className="text-sm font-medium text-white">drew@revelateops.com</p>
+                      </div>
+                    </a>
+
+                    <a
+                      href="tel:+16037551646"
+                      className="group flex items-center gap-3 rounded-xl border border-white/20 bg-white/[0.08] p-5 transition-all duration-200 hover:border-cyan/40 hover:bg-white/[0.12] hover:shadow-[0_8px_20px_rgba(0,217,255,0.2)]"
+                    >
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-cyan/20 text-cyan transition-colors group-hover:bg-cyan/30">
+                        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                          <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                      </div>
+                      <div className="text-left">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-white/50">Phone</p>
+                        <p className="text-sm font-medium text-white">(603) 755-1646</p>
+                      </div>
+                    </a>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="flex items-center gap-4 py-4">
+                    <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                    <span className="text-xs font-semibold uppercase tracking-wider text-white/40">Or</span>
+                    <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                  </div>
+
+                  {/* CTA button */}
+                  <div>
+                    <Link
+                      href="/book"
+                      className="inline-flex items-center justify-center gap-3 rounded-xl bg-cyan px-10 py-5 text-base font-semibold text-navy transition-all duration-200 hover:bg-cyan/90"
+                    >
+                      Schedule a consultation
+                      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </div>
+
+                  {/* Footer */}
+                  <div className="pt-6 space-y-2">
+                    <p className="text-sm font-semibold text-white">Drew Lambert</p>
+                    <p className="text-xs uppercase tracking-[0.2em] text-white/50">Founder & Principal Consultant</p>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.section>

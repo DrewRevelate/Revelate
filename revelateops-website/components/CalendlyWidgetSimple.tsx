@@ -17,7 +17,7 @@ export default function CalendlyWidgetSimple({
     }, 500);
   };
 
-  const embedUrl = `${url}?embed_domain=${typeof window !== 'undefined' ? window.location.hostname : 'localhost'}&embed_type=Inline`;
+  const embedUrl = `${url}?embed_domain=${typeof window !== 'undefined' ? window.location.hostname : 'localhost'}&embed_type=Inline&hide_event_type_details=1&hide_landing_page_details=1&hide_gdpr_banner=1`;
 
   return (
     <div className="relative w-full">
