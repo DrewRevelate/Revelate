@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import CalendlyWidgetSimple from './CalendlyWidgetSimple';
@@ -96,6 +96,9 @@ export default function FloatingBookingButton() {
   const [isUserInfoModalOpen, setIsUserInfoModalOpen] = useState(false);
   const [showDiscountPromo, setShowDiscountPromo] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [unreadMessageCount, setUnreadMessageCount] = useState(0);
+  const [activeConversationId, setActiveConversationId] = useState<number | null>(null);
+  const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Button always visible
   useEffect(() => {
@@ -183,6 +186,71 @@ export default function FloatingBookingButton() {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isMenuOpen]);
 
+  // Check for active conversation and poll for new messages
+  const chatOpenRef = useRef(isChatOpen);
+
+  useEffect(() => {
+    chatOpenRef.current = isChatOpen;
+  }, [isChatOpen]);
+
+  useEffect(() => {
+    const checkForNewMessages = async () => {
+      const savedConversation = localStorage.getItem('activeConversation');
+      if (!savedConversation) {
+        setActiveConversationId(null);
+        setUnreadMessageCount(0);
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(savedConversation);
+        const conversationId = parsed.conversationId;
+        setActiveConversationId(conversationId);
+
+        // Don't check for messages if chat is currently open
+        if (chatOpenRef.current) {
+          setUnreadMessageCount(0);
+          return;
+        }
+
+        // Fetch messages to check for unread ones
+        const response = await fetch(`/api/conversations/${conversationId}/messages`);
+        if (response.ok) {
+          const data = await response.json();
+          const messages = data.messages || [];
+
+          // Count unread messages from Drew
+          const unreadCount = messages.filter((msg: any) =>
+            msg.sender === 'drew' && !msg.read_by_user
+          ).length;
+
+          setUnreadMessageCount(unreadCount);
+        }
+      } catch (e) {
+        console.error('Failed to check for new messages:', e);
+      }
+    };
+
+    // Check immediately
+    checkForNewMessages();
+
+    // Poll every 30 seconds
+    pollingIntervalRef.current = setInterval(checkForNewMessages, 30000);
+
+    return () => {
+      if (pollingIntervalRef.current) {
+        clearInterval(pollingIntervalRef.current);
+      }
+    };
+  }, []);
+
+  // When chat opens, clear unread count
+  useEffect(() => {
+    if (isChatOpen) {
+      setUnreadMessageCount(0);
+    }
+  }, [isChatOpen]);
+
   // Handle PDF generation after user submits info
   const handlePDFGeneration = (userInfo: UserInfo) => {
     // Get full service details from selected IDs
@@ -235,8 +303,13 @@ export default function FloatingBookingButton() {
           className="h-full w-full object-contain relative z-10 overflow-hidden rounded-full"
         />
 
-        {/* Badge - Shows Calendar or Package Count */}
-        {hasCustomPackage ? (
+        {/* Badge - Shows Calendar, Package Count, or Chat Notification */}
+        {unreadMessageCount > 0 ? (
+          /* Chat Notification Badge */
+          <span className="absolute -top-1 -right-1 z-20 flex h-7 w-7 items-center justify-center rounded-full bg-red-500 border-2 border-white shadow-[0_4px_12px_rgba(239,68,68,0.5)] transition-all duration-200 group-hover:scale-110 animate-in zoom-in">
+            <span className="text-xs font-bold text-white">{unreadMessageCount > 9 ? '9+' : unreadMessageCount}</span>
+          </span>
+        ) : hasCustomPackage ? (
           /* Package Indicator Badge */
           <span className="absolute -top-1 -right-1 z-20 flex h-7 w-7 items-center justify-center rounded-full bg-magenta border-2 border-white shadow-[0_4px_12px_rgba(217,70,239,0.5)] transition-all duration-200 group-hover:scale-110 animate-in zoom-in">
             <span className="text-xs font-bold text-white">{selectedServiceIds.length}</span>
@@ -252,6 +325,11 @@ export default function FloatingBookingButton() {
               />
             </svg>
           </span>
+        )}
+
+        {/* Additional notification dot if there's both unread messages and custom package */}
+        {unreadMessageCount > 0 && hasCustomPackage && (
+          <span className="absolute -bottom-1 -left-1 z-20 flex h-4 w-4 rounded-full bg-magenta border-2 border-white shadow-[0_2px_8px_rgba(217,70,239,0.5)]" />
         )}
 
         {/* Hover Glow Effect */}
@@ -290,16 +368,30 @@ export default function FloatingBookingButton() {
                 setIsMenuOpen(false);
                 setIsChatOpen(true);
               }}
-              className="w-full flex items-center gap-3 px-5 py-4 text-left text-white hover:bg-white/10 transition-colors duration-200 border-b border-white/10"
+              className="w-full flex items-center gap-3 px-5 py-4 text-left text-white hover:bg-white/10 transition-colors duration-200 border-b border-white/10 relative"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 relative">
                 <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
+                {unreadMessageCount > 0 && (
+                  <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold shadow-lg">
+                    {unreadMessageCount > 9 ? '9+' : unreadMessageCount}
+                  </span>
+                )}
               </div>
-              <div>
-                <div className="font-semibold text-sm">Chat with Drew</div>
-                <div className="text-xs text-white/60">Start a conversation</div>
+              <div className="flex-1">
+                <div className="font-semibold text-sm flex items-center gap-2">
+                  Chat with Drew
+                  {unreadMessageCount > 0 && (
+                    <span className="px-2 py-0.5 bg-red-500 text-white text-xs rounded-full font-bold">
+                      {unreadMessageCount} new
+                    </span>
+                  )}
+                </div>
+                <div className="text-xs text-white/60">
+                  {activeConversationId ? 'Continue your conversation' : 'Start a conversation'}
+                </div>
               </div>
             </button>
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ChatWidget from './ChatWidget';
 
 interface PreviousConversation {
@@ -12,6 +12,12 @@ interface PreviousConversation {
     message_text: string;
     sent_at: string;
   }>;
+}
+
+interface SavedConversation {
+  conversationId: number;
+  userName: string;
+  timestamp: number;
 }
 
 export default function ContactChat() {
@@ -28,6 +34,40 @@ export default function ContactChat() {
   const [errorMessage, setErrorMessage] = useState('');
   const [previousConversation, setPreviousConversation] = useState<PreviousConversation | null>(null);
   const [showConversationChoice, setShowConversationChoice] = useState(false);
+
+  // Load active conversation from localStorage on mount
+  useEffect(() => {
+    const savedConversation = localStorage.getItem('activeConversation');
+    if (savedConversation) {
+      try {
+        const parsed: SavedConversation = JSON.parse(savedConversation);
+        // Only restore if conversation is less than 7 days old
+        const weekAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
+        if (parsed.timestamp > weekAgo) {
+          setConversationId(parsed.conversationId);
+          setUserName(parsed.userName);
+        } else {
+          // Clear old conversation
+          localStorage.removeItem('activeConversation');
+        }
+      } catch (e) {
+        console.error('Failed to restore conversation:', e);
+        localStorage.removeItem('activeConversation');
+      }
+    }
+  }, []);
+
+  // Save conversation to localStorage whenever it changes
+  useEffect(() => {
+    if (conversationId && userName) {
+      const saveData: SavedConversation = {
+        conversationId,
+        userName,
+        timestamp: Date.now()
+      };
+      localStorage.setItem('activeConversation', JSON.stringify(saveData));
+    }
+  }, [conversationId, userName]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
