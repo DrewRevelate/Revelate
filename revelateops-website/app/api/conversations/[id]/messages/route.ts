@@ -115,8 +115,8 @@ export async function POST(
       },
       body: JSON.stringify({
         channel: slackUserId,
-        // Don't use thread_ts - send as separate messages so they're visible in main DM
-        text: `💬 *${conversation.user_name}* (${conversation.user_email}):\n${message}`,
+        thread_ts: conversation.slack_thread_ts, // Keep all messages in the same thread
+        text: `💬 *${conversation.user_name}*:\n${message}`,
         unfurl_links: false,
         unfurl_media: false
       })
