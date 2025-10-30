@@ -20,7 +20,7 @@ export default function Navigation() {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768); // md breakpoint
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint
     };
 
     checkMobile();
@@ -59,12 +59,12 @@ export default function Navigation() {
       {isHomepage && (
         <Link
           href="/"
-          className={`group fixed left-1/2 top-[76px] z-40 hidden -translate-x-1/2 flex-col items-center gap-4 transition-all duration-500 ease-out md:flex ${
+          className={`group fixed left-1/2 top-20 lg:top-24 z-40 hidden -translate-x-1/2 flex-col items-center gap-3 lg:gap-4 transition-all duration-500 ease-out lg:flex ${
             showCompact ? 'pointer-events-none -translate-y-12 scale-75 opacity-0' : 'scale-100 opacity-100'
           }`}
           aria-label="Revelate home"
         >
-        <span className="relative flex h-36 w-36 items-center justify-center overflow-hidden rounded-full border-[3px] border-white/60 bg-gradient-to-br from-white/5 via-transparent to-transparent shadow-[0_0_80px_rgba(0,217,255,0.4),0_0_40px_rgba(255,255,255,0.15),inset_0_1px_2px_rgba(255,255,255,0.4)] ring-1 ring-white/20 backdrop-blur-sm transition-all duration-500 group-hover:border-white/80 group-hover:shadow-[0_0_120px_rgba(0,217,255,0.6),0_0_60px_rgba(255,255,255,0.25),inset_0_1px_3px_rgba(255,255,255,0.5)]">
+        <span className="relative flex h-28 w-28 lg:h-36 lg:w-36 items-center justify-center overflow-hidden rounded-full border-[3px] border-white/60 bg-gradient-to-br from-white/5 via-transparent to-transparent shadow-[0_0_80px_rgba(0,217,255,0.4),0_0_40px_rgba(255,255,255,0.15),inset_0_1px_2px_rgba(255,255,255,0.4)] ring-1 ring-white/20 backdrop-blur-sm transition-all duration-500 group-hover:border-white/80 group-hover:shadow-[0_0_120px_rgba(0,217,255,0.6),0_0_60px_rgba(255,255,255,0.25),inset_0_1px_3px_rgba(255,255,255,0.5)]">
           <Image
             src="/revelate-logo.png"
             alt="Revelate"

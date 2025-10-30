@@ -70,6 +70,58 @@ p {
   font-family: var(--font-sans);
 }
 
+/* Fluid typography utilities for smooth responsive scaling */
+.text-fluid-5xl {
+  font-size: clamp(2rem, 4vw + 1rem, 3rem);
+  /* Mobile: 32px, scales to Desktop: 48px */
+}
+
+.text-fluid-4xl {
+  font-size: clamp(1.75rem, 3.5vw + 0.75rem, 2.5rem);
+  /* Mobile: 28px, scales to Desktop: 40px */
+}
+
+.text-fluid-3xl {
+  font-size: clamp(1.5rem, 3vw + 0.5rem, 2rem);
+  /* Mobile: 24px, scales to Desktop: 32px */
+}
+
+.text-fluid-2xl {
+  font-size: clamp(1.25rem, 2.5vw + 0.5rem, 1.75rem);
+  /* Mobile: 20px, scales to Desktop: 28px */
+}
+
+.text-fluid-xl {
+  font-size: clamp(1.125rem, 2vw + 0.5rem, 1.5rem);
+  /* Mobile: 18px, scales to Desktop: 24px */
+}
+
+.text-fluid-lg {
+  font-size: clamp(1rem, 1.5vw + 0.5rem, 1.25rem);
+  /* Mobile: 16px, scales to Desktop: 20px */
+}
+
+.text-fluid-base {
+  font-size: clamp(0.875rem, 1vw + 0.5rem, 1.125rem);
+  /* Mobile: 14px, scales to Desktop: 18px */
+}
+
+/* Responsive spacing utilities */
+.spacing-fluid-xl {
+  padding: clamp(1.5rem, 4vw, 4rem);
+  /* Mobile: 24px, scales to Desktop: 64px */
+}
+
+.spacing-fluid-lg {
+  padding: clamp(1rem, 3vw, 3rem);
+  /* Mobile: 16px, scales to Desktop: 48px */
+}
+
+.spacing-fluid-md {
+  padding: clamp(0.75rem, 2vw, 2rem);
+  /* Mobile: 12px, scales to Desktop: 32px */
+}
+
 .skip-link {
   pointer-events: none;
   opacity: 0;

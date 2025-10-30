@@ -57,12 +57,12 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative isolate z-0 flex h-full min-h-screen items-center justify-center overflow-hidden bg-navy text-white"
+      className="relative isolate z-0 flex h-full min-h-[100dvh] items-center justify-center overflow-hidden bg-navy text-white"
     >
       {/* Deep parallax backdrop */}
       <motion.div style={{ y: backgroundY }} className="pointer-events-none absolute inset-0" aria-hidden="true">
         {/* Signature Cyan Gradient - Top Right */}
-        <div className="absolute right-[6%] top-[-14%] h-[700px] w-[700px] rounded-full bg-cyan/12 blur-[70px] animate-[pulse-glow_8s_ease-in-out_infinite]" />
+        <div className="absolute right-[6%] top-[-14%] h-[40vh] w-[40vh] md:h-[50vh] md:w-[50vh] lg:h-[700px] lg:w-[700px] rounded-full bg-cyan/12 blur-[70px] animate-[pulse-glow_8s_ease-in-out_infinite]" />
       </motion.div>
 
       {/* Data field texture */}
@@ -125,7 +125,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            className="text-3xl font-bold leading-[1.2] tracking-[-0.02em] text-white sm:text-4xl md:text-5xl"
+            className="text-2xl font-bold leading-[1.2] tracking-[-0.02em] text-white sm:text-3xl md:text-4xl lg:text-5xl"
           >
             {executivePainPoints[currentPainIndex]}
           </motion.h1>
@@ -143,7 +143,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/90 md:text-xl"
+            className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg md:text-xl"
           >
             Hi, I&apos;m Drew. I take on 2-3 clients at a time as your embedded RevOps partner—not an agency, not a full-time hire. Deep focus. No handoffs. I join your team, map what&apos;s broken, and ship production improvements on a regular cadence. With deep expertise across enterprise platforms like Salesforce, NetSuite, and modern integration tools, most clients see meaningful improvements within 6-16 weeks.
           </motion.p>

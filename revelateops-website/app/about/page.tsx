@@ -399,7 +399,7 @@ export default function AboutPage() {
             </div>
 
             {/* Core principles - simple list */}
-            <div className="mb-16 grid gap-8 md:grid-cols-3">
+            <div className="mb-16 grid gap-8 sm:grid-cols-2 md:grid-cols-3">
               {personalReasons.map((reason, index) => (
                 <div key={reason.title} className="border-l-2 border-cyan/30 pl-6">
                   <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-cyan/70">0{index + 1}</p>
@@ -508,7 +508,7 @@ export default function AboutPage() {
             </div>
 
             {/* Compact inline categories */}
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {capabilityStack.map((stack) => (
                 <div key={stack.category}>
                   <p className="text-xs font-semibold uppercase tracking-wider text-cyan mb-3">{stack.category}</p>
@@ -525,7 +525,7 @@ export default function AboutPage() {
           <motion.section className="mb-24 lg:mb-32" {...getFadeProps(0.1)}>
             <div className="mb-8">
               <p className="text-xs uppercase tracking-[0.4em] text-white/50">How engagements run</p>
-              <h2 className="font-heading mt-5 text-2xl font-bold leading-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
+              <h2 className="font-heading mt-5 text-xl font-bold leading-tight text-white sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
                 A consultancy built for focus and transparency.
               </h2>
               <p className="font-body mt-6 max-w-3xl text-xl text-white/70">

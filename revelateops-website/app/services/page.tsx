@@ -899,7 +899,7 @@ export default function ServicesPage() {
             <span className="text-xs font-semibold uppercase tracking-[0.05em] text-white/60">
               Our Expertise
             </span>
-            <h2 className="mt-5 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl lg:text-5xl">
+            <h2 className="mt-5 text-xl font-semibold leading-[1.2] sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
               Build Your Custom Package
             </h2>
             <p className="mt-4 text-lg leading-8 text-white/80">
@@ -908,7 +908,7 @@ export default function ServicesPage() {
           </div>
 
           {/* Two Column Layout: Packages Left, Services Right */}
-          <div className="grid gap-8 lg:grid-cols-[380px_1fr]">
+          <div className="grid gap-8 lg:grid-cols-[340px_1fr] xl:grid-cols-[380px_1fr]">
             {/* Left Column: Packages */}
             <div className="space-y-4">
               <h3 className="text-sm font-semibold uppercase tracking-[0.05em] text-white/60 mb-4">
@@ -1045,7 +1045,7 @@ export default function ServicesPage() {
               </div>
 
               {/* Services Grid */}
-              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
                 {capabilities
                   .filter(c => activeCategory === 'all' || c.category === activeCategory)
                   .map((capability, index) => {

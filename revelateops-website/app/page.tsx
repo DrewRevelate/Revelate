@@ -235,7 +235,7 @@ export default function Home() {
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="bg-[#f8fafc] rounded-2xl p-8 lg:p-12">
           {/* Two Column Layout: Text Left, 2-3 Card Right */}
-          <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:gap-12 items-start mb-5">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-[1fr_1fr] lg:gap-12 items-start mb-5">
             {/* Left Column: Text Content */}
             <motion.div
               style={{
@@ -246,7 +246,7 @@ export default function Home() {
               <span className="text-xs font-semibold uppercase tracking-[0.05em] text-blue">
                 Why choose Drew
               </span>
-              <h2 id="differentiators-heading" className="mt-3 text-2xl font-semibold leading-[1.15] sm:text-3xl md:text-4xl text-navy">
+              <h2 id="differentiators-heading" className="mt-3 text-xl font-semibold leading-[1.15] sm:text-2xl md:text-3xl lg:text-4xl text-navy">
                 Four things that make this different
               </h2>
               <p className="mt-3 text-sm leading-6 text-[#334155] md:text-base">
@@ -292,7 +292,7 @@ export default function Home() {
           </div>
 
           {/* Differentiators - Full Width Row Below */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3">
             {differentiators.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -385,7 +385,7 @@ export default function Home() {
               <div className="relative space-y-3">
                 <span className="inline-flex h-1 w-14 rounded-full bg-magenta" />
                 <div className="space-y-1.5">
-                  <p className="text-[1.85rem] font-semibold leading-tight text-navy md:text-[2.1rem]">6-16 weeks</p>
+                  <p className="text-[1.5rem] font-semibold leading-tight text-navy sm:text-[1.75rem] md:text-[1.85rem] lg:text-[2.1rem]">6-16 weeks</p>
                   <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#64748b]">to production</p>
                   <p className="text-xs leading-5 text-[#64748b]">typical timeline for meaningful improvements to revenue architecture.</p>
                   <div className="mt-3 pt-3 border-t border-[#dbe3f0]">
@@ -402,7 +402,7 @@ export default function Home() {
               <div className="relative space-y-3">
                 <span className="inline-flex h-1 w-14 rounded-full bg-magenta" />
                 <div className="space-y-1.5">
-                  <p className="text-[1.85rem] font-semibold leading-tight text-navy md:text-[2.1rem]">Weekly</p>
+                  <p className="text-[1.5rem] font-semibold leading-tight text-navy sm:text-[1.75rem] md:text-[1.85rem] lg:text-[2.1rem]">Weekly</p>
                   <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#64748b]">production cadence</p>
                   <p className="text-xs leading-5 text-[#64748b]">regular deployment of improvements while maintaining system stability.</p>
                   <div className="mt-3 pt-3 border-t border-[#dbe3f0]">
@@ -419,7 +419,7 @@ export default function Home() {
               <div className="relative space-y-3">
                 <span className="inline-flex h-1 w-14 rounded-full bg-magenta" />
                 <div className="space-y-1.5">
-                  <p className="text-[1.85rem] font-semibold leading-tight text-navy md:text-[2.1rem]">Incremental</p>
+                  <p className="text-[1.5rem] font-semibold leading-tight text-navy sm:text-[1.75rem] md:text-[1.85rem] lg:text-[2.1rem]">Incremental</p>
                   <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#64748b]">approach</p>
                   <p className="text-xs leading-5 text-[#64748b]">targeted fixes instead of expensive 9-month agency rebuilds.</p>
                   <div className="mt-3 pt-3 border-t border-[#dbe3f0]">
