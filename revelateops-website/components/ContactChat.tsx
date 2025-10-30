@@ -140,9 +140,9 @@ export default function ContactChat() {
 
   // Show the initial contact form
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
       {/* Name and Email Row */}
-      <div className="grid grid-cols-1 gap-6">
+      <div className="grid grid-cols-1 gap-4 md:gap-6">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
             Name <span className="text-red-500">*</span>
@@ -154,7 +154,7 @@ export default function ContactChat() {
             required
             value={formData.name}
             onChange={handleChange}
-            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-navy focus:ring-1 focus:ring-navy transition-colors duration-200"
+            className="w-full px-3 py-3 md:px-4 md:py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-navy focus:ring-1 focus:ring-navy transition-colors duration-200 text-base"
             placeholder="Your name"
             disabled={status === 'loading'}
           />
@@ -171,7 +171,7 @@ export default function ContactChat() {
             required
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-navy focus:ring-1 focus:ring-navy transition-colors duration-200"
+            className="w-full px-3 py-3 md:px-4 md:py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-navy focus:ring-1 focus:ring-navy transition-colors duration-200 text-base"
             placeholder="your@email.com"
             disabled={status === 'loading'}
           />
@@ -179,7 +179,7 @@ export default function ContactChat() {
       </div>
 
       {/* Phone and Company Row */}
-      <div className="grid grid-cols-1 gap-6">
+      <div className="grid grid-cols-1 gap-4 md:gap-6">
         <div>
           <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
             Phone <span className="text-red-500">*</span>
@@ -191,7 +191,7 @@ export default function ContactChat() {
             required
             value={formData.phone}
             onChange={handleChange}
-            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-navy focus:ring-1 focus:ring-navy transition-colors duration-200"
+            className="w-full px-3 py-3 md:px-4 md:py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-navy focus:ring-1 focus:ring-navy transition-colors duration-200 text-base"
             placeholder="+1 (555) 000-0000"
             disabled={status === 'loading'}
           />
@@ -207,7 +207,7 @@ export default function ContactChat() {
             name="company"
             value={formData.company}
             onChange={handleChange}
-            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-navy focus:ring-1 focus:ring-navy transition-colors duration-200"
+            className="w-full px-3 py-3 md:px-4 md:py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-navy focus:ring-1 focus:ring-navy transition-colors duration-200 text-base"
             placeholder="Your company"
             disabled={status === 'loading'}
           />
@@ -226,7 +226,7 @@ export default function ContactChat() {
           value={formData.message}
           onChange={handleChange}
           rows={4}
-          className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-navy focus:ring-1 focus:ring-navy transition-colors duration-200 resize-none"
+          className="w-full px-3 py-3 md:px-4 md:py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-navy focus:ring-1 focus:ring-navy transition-colors duration-200 resize-none text-base"
           placeholder="Tell me about your project or question..."
           disabled={status === 'loading'}
         />
@@ -245,7 +245,7 @@ export default function ContactChat() {
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full px-6 py-3 bg-navy hover:bg-navy/90 text-white rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full px-6 py-3.5 md:py-3 bg-navy hover:bg-navy/90 active:bg-navy/80 text-white rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
       >
         {status === 'loading' ? (
           <span className="flex items-center justify-center gap-2">
