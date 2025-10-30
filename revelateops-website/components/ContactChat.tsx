@@ -130,18 +130,11 @@ export default function ContactChat() {
   // If conversation started, show chat widget
   if (conversationId) {
     return (
-      <div>
-        <div className="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-          <p className="text-gray-700">
-            👋 Hey {userName}! Your message has been sent. Feel free to continue the conversation here, and I'll reply as soon as I can.
-          </p>
-        </div>
-        <ChatWidget
-          conversationId={conversationId}
-          userName={userName}
-          onStartNew={handleStartNew}
-        />
-      </div>
+      <ChatWidget
+        conversationId={conversationId}
+        userName={userName}
+        onStartNew={handleStartNew}
+      />
     );
   }
 
