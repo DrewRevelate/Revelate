@@ -43,7 +43,7 @@ const differentiators = [
   },
   {
     title: 'AI-Augmented Excellence',
-    detail: 'I leverage cutting-edge AI to accelerate diagnostics, automate documentation, and deliver insights faster—without sacrificing the human judgment that makes complex systems work. AI-augmented workflow that combines efficiency with expertise.',
+    detail: 'I use advanced AI to accelerate diagnostics, automate documentation, and deliver insights faster—without sacrificing the human judgment that makes complex systems work. AI-augmented workflow that combines efficiency with expertise.',
   },
 ];
 
@@ -223,134 +223,122 @@ export default function Home() {
       <Hero />
       <StickyNav />
 
-      {/* NEW: Differentiators Section */}
-      <section
-        ref={differentiatorsSectionRef}
-        id="differentiators"
-        className="bg-white py-20 text-navy"
-        aria-labelledby="differentiators-heading"
-      >
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <motion.div
-            style={{
-              y: prefersReducedMotion ? 0 : differentiatorHeaderY,
-              opacity: prefersReducedMotion ? 1 : differentiatorHeaderOpacity
-            }}
-            className="max-w-3xl text-center mx-auto"
-          >
-            <span className="text-xs font-semibold uppercase tracking-[0.05em] text-cyan">
-              Why choose Drew
-            </span>
-            <h2 id="differentiators-heading" className="mt-5 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl lg:text-5xl">
-              Four things that make this different
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-[#334155]">
-              No offshore teams. No junior devs. No surprises. Just principal-level expertise embedded with your team.
-            </p>
-          </motion.div>
+      {/* Alternating Backgrounds - Light and Dark sections for visual rhythm */}
+      <main className="relative">
+        {/* NEW: Differentiators Section - NAVY WITH INSET LIGHT AREA */}
+        <section
+          ref={differentiatorsSectionRef}
+          id="differentiators"
+          className="pt-20 pb-12 bg-navy"
+          aria-labelledby="differentiators-heading"
+        >
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="bg-[#f8fafc] rounded-2xl p-8 lg:p-12">
+          {/* Two Column Layout: Text Left, 2-3 Card Right */}
+          <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:gap-12 items-start mb-5">
+            {/* Left Column: Text Content */}
+            <motion.div
+              style={{
+                y: prefersReducedMotion ? 0 : differentiatorHeaderY,
+                opacity: prefersReducedMotion ? 1 : differentiatorHeaderOpacity
+              }}
+            >
+              <span className="text-xs font-semibold uppercase tracking-[0.05em] text-blue">
+                Why choose Drew
+              </span>
+              <h2 id="differentiators-heading" className="mt-3 text-2xl font-semibold leading-[1.15] sm:text-3xl md:text-4xl text-navy">
+                Four things that make this different
+              </h2>
+              <p className="mt-3 text-sm leading-6 text-[#334155] md:text-base">
+                No offshore teams. No junior devs. No surprises. Just principal-level expertise embedded with your team.
+              </p>
+            </motion.div>
 
-          {/* Currently Working With Section */}
-          <div className="mt-12 mx-auto max-w-4xl">
-            <div className="relative overflow-hidden rounded-xl border border-cyan/20 bg-gradient-to-br from-cyan/[0.04] to-transparent p-6 sm:p-8">
-              <div className="text-center">
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan mb-4">
-                  Currently Working With
+            {/* Right Column: Focus Metric */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="relative overflow-hidden rounded-xl border-2 border-cyan/30 bg-gradient-to-br from-cyan/10 via-white to-blue/5 p-6"
+            >
+              <div className="absolute top-0 right-0 w-24 h-24 bg-cyan/10 rounded-full blur-3xl" />
+              <div className="relative text-center">
+                <div className="flex items-baseline justify-center gap-2">
+                  <div className="text-6xl font-bold text-navy">2-3</div>
+                  <div className="text-xs font-semibold uppercase tracking-wider text-blue">Client Maximum</div>
+                </div>
+                <p className="mt-3 text-sm leading-snug text-navy font-medium">
+                  By design, not by accident.
                 </p>
-                <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-[#dbe3f0] bg-white px-4 py-2 text-sm font-medium text-navy shadow-sm">
-                    <svg className="h-4 w-4 text-cyan" fill="currentColor" viewBox="0 0 8 8">
-                      <circle cx="4" cy="4" r="3" />
-                    </svg>
+                <p className="mt-2 text-xs leading-relaxed text-[#334155]">
+                  I deliberately cap my roster to maintain deep partnership, context retention, and quality that produces real results—not just billable hours.
+                </p>
+                <div className="mt-4 flex flex-wrap justify-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white border border-cyan/20 px-2.5 py-1 text-xs font-medium text-navy">
+                    <div className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse" />
                     Series B SaaS
                   </span>
-                  <span className="text-[#64748b]">|</span>
-                  <span className="inline-flex items-center gap-2 rounded-full border border-[#dbe3f0] bg-white px-4 py-2 text-sm font-medium text-navy shadow-sm">
-                    <svg className="h-4 w-4 text-cyan" fill="currentColor" viewBox="0 0 8 8">
-                      <circle cx="4" cy="4" r="3" />
-                    </svg>
-                    Mid-Market Manufacturing
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white border border-cyan/20 px-2.5 py-1 text-xs font-medium text-navy">
+                    <div className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse" />
+                    Manufacturing
                   </span>
-                  <span className="text-[#64748b]">|</span>
-                  <span className="inline-flex items-center gap-2 rounded-full border border-[#dbe3f0] bg-white px-4 py-2 text-sm font-medium text-navy shadow-sm">
-                    <svg className="h-4 w-4 text-cyan" fill="currentColor" viewBox="0 0 8 8">
-                      <circle cx="4" cy="4" r="3" />
-                    </svg>
-                    Early-Stage Fintech
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white border border-cyan/20 px-2.5 py-1 text-xs font-medium text-navy">
+                    <div className="h-1.5 w-1.5 rounded-full bg-cyan animate-pulse" />
+                    Fintech
                   </span>
                 </div>
-                <p className="mt-5 text-xs text-[#64748b] leading-relaxed">
-                  I maintain 2-3 active engagements at a time to ensure deep focus and quality delivery for each client.
-                </p>
               </div>
-            </div>
+            </motion.div>
           </div>
 
-          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {differentiators.map((item, index) => {
-              const isExpanded = expandedCard === index;
-              return (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{
-                    duration: 0.5,
-                    delay: prefersReducedMotion ? 0 : index * 0.1,
-                    ease: "easeOut"
-                  }}
-                  onHoverStart={() => setExpandedCard(index)}
-                  onHoverEnd={() => setExpandedCard(null)}
-                  onClick={() => setExpandedCard(isExpanded ? null : index)}
-                  className="relative overflow-hidden rounded-xl border border-[#dbe3f0] bg-white p-6 shadow-[0_6px_12px_rgba(17,27,58,0.12)] transition-all duration-200 hover:shadow-[0_8px_16px_rgba(0,217,255,0.2)] hover:border-cyan/40 cursor-pointer"
-                >
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,132,255,0.08)_0%,rgba(255,255,255,0)_70%)]" />
-                  <div className="relative">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue/10">
-                      <svg className="h-6 w-6 text-blue" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                        <path d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <h3 className="mt-5 text-lg font-semibold text-navy">{item.title}</h3>
-                    <motion.div
-                      initial={false}
-                      animate={{
-                        height: isExpanded ? 'auto' : 0,
-                        opacity: isExpanded ? 1 : 0,
-                        marginTop: isExpanded ? 12 : 0
-                      }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                      className="overflow-hidden"
-                    >
-                      <p className="text-sm leading-6 text-[#64748b]">{item.detail}</p>
-                    </motion.div>
-                    {!isExpanded && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="mt-3 flex items-center gap-2 text-xs font-medium text-cyan"
-                      >
-                        <span>Learn more</span>
-                        <svg className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                          <path d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </motion.div>
-                    )}
+          {/* Differentiators - Full Width Row Below */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {differentiators.map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{
+                  duration: 0.4,
+                  delay: prefersReducedMotion ? 0 : index * 0.1,
+                  ease: "easeOut"
+                }}
+                className="group relative"
+              >
+                <div className="relative overflow-hidden rounded-xl border border-[#dbe3f0] bg-white p-4 shadow-sm transition-all duration-300 hover:shadow-lg hover:border-cyan/40 hover:-translate-y-1 h-full">
+                  {/* Number Badge */}
+                  <div className="absolute -left-1.5 -top-1.5 flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-cyan to-blue text-xs font-bold text-white shadow-lg">
+                    {index + 1}
                   </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
 
-      {/* NEW: Documented Outcomes Section */}
-      <section
-        ref={outcomesRef}
-        id="outcomes"
-        className="relative overflow-hidden bg-navy py-28 text-white"
-        aria-labelledby="outcomes-heading"
-      >
+                  {/* Content */}
+                  <div className="pl-3">
+                    <h3 className="text-sm font-semibold text-navy group-hover:text-cyan transition-colors leading-tight">
+                      {item.title}
+                    </h3>
+                    <p className="mt-1.5 text-xs leading-relaxed text-[#64748b]">
+                      {item.detail}
+                    </p>
+                  </div>
+
+                  {/* Accent Line */}
+                  <div className="absolute bottom-0 left-0 h-0.5 w-0 bg-gradient-to-r from-cyan to-blue transition-all duration-300 group-hover:w-full" />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+          </div>
+          </div>
+        </section>
+
+        {/* NEW: Documented Outcomes Section - DARK BACKGROUND */}
+        <section
+          ref={outcomesRef}
+          id="outcomes"
+          className="relative overflow-hidden py-24 bg-navy text-white"
+          aria-labelledby="outcomes-heading"
+        >
         <div className="pointer-events-none absolute inset-0">
           {/* Removed gradients - using single cyan gradient from Approach section */}
         </div>
@@ -376,7 +364,7 @@ export default function Home() {
             style={{ y: prefersReducedMotion ? 0 : outcomesContentY }}
             className="mt-10 mx-auto max-w-2xl"
           >
-            <div className="relative overflow-hidden rounded-xl border border-cyan/30 bg-cyan/[0.08] p-6 backdrop-blur-md shadow-[0_12px_32px_rgba(0,217,255,0.15)]">
+            <div className="relative overflow-hidden rounded-xl border border-cyan/30 bg-cyan/[0.08] p-6 shadow-[0_12px_32px_rgba(0,217,255,0.15)]">
               <div className="flex items-start gap-3">
                 <svg className="h-5 w-5 text-cyan flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -392,52 +380,52 @@ export default function Home() {
             style={{ y: prefersReducedMotion ? 0 : outcomesCardsY }}
             className="mt-12 grid gap-6 md:grid-cols-3"
           >
-            <div className="relative flex h-full flex-col justify-between rounded-2xl border border-white/15 bg-white/10 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.14)_0%,rgba(26,31,58,0)_70%)]" />
+            <div className="relative flex h-full flex-col justify-between rounded-xl border border-[#dbe3f0] bg-white p-6 shadow-[0_6px_12px_rgba(17,27,58,0.12)]">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,217,255,0.06)_0%,rgba(255,255,255,0)_70%)]" />
               <div className="relative space-y-3">
                 <span className="inline-flex h-1 w-14 rounded-full bg-magenta" />
                 <div className="space-y-1.5">
-                  <p className="text-[1.85rem] font-semibold leading-tight text-white md:text-[2.1rem]">6-16 weeks</p>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/80">to production</p>
-                  <p className="text-xs leading-5 text-white/75">typical timeline for meaningful improvements to revenue architecture.</p>
-                  <div className="mt-3 pt-3 border-t border-white/20">
-                    <p className="text-xs text-white/60">Industry benchmark:</p>
-                    <p className="mt-1 text-xs leading-5 text-white/75">
-                      Only <a href={signalsWithStats[0].sourceUrl} className="font-semibold underline decoration-magenta/40 underline-offset-2 hover:text-magenta hover:decoration-magenta transition" target="_blank" rel="noopener noreferrer">20%</a> of orgs forecast within 5% accuracy <span className="text-white/50">(Xactly 2024)</span>
+                  <p className="text-[1.85rem] font-semibold leading-tight text-navy md:text-[2.1rem]">6-16 weeks</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#64748b]">to production</p>
+                  <p className="text-xs leading-5 text-[#64748b]">typical timeline for meaningful improvements to revenue architecture.</p>
+                  <div className="mt-3 pt-3 border-t border-[#dbe3f0]">
+                    <p className="text-xs text-[#64748b]">Industry benchmark:</p>
+                    <p className="mt-1 text-xs leading-5 text-[#334155]">
+                      Only <a href={signalsWithStats[0].sourceUrl} className="font-semibold underline decoration-magenta/40 underline-offset-2 hover:text-magenta hover:decoration-magenta transition" target="_blank" rel="noopener noreferrer">20%</a> of orgs forecast within 5% accuracy <span className="text-[#64748b]">(Xactly 2024)</span>
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="relative flex h-full flex-col justify-between rounded-2xl border border-white/15 bg-white/10 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.14)_0%,rgba(26,31,58,0)_70%)]" />
+            <div className="relative flex h-full flex-col justify-between rounded-xl border border-[#dbe3f0] bg-white p-6 shadow-[0_6px_12px_rgba(17,27,58,0.12)]">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,217,255,0.06)_0%,rgba(255,255,255,0)_70%)]" />
               <div className="relative space-y-3">
                 <span className="inline-flex h-1 w-14 rounded-full bg-magenta" />
                 <div className="space-y-1.5">
-                  <p className="text-[1.85rem] font-semibold leading-tight text-white md:text-[2.1rem]">Weekly</p>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/80">production cadence</p>
-                  <p className="text-xs leading-5 text-white/75">regular deployment of improvements while maintaining system stability.</p>
-                  <div className="mt-3 pt-3 border-t border-white/20">
-                    <p className="text-xs text-white/60">Industry benchmark:</p>
-                    <p className="mt-1 text-xs leading-5 text-white/75">
-                      <a href={signalsWithStats[1].sourceUrl} className="font-semibold underline decoration-magenta/40 underline-offset-2 hover:text-magenta hover:decoration-magenta transition" target="_blank" rel="noopener noreferrer">20%</a> of IT budget consumed by tech debt maintenance <span className="text-white/50">(Forrester 2024)</span>
+                  <p className="text-[1.85rem] font-semibold leading-tight text-navy md:text-[2.1rem]">Weekly</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#64748b]">production cadence</p>
+                  <p className="text-xs leading-5 text-[#64748b]">regular deployment of improvements while maintaining system stability.</p>
+                  <div className="mt-3 pt-3 border-t border-[#dbe3f0]">
+                    <p className="text-xs text-[#64748b]">Industry benchmark:</p>
+                    <p className="mt-1 text-xs leading-5 text-[#334155]">
+                      <a href={signalsWithStats[1].sourceUrl} className="font-semibold underline decoration-magenta/40 underline-offset-2 hover:text-magenta hover:decoration-magenta transition" target="_blank" rel="noopener noreferrer">20%</a> of IT budget consumed by tech debt maintenance <span className="text-[#64748b]">(Forrester 2024)</span>
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="relative flex h-full flex-col justify-between rounded-2xl border border-white/15 bg-white/10 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.14)_0%,rgba(26,31,58,0)_70%)]" />
+            <div className="relative flex h-full flex-col justify-between rounded-xl border border-[#dbe3f0] bg-white p-6 shadow-[0_6px_12px_rgba(17,27,58,0.12)]">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,217,255,0.06)_0%,rgba(255,255,255,0)_70%)]" />
               <div className="relative space-y-3">
                 <span className="inline-flex h-1 w-14 rounded-full bg-magenta" />
                 <div className="space-y-1.5">
-                  <p className="text-[1.85rem] font-semibold leading-tight text-white md:text-[2.1rem]">Incremental</p>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/80">approach</p>
-                  <p className="text-xs leading-5 text-white/75">targeted fixes instead of expensive 9-month agency rebuilds.</p>
-                  <div className="mt-3 pt-3 border-t border-white/20">
-                    <p className="text-xs text-white/60">Industry benchmark:</p>
-                    <p className="mt-1 text-xs leading-5 text-white/75">
-                      Complex implementations cost <a href={rebuildCostStat.url} className="font-semibold underline decoration-magenta/40 underline-offset-2 hover:text-magenta hover:decoration-magenta transition" target="_blank" rel="noopener noreferrer">{rebuildCostStat.range}</a> over 9 months <span className="text-white/50">({rebuildCostStat.source} {rebuildCostStat.year})</span>
+                  <p className="text-[1.85rem] font-semibold leading-tight text-navy md:text-[2.1rem]">Incremental</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#64748b]">approach</p>
+                  <p className="text-xs leading-5 text-[#64748b]">targeted fixes instead of expensive 9-month agency rebuilds.</p>
+                  <div className="mt-3 pt-3 border-t border-[#dbe3f0]">
+                    <p className="text-xs text-[#64748b]">Industry benchmark:</p>
+                    <p className="mt-1 text-xs leading-5 text-[#334155]">
+                      Complex implementations cost <a href={rebuildCostStat.url} className="font-semibold underline decoration-magenta/40 underline-offset-2 hover:text-magenta hover:decoration-magenta transition" target="_blank" rel="noopener noreferrer">{rebuildCostStat.range}</a> over 9 months <span className="text-[#64748b]">({rebuildCostStat.source} {rebuildCostStat.year})</span>
                     </p>
                   </div>
                 </div>
@@ -447,12 +435,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section
-        ref={resultsRef}
-        id="approach"
-        className="relative overflow-hidden bg-white py-28 text-navy"
-        aria-labelledby="approach-heading"
-      >
+        {/* Approach Section - LIGHT BACKGROUND */}
+        <section
+          ref={resultsRef}
+          id="approach"
+          className="relative overflow-hidden py-24 bg-[#f8fafc]"
+          aria-labelledby="approach-heading"
+        >
         <motion.div
           style={{ y: resultsBackgroundY, scale: resultsGlowScale }}
           className="pointer-events-none absolute inset-0"
@@ -471,10 +460,10 @@ export default function Home() {
         <div className="relative mx-auto max-w-6xl px-6 lg:px-8">
           {/* Header */}
           <div className="max-w-4xl mx-auto text-center">
-            <span className="text-xs font-semibold uppercase tracking-[0.05em] text-cyan">
+            <span className="text-xs font-semibold uppercase tracking-[0.05em] text-blue">
               Two paths forward
             </span>
-            <h2 id="approach-heading" className="mt-5 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl lg:text-5xl">
+            <h2 id="approach-heading" className="mt-5 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl lg:text-5xl text-navy">
               Hire a conglomerate that bills you. Or an embedded principal who joins your team.
             </h2>
             <p className="mt-6 text-lg leading-8 text-[#334155]">
@@ -488,13 +477,13 @@ export default function Home() {
               <div className="grid gap-8 md:grid-cols-2 items-center">
                 {/* Left: Traditional Agency */}
                 <div className="text-center">
-                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-red-600 mb-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#64748b] mb-4">
                     Typical Agency
                   </p>
                   <div className="flex flex-wrap justify-center gap-2 mb-4">
                     {Array.from({ length: 12 }).map((_, i) => (
-                      <div key={i} className="h-8 w-8 rounded-full bg-red-100 flex items-center justify-center">
-                        <svg className="h-4 w-4 text-red-400" fill="currentColor" viewBox="0 0 24 24">
+                      <div key={i} className="h-8 w-8 rounded-full bg-[#f1f5f9] flex items-center justify-center">
+                        <svg className="h-4 w-4 text-[#94a3b8]" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                         </svg>
                       </div>
@@ -514,7 +503,7 @@ export default function Home() {
 
                 {/* Right: Revelate */}
                 <div className="text-center">
-                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan mb-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-blue mb-4">
                     Revelate
                   </p>
                   <div className="flex justify-center mb-4">
@@ -536,7 +525,7 @@ export default function Home() {
             {/* Left: Big Consultancy (What to Avoid) */}
             <div className="relative overflow-hidden rounded-xl border border-[#dbe3f0] bg-[#f8fafc] p-8 shadow-[0_6px_12px_rgba(17,27,58,0.12)]">
               <div className="absolute top-4 right-4">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-700">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f1f5f9] px-3 py-1 text-xs font-semibold text-[#64748b]">
                   <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 8 8">
                     <circle cx="4" cy="4" r="3" />
                   </svg>
@@ -548,8 +537,8 @@ export default function Home() {
 
               <ul className="mt-8 space-y-4">
                 <li className="flex items-start gap-3">
-                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-100">
-                    <svg className="h-3 w-3 text-red-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#f1f5f9]">
+                    <svg className="h-3 w-3 text-[#64748b]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <path d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </span>
@@ -559,8 +548,8 @@ export default function Home() {
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-100">
-                    <svg className="h-3 w-3 text-red-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#f1f5f9]">
+                    <svg className="h-3 w-3 text-[#64748b]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <path d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </span>
@@ -570,8 +559,8 @@ export default function Home() {
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-100">
-                    <svg className="h-3 w-3 text-red-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#f1f5f9]">
+                    <svg className="h-3 w-3 text-[#64748b]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <path d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </span>
@@ -581,8 +570,8 @@ export default function Home() {
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-red-100">
-                    <svg className="h-3 w-3 text-red-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#f1f5f9]">
+                    <svg className="h-3 w-3 text-[#64748b]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <path d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </span>
@@ -593,35 +582,35 @@ export default function Home() {
                 </li>
               </ul>
 
-              <div className="mt-8 rounded-2xl border border-red-200 bg-red-50 p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.05em] text-red-700">Industry Reality Check</p>
+              <div className="mt-8 rounded-xl border border-[#dbe3f0] bg-[#f8fafc] p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.05em] text-[#64748b]">Industry Reality Check</p>
                 <ul className="mt-3 space-y-2">
                   <li className="flex items-baseline gap-2 text-sm">
-                    <span className="shrink-0 text-red-700">•</span>
-                    <span className="text-red-900">
-                      <a href={industryStats[0].url} className="font-semibold underline decoration-red-400 underline-offset-2 hover:text-red-600 hover:decoration-red-600 transition" title={industryStats[0].tooltip} target="_blank" rel="noopener noreferrer">{industryStats[0].number}</a> of CRM data is incomplete or missing critical fields
-                      <span className="ml-1 text-xs text-red-700">({industryStats[0].source} {industryStats[0].year})</span>
+                    <span className="shrink-0 text-[#64748b]">•</span>
+                    <span className="text-[#334155]">
+                      <a href={industryStats[0].url} className="font-semibold underline decoration-[#94a3b8] underline-offset-2 hover:text-[#64748b] hover:decoration-[#64748b] transition" title={industryStats[0].tooltip} target="_blank" rel="noopener noreferrer">{industryStats[0].number}</a> of CRM data is incomplete or missing critical fields
+                      <span className="ml-1 text-xs text-[#64748b]">({industryStats[0].source} {industryStats[0].year})</span>
                     </span>
                   </li>
                   <li className="flex items-baseline gap-2 text-sm">
-                    <span className="shrink-0 text-red-700">•</span>
-                    <span className="text-red-900">
-                      <a href={industryStats[3].url} className="font-semibold underline decoration-red-400 underline-offset-2 hover:text-red-600 hover:decoration-red-600 transition" title={industryStats[3].tooltip} target="_blank" rel="noopener noreferrer">{industryStats[3].number}</a> average wasted annually on unused SaaS licenses
-                      <span className="ml-1 text-xs text-red-700">({industryStats[3].source} {industryStats[3].year})</span>
+                    <span className="shrink-0 text-[#64748b]">•</span>
+                    <span className="text-[#334155]">
+                      <a href={industryStats[3].url} className="font-semibold underline decoration-[#94a3b8] underline-offset-2 hover:text-[#64748b] hover:decoration-[#64748b] transition" title={industryStats[3].tooltip} target="_blank" rel="noopener noreferrer">{industryStats[3].number}</a> average wasted annually on unused SaaS licenses
+                      <span className="ml-1 text-xs text-[#64748b]">({industryStats[3].source} {industryStats[3].year})</span>
                     </span>
                   </li>
                   <li className="flex items-baseline gap-2 text-sm">
-                    <span className="shrink-0 text-red-700">•</span>
-                    <span className="text-red-900">
-                      <a href={industryStats[2].url} className="font-semibold underline decoration-red-400 underline-offset-2 hover:text-red-600 hover:decoration-red-600 transition" title={industryStats[2].tooltip} target="_blank" rel="noopener noreferrer">{industryStats[2].number}</a> of sales rep time spent on non-selling activities
-                      <span className="ml-1 text-xs text-red-700">({industryStats[2].source} {industryStats[2].year})</span>
+                    <span className="shrink-0 text-[#64748b]">•</span>
+                    <span className="text-[#334155]">
+                      <a href={industryStats[2].url} className="font-semibold underline decoration-[#94a3b8] underline-offset-2 hover:text-[#64748b] hover:decoration-[#64748b] transition" title={industryStats[2].tooltip} target="_blank" rel="noopener noreferrer">{industryStats[2].number}</a> of sales rep time spent on non-selling activities
+                      <span className="ml-1 text-xs text-[#64748b]">({industryStats[2].source} {industryStats[2].year})</span>
                     </span>
                   </li>
                   <li className="flex items-baseline gap-2 text-sm">
-                    <span className="shrink-0 text-red-700">•</span>
-                    <span className="text-red-900">
-                      <a href={industryStats[1].url} className="font-semibold underline decoration-red-400 underline-offset-2 hover:text-red-600 hover:decoration-red-600 transition" title={industryStats[1].tooltip} target="_blank" rel="noopener noreferrer">{industryStats[1].number}</a> average annual cost of poor data quality
-                      <span className="ml-1 text-xs text-red-700">({industryStats[1].source} {industryStats[1].year})</span>
+                    <span className="shrink-0 text-[#64748b]">•</span>
+                    <span className="text-[#334155]">
+                      <a href={industryStats[1].url} className="font-semibold underline decoration-[#94a3b8] underline-offset-2 hover:text-[#64748b] hover:decoration-[#64748b] transition" title={industryStats[1].tooltip} target="_blank" rel="noopener noreferrer">{industryStats[1].number}</a> average annual cost of poor data quality
+                      <span className="ml-1 text-xs text-[#64748b]">({industryStats[1].source} {industryStats[1].year})</span>
                     </span>
                   </li>
                 </ul>
@@ -649,8 +638,19 @@ export default function Home() {
                     </svg>
                   </span>
                   <div>
-                    <p className="text-sm font-medium text-navy">Principal consultant who embeds with your team</p>
+                    <p className="text-sm font-medium text-navy">100% US-based principal who embeds with your team</p>
                     <p className="mt-1 text-xs text-[#64748b]">I join standups, pair on tickets, and ship fixes alongside your admins</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cyan/10">
+                    <svg className="h-3 w-3 text-cyan" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <div>
+                    <p className="text-sm font-medium text-navy">Transparent billing, detailed time tracking</p>
+                    <p className="mt-1 text-xs text-[#64748b]">Incredibly detailed logs on demand. You know exactly what you're paying for.</p>
                   </div>
                 </li>
                 <li className="flex items-start gap-3">
@@ -671,24 +671,13 @@ export default function Home() {
                     </svg>
                   </span>
                   <div>
-                    <p className="text-sm font-medium text-navy">Flexible engagement, transparent billing</p>
-                    <p className="mt-1 text-xs text-[#64748b]">Pay for hours used, not full-time overhead. Cancel anytime.</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cyan/10">
-                    <svg className="h-3 w-3 text-cyan" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                      <path d="M5 13l4 4L19 7" />
-                    </svg>
-                  </span>
-                  <div>
-                    <p className="text-sm font-medium text-navy">Your team owns the system when we're done</p>
-                    <p className="mt-1 text-xs text-[#64748b]">Documentation, runbooks, and enablement so you're never dependent</p>
+                    <p className="text-sm font-medium text-navy">Deep expertise across your specific tech stack</p>
+                    <p className="mt-1 text-xs text-[#64748b]">Salesforce, NetSuite, Workato, Apollo—I've solved your integration challenge twice already</p>
                   </div>
                 </li>
               </ul>
 
-              <div className="mt-8 rounded-2xl border border-cyan/30 bg-cyan/5 p-4">
+              <div className="mt-8 rounded-xl border border-cyan/30 bg-cyan/5 p-4">
                 <p className="text-xs font-semibold uppercase tracking-[0.05em] text-cyan">The cost difference</p>
                 <ul className="mt-3 space-y-2">
                   <li className="flex items-baseline gap-2 text-sm">
@@ -710,70 +699,77 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="process" className="bg-[#f8fafc] py-28 text-navy" aria-labelledby="process-heading">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <span className="text-xs font-semibold uppercase tracking-[0.05em] text-blue">
+        {/* Process Section - DARK BACKGROUND */}
+        <section id="process" className="py-20 bg-navy text-white" aria-labelledby="process-heading">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <span className="text-xs font-semibold uppercase tracking-[0.05em] text-cyan">
               How the sprint runs
             </span>
-            <h2 id="process-heading" className="mt-5 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl">
+            <h2 id="process-heading" className="mt-5 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl text-white">
               Sprints that protect revenue while we modernize.
             </h2>
-            <p className="mt-4 text-base leading-7 text-[#334155] md:text-lg">
+            <p className="mt-4 text-base leading-7 text-white/80 md:text-lg">
               We run an immersion audit, then ship incremental improvements on a regular cadence with the same rigor your engineers expect.
             </p>
           </div>
 
-          <div className="mt-16 grid gap-10 lg:grid-cols-3">
-            {process.map((step, index) => (
-              <div
-                key={step.phase}
-                className="relative overflow-hidden rounded-xl border border-[#dbe3f0] bg-white p-8 shadow-[0_8px_12px_rgba(17,27,58,0.15)]"
-              >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(0,132,255,0.16)_0%,_rgba(255,255,255,0)_85%)]" />
+          {/* Process Cards - Unified Style */}
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {process.map((step, index) => {
+              // Offset middle card up for visual interest
+              const offsetClass = index === 1 ? 'lg:-mt-6' : '';
+              return (
+                <div
+                  key={step.phase}
+                  className={`relative overflow-hidden rounded-xl border border-[#dbe3f0] bg-white p-6 shadow-[0_6px_12px_rgba(17,27,58,0.12)] ${offsetClass}`}
+                >
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,217,255,0.06)_0%,rgba(255,255,255,0)_70%)]" />
                 <div className="relative">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue/15 text-sm font-semibold text-navy shadow-[0_6px_12px_rgba(0,132,255,0.3)]">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-cyan/10 text-sm font-semibold text-navy shadow-[0_4px_8px_rgba(0,217,255,0.2)]">
                     {index + 1}
                   </span>
                   <p className="mt-4 text-xs font-semibold uppercase tracking-[0.05em] text-[#64748b]">{step.phase}</p>
-                  <h3 className="mt-2 text-xl font-semibold text-navy">{step.focus}</h3>
+                  <h3 className="mt-2 text-lg font-semibold text-navy">{step.focus}</h3>
                   <p className="mt-3 text-sm leading-6 text-[#334155]">{step.summary}</p>
                   <p className="mt-5 text-xs font-semibold uppercase tracking-[0.05em] text-[#64748b]">Delivered</p>
                   <ul className="mt-3 space-y-2 text-sm text-[#334155]">
                     {step.deliverables.map((item) => (
                       <li key={item} className="flex items-start gap-3">
-                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-blue" />
+                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-cyan" />
                         <span>{item}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
-            ))}
+            );
+            })}
           </div>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      <section
-        id="faq"
-        className="relative overflow-hidden bg-[#f8fafc] py-28 text-navy"
-        aria-labelledby="faq-heading"
-      >
+        {/* FAQ Section - LIGHT BACKGROUND */}
+        <section
+          id="faq"
+          className="relative overflow-hidden pt-20 pb-24 bg-[#f8fafc]"
+          aria-labelledby="faq-heading"
+        >
         <div className="pointer-events-none absolute inset-0">
           {/* Removed gradients for cleaner aesthetic */}
         </div>
 
         <div className="relative mx-auto max-w-5xl px-6 lg:px-8">
           <div className="max-w-3xl">
-            <span className="text-xs font-semibold uppercase tracking-[0.05em] text-cyan">
+            <span className="text-xs font-semibold uppercase tracking-[0.05em] text-blue">
               Still deciding?
             </span>
-            <h2 id="faq-heading" className="mt-5 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl">
+            <h2 id="faq-heading" className="mt-5 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl text-navy">
               Fast answers before we hop on a call.
             </h2>
             <p className="mt-4 text-base leading-7 text-[#334155] md:text-lg">
               Need something else? Email{' '}
-              <a href="mailto:drew@revelateops.com" className="text-cyan underline decoration-cyan/40 underline-offset-4">
+              <a href="mailto:drew@revelateops.com" className="text-blue underline decoration-blue/40 underline-offset-4">
                 drew@revelateops.com
               </a>{' '}
               and I'll reply within a day.
@@ -785,7 +781,7 @@ export default function Home() {
           <div className="mt-8 text-center">
             <Link
               href="/faq"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-cyan transition-colors duration-200 hover:text-blue"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-blue transition-colors duration-200 hover:text-navy"
             >
               See all FAQs
               <svg
@@ -803,14 +799,15 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
+        </section>
 
-      <section
-        ref={ctaRef}
-        id="cta"
-        className="relative overflow-hidden bg-navy-ink py-28 text-white"
-        aria-labelledby="cta-heading"
-      >
+        {/* CTA Section - Navy background breaks through the light gray */}
+        <section
+          ref={ctaRef}
+          id="cta"
+          className="relative overflow-hidden bg-navy-ink py-28 text-white"
+          aria-labelledby="cta-heading"
+        >
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           {/* Removed gradients for cleaner aesthetic */}
           <div className="absolute inset-0 mix-blend-screen opacity-30">
@@ -819,7 +816,7 @@ export default function Home() {
         </div>
 
         <motion.div style={{ y: prefersReducedMotion ? '0%' : ctaContentY }} className="relative mx-auto max-w-4xl px-6 text-center">
-          <div className="overflow-hidden rounded-xl border border-white/30 bg-white/10 px-6 py-10 shadow-[0_8px_12px_rgba(8,13,40,0.6)] backdrop-blur-xl sm:rounded-2xl sm:px-8 sm:py-12">
+          <div className="overflow-hidden rounded-xl border border-white/30 bg-white/[0.08] px-6 py-10 shadow-[0_8px_12px_rgba(8,13,40,0.6)] sm:px-8 sm:py-12">
             <span className="text-xs font-semibold uppercase tracking-[0.12em] text-cyan">Next step</span>
             <h2 id="cta-heading" className="mt-6 text-2xl font-semibold leading-[1.2] sm:text-3xl md:text-4xl">
               Bring the messy org to a working session. We'll map the fixes together.
@@ -853,6 +850,7 @@ export default function Home() {
           </div>
         </motion.div>
       </section>
+      </main>
     </>
   );
 }

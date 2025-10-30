@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -506,11 +506,18 @@ export default function ServicesPage() {
 
 
   const toggleService = (serviceId: string) => {
-    setSelectedServices(prev =>
-      prev.includes(serviceId)
+    setSelectedServices(prev => {
+      const updated = prev.includes(serviceId)
         ? prev.filter(id => id !== serviceId)
-        : [...prev, serviceId]
-    );
+        : [...prev, serviceId];
+
+      // Persist to localStorage
+      localStorage.setItem('selectedServices', JSON.stringify(updated));
+      // Dispatch custom event for same-page updates
+      window.dispatchEvent(new Event('customPackageUpdated'));
+
+      return updated;
+    });
   };
 
   const togglePackage = (packageId: string) => {
@@ -521,7 +528,12 @@ export default function ServicesPage() {
     if (expandedPackage === packageId) {
       // Close the package and uncheck its services
       setExpandedPackage(null);
-      setSelectedServices(prev => prev.filter(id => !pkg.serviceIds.includes(id)));
+      setSelectedServices(prev => {
+        const updated = prev.filter(id => !pkg.serviceIds.includes(id));
+        localStorage.setItem('selectedServices', JSON.stringify(updated));
+        window.dispatchEvent(new Event('customPackageUpdated'));
+        return updated;
+      });
     } else {
       // Open the package and check its services
       setExpandedPackage(packageId);
@@ -532,10 +544,27 @@ export default function ServicesPage() {
             newServices.push(id);
           }
         });
+        localStorage.setItem('selectedServices', JSON.stringify(newServices));
+        window.dispatchEvent(new Event('customPackageUpdated'));
         return newServices;
       });
     }
   };
+
+  // Load selected services from localStorage on mount
+  useEffect(() => {
+    const stored = localStorage.getItem('selectedServices');
+    if (stored) {
+      try {
+        const services = JSON.parse(stored);
+        if (Array.isArray(services)) {
+          setSelectedServices(services);
+        }
+      } catch {
+        // Ignore parsing errors
+      }
+    }
+  }, []);
 
   const openDetailModal = (capability: typeof capabilities[0]) => {
     setSelectedCapability(capability);
@@ -822,11 +851,11 @@ export default function ServicesPage() {
                         <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                       </svg>
                     </div>
-                    <div className="mt-4 text-xs font-semibold uppercase tracking-[0.05em] text-white/60">
+                    <div className="mt-6 text-xs font-semibold uppercase tracking-[0.05em] text-white/60">
                       Typical Agency Alternative
                     </div>
-                    <div className="mt-2 text-6xl font-bold tracking-[-0.02em] text-cyan">$150K-$200K</div>
-                    <div className="mt-4 text-base leading-relaxed text-white/80">
+                    <div className="mt-4 text-6xl font-bold tracking-[-0.02em] text-cyan">$150K-$200K</div>
+                    <div className="mt-6 text-base leading-[1.7] text-white/80">
                       Average cost of agency "rip and replace" rebuild over 9 months—avoid this with incremental improvements
                     </div>
                   </div>
@@ -953,10 +982,10 @@ export default function ServicesPage() {
                 return (
                   <motion.div
                     key={pkg.id}
-                    className={`relative overflow-hidden rounded-2xl border-2 bg-white/5 cursor-pointer transition-all duration-300 ${
+                    className={`relative overflow-hidden rounded-2xl border bg-white/5 cursor-pointer transition-all duration-300 ${
                       isExpanded
-                        ? `${accent.border} shadow-[0_8px_24px_rgba(0,217,255,0.25)]`
-                        : 'border-white/10 hover:border-white/20 hover:shadow-[0_4px_12px_rgba(0,0,0,0.3)]'
+                        ? 'border-cyan/40 bg-cyan/5 shadow-lg'
+                        : 'border-white/10 hover:border-white/20 hover:shadow-md'
                     }`}
                     onClick={() => togglePackage(pkg.id)}
                     initial={motionDisabled ? false : { opacity: 0, x: -20 }}
@@ -964,10 +993,6 @@ export default function ServicesPage() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: motionDisabled ? 0 : index * 0.1 }}
                   >
-                    {/* Top accent bar */}
-                    {isExpanded && (
-                      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${accent.gradient}`} />
-                    )}
 
                     <div className="p-6">
                       {/* Icon and Title */}
@@ -1076,17 +1101,13 @@ export default function ServicesPage() {
                       viewport={{ once: true, margin: '-60px' }}
                       transition={{ duration: 0.5, delay: motionDisabled ? 0 : index * 0.03 }}
                     >
-                      <div className={`relative h-full overflow-hidden rounded-xl border bg-white/5 p-5 shadow-[0_4px_12px_rgba(0,0,0,0.2)] transition-all duration-300 cursor-pointer ${
+                      <div className={`relative h-full overflow-hidden rounded-lg border p-5 shadow-md transition-all duration-300 cursor-pointer ${
                         isSelected
-                          ? 'border-cyan shadow-[0_6px_16px_rgba(0,217,255,0.3)]'
-                          : 'border-white/10 group-hover:border-white/20 group-hover:shadow-[0_4px_12px_rgba(0,0,0,0.3)]'
+                          ? 'border-cyan/40 bg-cyan/5'
+                          : 'border-white/10 bg-white/5 group-hover:border-white/20 group-hover:bg-white/8'
                       }`}
                       onClick={() => openDetailModal(capability)}
                       >
-                        {/* Selected indicator */}
-                        {isSelected && (
-                          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan to-blue" />
-                        )}
 
                         {/* Subtle gradient background */}
                         <div className={`absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,217,255,0.08)_0%,rgba(255,255,255,0)_70%)] transition-opacity duration-300 ${
@@ -1363,10 +1384,10 @@ export default function ServicesPage() {
                 onClick={() => {
                   toggleService(selectedCapability.id);
                 }}
-                className={`mt-6 w-full rounded-xl px-6 py-3 text-base font-semibold transition-all duration-300 ${
+                className={`mt-6 w-full rounded-lg px-6 py-3 text-base font-semibold transition-all duration-300 ${
                   selectedServices.includes(selectedCapability.id)
-                    ? 'bg-cyan/10 text-cyan border-2 border-cyan'
-                    : 'bg-cyan text-navy border-2 border-cyan hover:bg-[#00c4e6]'
+                    ? 'bg-cyan/10 text-cyan border border-cyan/40'
+                    : 'bg-gradient-to-r from-cyan to-blue text-navy hover:shadow-lg'
                 }`}
               >
                 {selectedServices.includes(selectedCapability.id) ? 'Remove from Package' : 'Add to Package'}
@@ -1376,64 +1397,6 @@ export default function ServicesPage() {
         );
       })()}
 
-      {/* Floating Package Builder */}
-      {selectedServices.length > 0 && (
-        <motion.div
-          className="fixed bottom-8 right-8 z-40 w-80 rounded-xl border border-cyan/50 bg-navy p-6 shadow-[0_20px_60px_rgba(0,217,255,0.3)]"
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 100 }}
-        >
-          <div className="flex items-start justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-white">Your Custom Package</h3>
-              <p className="mt-1 text-sm text-white/70">{selectedServices.length} service{selectedServices.length !== 1 ? 's' : ''} selected</p>
-            </div>
-            <button
-              onClick={() => setSelectedServices([])}
-              className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
-            >
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Selected Services List */}
-          <div className="mt-4 space-y-2 max-h-48 overflow-y-auto">
-            {capabilities
-              .filter(c => selectedServices.includes(c.id))
-              .map(service => (
-                <div
-                  key={service.id}
-                  className="flex items-center justify-between rounded-lg bg-white/10 p-2 text-sm"
-                >
-                  <span className="text-white">{service.title}</span>
-                  <button
-                    onClick={() => toggleService(service.id)}
-                    className="text-cyan hover:text-[#00c4e6]"
-                  >
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                      <path d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              ))}
-          </div>
-
-          {/* CTA */}
-          <button
-            onClick={() => setUserInfoModalOpen(true)}
-            className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-cyan px-6 py-3 text-base font-semibold text-navy transition-colors duration-200 hover:bg-[#00c4e6]"
-          >
-            Discuss Your Custom Package
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path d="M5 12h14" />
-              <path d="m12 5 7 7-7 7" />
-            </svg>
-          </button>
-        </motion.div>
-      )}
 
       {/* User Info Modal */}
       <UserInfoModal

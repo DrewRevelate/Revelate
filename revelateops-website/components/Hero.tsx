@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRef, useState, useEffect } from 'react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
@@ -12,6 +13,19 @@ const executivePainPoints = [
   "Pipeline reports take 40 hours. Decisions take 40 seconds.",
   "You're paying for Salesforce. But trusting spreadsheets.",
   "Every quarter, same question: Where did the revenue go?"
+];
+
+const platforms = [
+  { name: 'Salesforce', logo: '/logos/salesforce.png' },
+  { name: 'HubSpot', logo: '/logos/hubspot.svg' },
+  { name: 'Slack', logo: '/logos/slack.png' },
+  { name: 'GitHub', logo: '/logos/github.png' },
+  { name: 'Notion', logo: '/logos/notion.png' },
+  { name: 'Figma', logo: '/logos/figma.svg' },
+  { name: 'Atlassian', logo: '/logos/atlassian.svg' },
+  { name: 'Datadog', logo: '/logos/datadog.svg' },
+  { name: 'Pipedrive', logo: '/logos/pipedrive.png' },
+  { name: 'Snowflake', logo: '/logos/snowflake.svg' },
 ];
 
 export default function Hero() {
@@ -43,7 +57,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative isolate z-0 flex h-full min-h-screen items-center justify-center overflow-hidden bg-navy/95 text-white backdrop-blur-lg"
+      className="relative isolate z-0 flex h-full min-h-screen items-center justify-center overflow-hidden bg-navy text-white"
     >
       {/* Deep parallax backdrop */}
       <motion.div style={{ y: backgroundY }} className="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -62,6 +76,7 @@ export default function Hero() {
         style={{ y: svgY }}
         className="pointer-events-none absolute inset-0 h-full w-full opacity-25 mix-blend-screen"
         xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
       >
         <motion.line
           x1="65%"
@@ -166,6 +181,80 @@ export default function Hero() {
               How We Work
             </Link>
           </motion.div>
+
+          {/* Platform Logo Showcase - Infinite Scroll Marquee */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="mt-16"
+          >
+            <p className="text-xs font-medium uppercase tracking-wider text-white/60 mb-6 text-center">
+              Trusted expertise across 30+ enterprise platforms
+            </p>
+
+            {/* Marquee Container */}
+            <div className="relative overflow-hidden">
+              {/* Gradient Overlays for fade effect */}
+              <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-navy to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-navy to-transparent z-10 pointer-events-none" />
+
+              {/* Scrolling Track - Pauses on hover */}
+              <div className="group relative">
+                <div className="flex animate-marquee hover:pause-animation group-hover:[animation-play-state:paused]">
+                  {/* First set of logos */}
+                  {platforms.map((platform, index) => (
+                    <div
+                      key={`${platform.name}-1`}
+                      className="flex-shrink-0 mx-6"
+                      title={platform.name}
+                    >
+                      <div className="relative h-12 w-32 flex items-center justify-center transition-all duration-300 hover:scale-110">
+                        <div className="absolute inset-0 bg-white rounded-lg shadow-lg" />
+                        <Image
+                          src={platform.logo}
+                          alt={`${platform.name} logo`}
+                          width={128}
+                          height={48}
+                          className="relative object-contain max-h-10 w-auto transition-all duration-300 px-2"
+                        />
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Duplicate set for seamless loop */}
+                  {platforms.map((platform, index) => (
+                    <div
+                      key={`${platform.name}-2`}
+                      className="flex-shrink-0 mx-6"
+                      title={platform.name}
+                    >
+                      <div className="relative h-12 w-32 flex items-center justify-center transition-all duration-300 hover:scale-110">
+                        <div className="absolute inset-0 bg-white rounded-lg shadow-lg" />
+                        <Image
+                          src={platform.logo}
+                          alt={`${platform.name} logo`}
+                          width={128}
+                          height={48}
+                          className="relative object-contain max-h-10 w-auto transition-all duration-300 px-2"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Additional platforms indicator */}
+            <div className="mt-6 text-center">
+              <span className="inline-flex items-center gap-2 text-xs font-medium text-white/50">
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                20+ additional integrations
+              </span>
+            </div>
+          </motion.div>
         </article>
       </div>
 
@@ -180,6 +269,29 @@ export default function Hero() {
           50% {
             transform: scale(1.15) translate(-15px, 15px);
             opacity: 0.25;
+          }
+        }
+
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+
+        .animate-marquee {
+          animation: marquee 30s linear infinite;
+        }
+
+        .pause-animation {
+          animation-play-state: paused;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .animate-marquee {
+            animation: none;
           }
         }
       `}</style>

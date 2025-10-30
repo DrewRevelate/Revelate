@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@vercel/edge-config": "^1.4.3",
+    "@vercel/postgres": "^0.10.0"
+  }
+}

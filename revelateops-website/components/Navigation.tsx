@@ -9,6 +9,7 @@ const links = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
   { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 export default function Navigation() {
@@ -145,12 +146,14 @@ export default function Navigation() {
 
             <button
               onClick={() => setIsOpen((prev) => !prev)}
-              className={`rounded-lg border p-2 text-white transition md:hidden ${
+              className={`rounded-lg border p-2 text-white transition md:hidden focus:outline-none focus:ring-2 focus:ring-cyan ${
                 showCompact
                   ? 'border-cyan/30 bg-navy/60 backdrop-blur-sm hover:border-cyan hover:bg-navy/80'
                   : 'border-white/40 bg-white/10 backdrop-blur-sm hover:border-white hover:bg-white/20'
               }`}
               aria-label="Toggle navigation menu"
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
             >
               <svg className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 {isOpen ? (
@@ -163,7 +166,7 @@ export default function Navigation() {
           </div>
 
           {isOpen && (
-            <div className="mt-4 space-y-2 border-t border-cyan/30 bg-gradient-to-b from-navy/40 to-transparent pt-4 md:hidden">
+            <div id="mobile-menu" className="mt-4 space-y-2 border-t border-cyan/30 bg-gradient-to-b from-navy/40 to-transparent pt-4 md:hidden">
               {links.map((link) => (
                 <Link
                   key={link.label}

@@ -84,7 +84,7 @@ export default function StickyNav() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: isVisible ? 0 : -100, opacity: isVisible ? 1 : 0 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
-      className="fixed top-20 left-0 right-0 z-40 bg-white/95 backdrop-blur-lg border-b border-[#dbe3f0] shadow-sm"
+      className="fixed top-20 left-0 right-0 z-40"
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <ul className="flex items-center justify-center gap-1 py-3 overflow-x-auto">
@@ -92,7 +92,8 @@ export default function StickyNav() {
             <li key={section.id}>
               <button
                 onClick={() => scrollToSection(section.id)}
-                className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-lg whitespace-nowrap ${
+                aria-label={`Navigate to ${section.label} section`}
+                className={`relative px-4 py-2 text-sm font-medium transition-colors duration-200 rounded-lg whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-cyan/50 ${
                   activeSection === section.id
                     ? 'text-cyan'
                     : 'text-[#64748b] hover:text-navy'

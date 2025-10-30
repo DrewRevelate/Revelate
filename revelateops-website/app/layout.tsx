@@ -4,6 +4,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import FloatingBookingButton from "@/components/FloatingBookingButton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -91,16 +92,17 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <body className="font-sans antialiased">
         <a
-          href="#symptoms"
-          className="skip-link fixed left-4 top-4 z-[999] -translate-y-20 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-[#080a12] shadow transition focus:translate-y-0 focus:outline-none"
+          href="#differentiators"
+          className="skip-link fixed left-4 top-4 z-[999] -translate-y-20 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-[#080a12] shadow transition focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-cyan"
         >
-          Skip to content
+          Skip to main content
         </a>
         <Navigation />
         <main role="main">
           {children}
         </main>
         <Footer />
+        <FloatingBookingButton />
         <Script
           id="structured-data"
           type="application/ld+json"
