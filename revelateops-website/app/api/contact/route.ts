@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createConversation, addMessage } from '@/lib/db/conversations';
+import { createConversation, addMessage, closeActiveConversationsForEmail } from '@/lib/db/conversations';
 
 // Note: Changed from 'edge' to 'nodejs' to support Vercel Postgres
 export const runtime = 'nodejs';
@@ -143,7 +143,11 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create conversation in database
+    // Close any previous active conversations for this email
+    // This enforces one active conversation per user
+    await closeActiveConversationsForEmail(data.email);
+
+    // Create new conversation in database
     const conversation = await createConversation({
       user_name: data.name,
       user_email: data.email,

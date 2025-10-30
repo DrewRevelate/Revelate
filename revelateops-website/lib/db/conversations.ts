@@ -166,3 +166,25 @@ export async function getRecentActiveConversation(): Promise<Conversation | null
 
   return result.rows[0] || null;
 }
+
+/**
+ * Close a conversation (set status to 'closed')
+ */
+export async function closeConversation(id: number): Promise<void> {
+  await sql`
+    UPDATE conversations
+    SET status = 'closed', updated_at = NOW()
+    WHERE id = ${id}
+  `;
+}
+
+/**
+ * Close all active conversations for a given email
+ */
+export async function closeActiveConversationsForEmail(email: string): Promise<void> {
+  await sql`
+    UPDATE conversations
+    SET status = 'closed', updated_at = NOW()
+    WHERE user_email = ${email} AND status = 'active'
+  `;
+}

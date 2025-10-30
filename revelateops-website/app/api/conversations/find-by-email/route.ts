@@ -5,7 +5,8 @@ export const runtime = 'nodejs';
 
 /**
  * POST /api/conversations/find-by-email
- * Find previous conversations for a given email address with recent messages
+ * Find ACTIVE conversation for a given email address with recent messages
+ * Only returns the active conversation (if any) - enforces one conversation per user
  */
 export async function POST(request: Request) {
   try {
@@ -21,15 +22,18 @@ export async function POST(request: Request) {
     // Find all conversations for this email
     const conversations = await getConversationsByEmail(email);
 
-    if (conversations.length === 0) {
+    // Filter for active conversations only
+    const activeConversations = conversations.filter(c => c.status === 'active');
+
+    if (activeConversations.length === 0) {
       return NextResponse.json({
         found: false,
         conversation: null
       });
     }
 
-    // Get the most recent conversation with its last few messages
-    const mostRecent = conversations[0];
+    // Get the most recent active conversation with its last few messages
+    const mostRecent = activeConversations[0];
     const recentMessages = await getLastMessages(mostRecent.id, 3);
 
     return NextResponse.json({

@@ -12,9 +12,10 @@ interface Message {
 interface ChatWidgetProps {
   conversationId: number;
   userName: string;
+  onStartNew?: () => void;
 }
 
-export default function ChatWidget({ conversationId, userName }: ChatWidgetProps) {
+export default function ChatWidget({ conversationId, userName, onStartNew }: ChatWidgetProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [sending, setSending] = useState(false);
@@ -108,6 +109,21 @@ export default function ChatWidget({ conversationId, userName }: ChatWidgetProps
 
   return (
     <div className="flex flex-col h-[450px] bg-gray-50 border border-gray-200 rounded-lg overflow-hidden">
+      {/* Header with Start New button */}
+      {onStartNew && (
+        <div className="bg-white border-b border-gray-200 px-4 py-2 flex items-center justify-between">
+          <div className="text-sm text-gray-600">
+            Chat with Drew
+          </div>
+          <button
+            onClick={onStartNew}
+            className="text-xs text-gray-500 hover:text-navy transition-colors duration-200 underline"
+          >
+            Start New Conversation
+          </button>
+        </div>
+      )}
+
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {messages.map((msg) => (

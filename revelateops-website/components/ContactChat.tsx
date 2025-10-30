@@ -149,6 +149,21 @@ export default function ContactChat() {
     }
   };
 
+  const handleStartNew = () => {
+    // Clear conversation and localStorage
+    setConversationId(null);
+    setUserName('');
+    localStorage.removeItem('activeConversation');
+    // Reset form except email (keep it for convenience)
+    setFormData({
+      ...formData,
+      name: '',
+      phone: '',
+      company: '',
+      message: ''
+    });
+  };
+
   // If conversation started, show chat widget
   if (conversationId) {
     return (
@@ -158,7 +173,11 @@ export default function ContactChat() {
             👋 Hey {userName}! Your message has been sent. Feel free to continue the conversation here, and I'll reply as soon as I can.
           </p>
         </div>
-        <ChatWidget conversationId={conversationId} userName={userName} />
+        <ChatWidget
+          conversationId={conversationId}
+          userName={userName}
+          onStartNew={handleStartNew}
+        />
       </div>
     );
   }
