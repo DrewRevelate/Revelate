@@ -1,0 +1,29 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/1-8" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.8</storyId>
+    <title>Structured Logging Implementation</title>
+    <status>Drafted</status>
+    <generatedAt>2025-10-30</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/story-1.8.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>developer</asA>
+    <iWant>structured logging with conversation_id tracing</iWant>
+    <soThat>I can debug issues and trace user interactions</soThat>
+  </story>
+  <acceptanceCriteria>
+    <criterion id="AC1">Pino logging library integrated</criterion>
+    <criterion id="AC2">All API endpoints log request/response with conversation_id</criterion>
+    <criterion id="AC3">Database operations log query details</criterion>
+    <criterion id="AC4">Log levels configured (error, warn, info, debug)</criterion>
+    <criterion id="AC5">Logs formatted as JSON for parsing</criterion>
+    <criterion id="AC6">Log retention policy documented</criterion>
+  </acceptanceCriteria>
+  <constraints>
+    <constraint id="C1">Must use Pino 10.1.0</constraint>
+    <constraint id="C2">Create lib/monitoring/logger.ts</constraint>
+    <constraint id="C3">JSON output for production, pretty for development</constraint>
+  </constraints>
+</story-context>

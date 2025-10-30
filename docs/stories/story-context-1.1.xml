@@ -1,0 +1,255 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/1-1" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.1</storyId>
+    <title>Set Up Testing Infrastructure</title>
+    <status>Drafted</status>
+    <generatedAt>2025-10-30</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/story-1.1.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>developer</asA>
+    <iWant>a configured testing environment with Jest and React Testing Library</iWant>
+    <soThat>I can write and run unit and integration tests for the application</soThat>
+    <tasks>
+      - Install and configure testing dependencies (Jest 30.2.0, RTL 16.3.0, supporting packages)
+      - Create Jest configuration for Next.js 16 with TypeScript support
+      - Create global test setup file with jest-dom matchers
+      - Add test scripts to package.json (test, test:watch, test:coverage)
+      - Create sample test file and verify it passes
+      - Update README with testing documentation
+      - Verify installation and configuration works correctly
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="AC1">Jest configured for Next.js 16 with TypeScript support</criterion>
+    <criterion id="AC2">React Testing Library installed and configured</criterion>
+    <criterion id="AC3">Test scripts added to package.json (test, test:watch, test:coverage)</criterion>
+    <criterion id="AC4">Sample test file created and passing</criterion>
+    <criterion id="AC5">Testing documentation added to README</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Decision Architecture - Revelate Enhancement</title>
+        <section>Testing Framework</section>
+        <snippet>Jest 30.2.0 + React Testing Library 16.3.0 chosen as industry standard for Next.js with native configuration support and excellent TypeScript integration. Tests organized in __tests__/ directory with unit/, integration/, and e2e/ subdirectories.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Decision Architecture - Revelate Enhancement</title>
+        <section>Testing Patterns</section>
+        <snippet>Unit tests co-located with source using *.test.ts naming. Test database uses in-memory PostgreSQL. External APIs mocked with Jest mocks. Jest 30 requires Node.js 18+, TypeScript 5.4+.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Decision Architecture - Revelate Enhancement</title>
+        <section>Project Structure</section>
+        <snippet>Testing directory structure: __tests__/unit/, __tests__/integration/, __tests__/e2e/. Jest config at project root as jest.config.js. Tests use @/ path alias matching tsconfig.json.</snippet>
+      </doc>
+      <doc>
+        <path>docs/technology-stack.md</path>
+        <title>Technology Stack - Revelate Website</title>
+        <section>Core Framework & Language</section>
+        <snippet>Next.js 16.0.0 with App Router, TypeScript 5.x strict mode, React 19.2.0. Node.js 20+ runtime. Path aliases: @/* → project root. TypeScript target ES2017, module resolution: Bundler.</snippet>
+      </doc>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>Revelate - Epic Breakdown</title>
+        <section>Story 1.1: Set Up Testing Infrastructure</section>
+        <snippet>Foundational story for Epic 1 with no prerequisites. Establishes testing environment for subsequent stories. All 5 ACs must be met before subsequent testing stories can begin.</snippet>
+      </doc>
+    </docs>
+
+    <code>
+      <file>
+        <path>revelateops-website/package.json</path>
+        <kind>manifest</kind>
+        <symbol>scripts, dependencies, devDependencies</symbol>
+        <lines>1-35</lines>
+        <reason>Current dependency manifest. No testing dependencies exist yet. Will be modified to add Jest, RTL, and test scripts.</reason>
+      </file>
+      <file>
+        <path>revelateops-website/tsconfig.json</path>
+        <kind>configuration</kind>
+        <symbol>compilerOptions, paths</symbol>
+        <lines>N/A</lines>
+        <reason>TypeScript configuration with @/* path alias. Jest config must mirror these path mappings for import resolution in tests.</reason>
+      </file>
+      <file>
+        <path>revelateops-website/next.config.js</path>
+        <kind>configuration</kind>
+        <symbol>Next.js configuration</symbol>
+        <lines>N/A</lines>
+        <reason>Next.js configuration file. Jest must be configured to work with Next.js 16 App Router and its build-time transformations.</reason>
+      </file>
+    </code>
+
+    <dependencies>
+      <current>
+        <node>
+          <dependencies>
+            - @emotion/react: ^11.14.0
+            - @emotion/styled: ^11.14.1
+            - @mui/icons-material: ^7.3.4
+            - @mui/material: ^7.3.4
+            - date-fns: ^4.1.0
+            - dotenv: ^17.2.3
+            - framer-motion: ^12.23.24
+            - jspdf: ^3.0.3
+            - lucide-react: ^0.548.0
+            - next: 16.0.0
+            - react: 19.2.0
+            - react-dom: 19.2.0
+          </dependencies>
+          <devDependencies>
+            - @tailwindcss/postcss: ^4
+            - @types/node: ^20
+            - @types/react: ^19
+            - @types/react-dom: ^19
+            - eslint: ^9
+            - eslint-config-next: 16.0.0
+            - tailwindcss: ^4
+            - typescript: ^5
+          </devDependencies>
+        </node>
+      </current>
+      <toInstall>
+        <node>
+          <devDependencies>
+            - jest: 30.2.0 (unit + integration testing framework)
+            - @testing-library/react: 16.3.0 (React component testing)
+            - @testing-library/dom: latest (peer dependency for RTL 16+)
+            - @testing-library/jest-dom: latest (custom DOM matchers)
+            - @testing-library/user-event: latest (user interaction simulation)
+            - @types/jest: latest (TypeScript types for Jest)
+            - ts-jest: latest (TypeScript preprocessor for Jest)
+            - jest-environment-jsdom: latest (browser-like test environment)
+          </devDependencies>
+        </node>
+      </toInstall>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint id="C1">Must use Jest 30.2.0 specifically (verified latest stable version as of 2025-10-30)</constraint>
+    <constraint id="C2">Must use React Testing Library 16.3.0 (requires @testing-library/dom as peer dependency)</constraint>
+    <constraint id="C3">Jest config must support Next.js 16 App Router including Server Components</constraint>
+    <constraint id="C4">Must configure TypeScript support with ts-jest</constraint>
+    <constraint id="C5">Path aliases (@/) must work in tests matching tsconfig.json configuration</constraint>
+    <constraint id="C6">Test environment must be jsdom for React component testing</constraint>
+    <constraint id="C7">All test files use *.test.ts or *.test.tsx naming convention</constraint>
+    <constraint id="C8">Tests organized in __tests__/ directory (unit/, integration/, e2e/ subdirectories)</constraint>
+    <constraint id="C9">Coverage threshold will be 80% (implemented in Story 1.5, but jest.config.js should be ready)</constraint>
+    <constraint id="C10">Node.js 18+ and TypeScript 5.4+ required for Jest 30</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>package.json scripts</name>
+      <kind>npm scripts</kind>
+      <signature>
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage"
+      </signature>
+      <path>revelateops-website/package.json</path>
+      <reason>Standard npm script interface for running tests across the project</reason>
+    </interface>
+    <interface>
+      <name>jest.config.js</name>
+      <kind>Jest configuration</kind>
+      <signature>
+        module.exports = {
+          preset: 'next/jest',
+          testEnvironment: 'jest-environment-jsdom',
+          setupFilesAfterEnv: ['&lt;rootDir&gt;/__tests__/setup.ts'],
+          moduleNameMapper: { '^@/(.*)$': '&lt;rootDir&gt;/$1' },
+          collectCoverageFrom: [...],
+          coverageThreshold: { global: { ... } }
+        }
+      </signature>
+      <path>revelateops-website/jest.config.js</path>
+      <reason>Jest configuration interface that other stories will rely on</reason>
+    </interface>
+    <interface>
+      <name>__tests__/setup.ts</name>
+      <kind>Global test setup</kind>
+      <signature>
+        import '@testing-library/jest-dom';
+        // Global test configuration and mocks
+      </signature>
+      <path>revelateops-website/__tests__/setup.ts</path>
+      <reason>Global setup imported before every test file runs</reason>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      <![CDATA[
+        Testing framework: Jest 30.2.0 with React Testing Library 16.3.0
+        Test file naming: *.test.ts or *.test.tsx
+        Test location: Co-located with source or in __tests__/ directory structure
+        Test environment: jsdom for browser-like DOM API
+        Path aliases: @/ must resolve correctly in tests
+        Coverage: Minimum 80% threshold (to be enforced in Story 1.5)
+        TypeScript: Full TypeScript support with strict mode enabled
+        Next.js: Must work with Next.js 16 App Router and Server Components
+
+        This story establishes the foundation - subsequent stories will add actual test suites.
+      ]]>
+    </standards>
+
+    <locations>
+      __tests__/                      # Main test directory
+      __tests__/setup.ts              # Global test setup
+      __tests__/unit/                 # Unit tests (Story 1.2)
+      __tests__/integration/          # Integration tests (Story 1.3)
+      __tests__/e2e/                  # E2E tests (Story 1.4, Playwright)
+    </locations>
+
+    <ideas>
+      <test ac="AC4" priority="high">
+        Create __tests__/sample.test.ts with basic Jest assertions to verify:
+        - Jest can execute tests
+        - TypeScript compilation works
+        - Path aliases (@/) resolve correctly
+        - Test passes successfully when run via npm test
+
+        Example:
+        describe('Jest Setup', () => {
+          it('should execute basic assertions', () => {
+            expect(true).toBe(true);
+            expect(1 + 1).toBe(2);
+          });
+
+          it('should support TypeScript', () => {
+            const greeting: string = 'Hello, Tests!';
+            expect(greeting).toContain('Tests');
+          });
+        });
+      </test>
+
+      <test ac="AC4" priority="medium">
+        Optionally create a simple component test to verify RTL integration:
+        - Test a basic React component render
+        - Verify @testing-library/jest-dom matchers work
+        - Ensure React 19 compatibility
+
+        This validates the full testing stack is operational.
+      </test>
+
+      <test ac="AC3" priority="high">
+        Verify all test scripts work correctly:
+        - npm test: Runs tests once and exits
+        - npm run test:watch: Enters watch mode for development
+        - npm run test:coverage: Generates coverage report
+      </test>
+    </ideas>
+  </tests>
+</story-context>

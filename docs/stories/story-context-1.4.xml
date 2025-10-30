@@ -1,0 +1,259 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/1-4" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.4</storyId>
+    <title>End-to-End Tests for Critical Flows</title>
+    <status>Drafted</status>
+    <generatedAt>2025-10-30</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/story-1.4.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>QA engineer</asA>
+    <iWant>E2E tests using Playwright for critical user journeys</iWant>
+    <soThat>complete user workflows are verified automatically</soThat>
+    <tasks>
+      <task id="T1">Install and configure Playwright (AC: 1)</task>
+      <task id="T2">Configure test environment (AC: 1, 5)</task>
+      <task id="T3">Create E2E test for contact form to chat flow (AC: 2, 4)</task>
+      <task id="T4">Create E2E test for booking flow (AC: 3)</task>
+      <task id="T5">Create E2E test for message exchange (AC: 4)</task>
+      <task id="T6">Configure CI/CD integration (AC: 5, 6)</task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="AC1">Playwright installed and configured</criterion>
+    <criterion id="AC2">E2E test for contact form submission and chat creation</criterion>
+    <criterion id="AC3">E2E test for booking flow (Calendly integration)</criterion>
+    <criterion id="AC4">E2E test for message exchange in chat</criterion>
+    <criterion id="AC5">Tests run in headless mode in CI/CD</criterion>
+    <criterion id="AC6">Screenshot/video capture on failures</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture Document</title>
+        <section>E2E Testing</section>
+        <snippet>Playwright 1.56.1 is the official Next.js recommendation for E2E testing. Cross-browser support (Chromium, Firefox, WebKit), built-in screenshot/video recording, fast execution with parallelization. Tests located in __tests__/e2e/ with *.spec.ts naming convention.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture Document</title>
+        <section>Implementation Patterns - E2E Test Pattern</section>
+        <snippet>Standard E2E test pattern uses @playwright/test with async page interactions. Tests should verify complete user workflows including navigation, form filling, and visual confirmation of expected UI states.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>Architecture Document</title>
+        <section>ADR-002: Playwright for E2E Testing</section>
+        <snippet>Decision rationale: Official Next.js documentation recommendation, excellent developer experience and debugging tools, built-in screenshot/video recording, fast execution with parallelization. Published 12 days ago, actively maintained with regular updates.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/epics.md</path>
+        <title>Product Epics</title>
+        <section>Story 1.4 Definition</section>
+        <snippet>Story 1.4 focuses on implementing E2E tests for three critical user flows: 1) Contact form submission and chat creation, 2) Booking flow with Calendly integration, 3) Message exchange in chat. Prerequisite: Story 1.1 (Done).</snippet>
+      </artifact>
+    </docs>
+
+    <code>
+      <artifact>
+        <path>__tests__/setup.ts</path>
+        <kind>test-setup</kind>
+        <symbol>Global test setup</symbol>
+        <lines>1-end</lines>
+        <reason>Existing test setup configuration that E2E tests should be compatible with</reason>
+      </artifact>
+      <artifact>
+        <path>jest.config.js</path>
+        <kind>config</kind>
+        <symbol>Jest configuration</symbol>
+        <lines>1-69</lines>
+        <reason>Existing Jest configuration shows test patterns and structure; Playwright will be separate but should follow similar organization principles</reason>
+      </artifact>
+      <artifact>
+        <path>app/api/contact/route.ts</path>
+        <kind>api-route</kind>
+        <symbol>POST handler</symbol>
+        <lines>1-end</lines>
+        <reason>Contact form submission endpoint that E2E test will interact with (AC2)</reason>
+      </artifact>
+      <artifact>
+        <path>app/api/conversations/[id]/messages/route.ts</path>
+        <kind>api-route</kind>
+        <symbol>Messages endpoint</symbol>
+        <lines>1-end</lines>
+        <reason>Message exchange endpoint for chat testing (AC4)</reason>
+      </artifact>
+      <artifact>
+        <path>components/ChatWidget.tsx</path>
+        <kind>component</kind>
+        <symbol>ChatWidget</symbol>
+        <lines>1-end</lines>
+        <reason>Primary chat interface component that E2E tests will interact with (AC2, AC4)</reason>
+      </artifact>
+      <artifact>
+        <path>components/CalendlyEmbed.tsx</path>
+        <kind>component</kind>
+        <symbol>CalendlyEmbed</symbol>
+        <lines>1-end</lines>
+        <reason>Calendly integration component for booking flow testing (AC3)</reason>
+      </artifact>
+      <artifact>
+        <path>app/book/page.tsx</path>
+        <kind>page</kind>
+        <symbol>BookingPage</symbol>
+        <lines>1-end</lines>
+        <reason>Booking page that E2E test will navigate to and interact with (AC3)</reason>
+      </artifact>
+      <artifact>
+        <path>__tests__/integration/api/contact.test.ts</path>
+        <kind>test</kind>
+        <symbol>Integration tests</symbol>
+        <lines>1-end</lines>
+        <reason>Existing integration tests provide examples of API testing patterns that complement E2E tests</reason>
+      </artifact>
+    </code>
+
+    <dependencies>
+      <ecosystem name="npm">
+        <existing>
+          <package name="jest" version="^30.2.0" />
+          <package name="@testing-library/react" version="^16.3.0" />
+          <package name="@testing-library/dom" version="^10.4.1" />
+          <package name="@testing-library/jest-dom" version="^6.9.1" />
+          <package name="next" version="16.0.0" />
+          <package name="react" version="19.2.0" />
+        </existing>
+        <required>
+          <package name="@playwright/test" version="1.56.1" />
+        </required>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint id="C1">Must use Playwright version 1.56.1 (official Next.js recommendation, actively maintained)</constraint>
+    <constraint id="C2">E2E tests must be placed in __tests__/e2e/ directory</constraint>
+    <constraint id="C3">Test files must use *.spec.ts naming convention (Playwright standard)</constraint>
+    <constraint id="C4">Tests must run in headless mode for CI/CD compatibility</constraint>
+    <constraint id="C5">Cross-browser testing required: Chromium, Firefox, WebKit</constraint>
+    <constraint id="C6">Must capture screenshots on failure</constraint>
+    <constraint id="C7">Must capture videos on failure</constraint>
+    <constraint id="C8">Must not modify existing Jest configuration or tests</constraint>
+    <constraint id="C9">Playwright configuration should be compatible with Next.js 16</constraint>
+    <constraint id="C10">Tests should use existing API endpoints without mocking for true E2E validation</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>POST /api/contact</name>
+      <kind>REST endpoint</kind>
+      <signature>POST /api/contact - Body: { name: string, email: string, message: string, phone?: string }</signature>
+      <path>app/api/contact/route.ts</path>
+      <notes>Contact form submission creates conversation and triggers chat widget</notes>
+    </interface>
+    <interface>
+      <name>POST /api/conversations/[id]/messages</name>
+      <kind>REST endpoint</kind>
+      <signature>POST /api/conversations/[id]/messages - Body: { message: string, sender: 'user' | 'agent' }</signature>
+      <path>app/api/conversations/[id]/messages/route.ts</path>
+      <notes>Message exchange in chat conversations</notes>
+    </interface>
+    <interface>
+      <name>ChatWidget Component</name>
+      <kind>React component</kind>
+      <signature>ChatWidget: React.FC - Manages chat state, message display, and user interactions</signature>
+      <path>components/ChatWidget.tsx</path>
+      <notes>Primary UI for chat functionality, includes message list and input field</notes>
+    </interface>
+    <interface>
+      <name>CalendlyEmbed Component</name>
+      <kind>React component</kind>
+      <signature>CalendlyEmbed: React.FC - Embeds Calendly widget for booking</signature>
+      <path>components/CalendlyEmbed.tsx</path>
+      <notes>Third-party widget integration for booking flow</notes>
+    </interface>
+    <interface>
+      <name>Playwright Page Object</name>
+      <kind>Test interface</kind>
+      <signature>import { test, expect, Page } from '@playwright/test'</signature>
+      <path>@playwright/test</path>
+      <notes>Core Playwright API for browser automation and assertions</notes>
+    </interface>
+  </interfaces>
+
+  <dependencies>
+    <story>
+      <id>1.1</id>
+      <title>Set Up Testing Infrastructure</title>
+      <status>Done</status>
+      <relationship>Prerequisite - Jest and RTL must be configured before adding Playwright</relationship>
+    </story>
+  </dependencies>
+
+  <tests>
+    <standards>
+      Playwright 1.56.1 for E2E testing with cross-browser support (Chromium, Firefox, WebKit). Tests located in __tests__/e2e/ with *.spec.ts naming. Each test should be independent and idempotent. Use playwright.config.ts for configuration. Tests run in headless mode in CI/CD. Screenshots and videos captured automatically on failure. Base URL configured for local and CI environments. Test timeout and retries configured appropriately.
+    </standards>
+
+    <locations>
+      __tests__/e2e/*.spec.ts
+      playwright.config.ts (NEW - configuration file)
+    </locations>
+
+    <ideas>
+      <test-idea ac="AC1">
+        Verify Playwright installation: Run npx playwright --version to confirm 1.56.1 installed. Verify playwright.config.ts exists and has correct Next.js base URL configuration.
+      </test-idea>
+      <test-idea ac="AC2">
+        Contact form to chat flow: Navigate to home/contact, fill form (name, email, message), submit, verify success message, verify chat widget appears with conversation ID, verify form data created conversation in system.
+      </test-idea>
+      <test-idea ac="AC3">
+        Booking flow test: Navigate to /book, verify Calendly widget loads (check iframe presence), verify widget is interactive (if possible - may be limited by third-party), verify page has proper error handling if Calendly fails to load.
+      </test-idea>
+      <test-idea ac="AC4">
+        Message exchange test: Create test conversation via API, open chat widget, send user message, verify message appears in UI, simulate agent response via API, verify agent message appears, verify read status updates, verify message ordering.
+      </test-idea>
+      <test-idea ac="AC5">
+        CI/CD integration: Verify playwright.config.ts has headless:true for CI, verify browser selection for CI (Chromium for speed), add test script to package.json, test can run via npm command.
+      </test-idea>
+      <test-idea ac="AC6">
+        Failure capture: Configure screenshot: 'only-on-failure' in playwright.config.ts, intentionally fail a test and verify screenshot is saved to playwright-report/, verify screenshot shows correct failure state.
+      </test-idea>
+    </ideas>
+  </tests>
+
+  <implementation>
+    <approach>
+      Install Playwright 1.56.1 and required dependencies. Create playwright.config.ts with Next.js-specific configuration including base URL, timeouts, retries, and artifact capture settings. Create __tests__/e2e/ directory. Implement three core E2E test files: contact.spec.ts (form submission and chat creation), booking.spec.ts (Calendly interaction), and chat.spec.ts (message exchange). Each test should follow the AAA pattern (Arrange, Act, Assert) and be fully independent. Configure headless mode, screenshot/video capture on failure, and appropriate timeouts. Add Playwright commands to package.json scripts. Ensure tests can run locally and in CI/CD environments.
+    </approach>
+
+    <technical-notes>
+      - Playwright config should use webServer option to auto-start Next.js dev server if not running
+      - Use page.goto() with waitUntil: 'networkidle' for reliable page loads
+      - For Calendly widget testing, verify iframe presence and load status (full interaction may be limited)
+      - Use test fixtures for common setup (e.g., creating test conversations via API)
+      - Implement proper cleanup between tests to ensure idempotency
+      - Use Playwright's built-in retry mechanism for flaky tests (configure in config)
+      - Consider using test.describe.configure({ mode: 'serial' }) for dependent test steps
+      - Use data-testid attributes if selectors are fragile (coordinate with dev team)
+    </technical-notes>
+
+    <critical-flows>
+      <flow id="F1" priority="critical">
+        Contact Form → Chat Creation: User fills contact form → submits → conversation created in DB → chat widget appears with active conversation → user can send messages
+      </flow>
+      <flow id="F2" priority="critical">
+        Booking Flow: User navigates to /book → Calendly widget loads → widget displays available times → user can interact with booking interface
+      </flow>
+      <flow id="F3" priority="critical">
+        Chat Message Exchange: Chat widget open → user sends message → message appears in UI → agent responds (via API) → agent message appears → read status updates correctly
+      </flow>
+    </critical-flows>
+  </implementation>
+</story-context>

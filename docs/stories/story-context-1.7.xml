@@ -1,0 +1,28 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/1-7" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.7</storyId>
+    <title>Error Monitoring Integration</title>
+    <status>Drafted</status>
+    <generatedAt>2025-10-30</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/story-1.7.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>operations engineer</asA>
+    <iWant>integrated error monitoring with Sentry</iWant>
+    <soThat>production errors are captured and alerted in real-time</soThat>
+  </story>
+  <acceptanceCriteria>
+    <criterion id="AC1">Sentry SDK installed and configured for Next.js</criterion>
+    <criterion id="AC2">Error tracking active for both client and server code</criterion>
+    <criterion id="AC3">Source maps uploaded for readable stack traces</criterion>
+    <criterion id="AC4">Slack alerts configured for critical errors</criterion>
+    <criterion id="AC5">Error dashboard accessible to team</criterion>
+    <criterion id="AC6">Sample error tested and verified in Sentry</criterion>
+  </acceptanceCriteria>
+  <constraints>
+    <constraint id="C1">Must use @sentry/nextjs 10.22.0</constraint>
+    <constraint id="C2">Configure client, server, and edge configs</constraint>
+  </constraints>
+</story-context>

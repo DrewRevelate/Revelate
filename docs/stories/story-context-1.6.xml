@@ -1,0 +1,27 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/1-6" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.6</storyId>
+    <title>CI/CD Testing Integration</title>
+    <status>Drafted</status>
+    <generatedAt>2025-10-30</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/story-1.6.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>DevOps engineer</asA>
+    <iWant>automated tests running in CI/CD pipeline</iWant>
+    <soThat>code quality is verified before deployment</soThat>
+  </story>
+  <acceptanceCriteria>
+    <criterion id="AC1">GitHub Actions configured for automated testing</criterion>
+    <criterion id="AC2">Tests run on every pull request</criterion>
+    <criterion id="AC3">Tests run on every push to main branch</criterion>
+    <criterion id="AC4">Deployment blocked if tests fail</criterion>
+    <criterion id="AC5">Test results visible in PR checks</criterion>
+  </acceptanceCriteria>
+  <constraints>
+    <constraint id="C1">Create .github/workflows/test.yml</constraint>
+    <constraint id="C2">Node.js 20+ required</constraint>
+  </constraints>
+</story-context>

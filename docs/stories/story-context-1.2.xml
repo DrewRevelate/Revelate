@@ -1,0 +1,354 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/1-2" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.2</storyId>
+    <title>Unit Tests for Database Operations</title>
+    <status>Drafted</status>
+    <generatedAt>2025-10-30</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/story-1.2.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>developer</asA>
+    <iWant>comprehensive unit tests for all database functions in lib/db/conversations.ts</iWant>
+    <soThat>the data access layer is reliable and regression-free</soThat>
+    <tasks>
+      - Set up test database configuration and mocking
+      - Create test suite structure with fixtures
+      - Test all 12 database functions with success and error cases
+      - Test edge cases (null values, concurrent operations, SQL injection)
+      - Verify 90% coverage threshold
+      - Ensure tests pass in CI/CD
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="AC1">All 12 functions in lib/db/conversations.ts tested (createConversation, getConversation, etc.)</criterion>
+    <criterion id="AC2">Test database setup/teardown configured</criterion>
+    <criterion id="AC3">Edge cases tested (null values, concurrent operations)</criterion>
+    <criterion id="AC4">Minimum 90% coverage for database layer</criterion>
+    <criterion id="AC5">All tests passing in CI/CD</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Decision Architecture - Testing Patterns</title>
+        <section>Unit Test Organization</section>
+        <snippet>Tests co-located with source or in __tests__/unit/. Mock external APIs and databases. Test database uses in-memory PostgreSQL or mocks. Minimum 90% coverage for critical business logic and data access layers.</snippet>
+      </doc>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>Epic 1 - Story 1.2</title>
+        <section>Unit Tests for Database Operations</section>
+        <snippet>Prerequisites: Story 1.1. Test all 14 database functions (actual count: 12 found). Test database setup/teardown required. Edge cases: null values, concurrent operations. 90% coverage minimum. All tests must pass in CI/CD.</snippet>
+      </doc>
+    </docs>
+
+    <code>
+      <file>
+        <path>revelateops-website/lib/db/conversations.ts</path>
+        <kind>database-layer</kind>
+        <symbol>12 exported functions + 2 interfaces</symbol>
+        <lines>1-191</lines>
+        <reason>Primary target for testing. Contains all database access functions that need comprehensive unit test coverage.</reason>
+      </file>
+      <file>
+        <path>revelateops-website/lib/db/conversations.ts</path>
+        <kind>interface</kind>
+        <symbol>Conversation</symbol>
+        <lines>3-13</lines>
+        <reason>Conversation interface with 8 fields. Used in test fixtures and assertions.</reason>
+      </file>
+      <file>
+        <path>revelateops-website/lib/db/conversations.ts</path>
+        <kind>interface</kind>
+        <symbol>Message</symbol>
+        <lines>15-23</lines>
+        <reason>Message interface with 7 fields. Used in test fixtures and assertions for message-related functions.</reason>
+      </file>
+    </code>
+
+    <dependencies>
+      <current>
+        <node>
+          <dependencies>
+            - @vercel/postgres: Used for SQL database queries (must be mocked in tests)
+          </dependencies>
+          <devDependencies>
+            - jest: 30.2.0 (from Story 1.1)
+            - @types/jest: latest (from Story 1.1)
+            - ts-jest: latest (from Story 1.1)
+          </devDependencies>
+        </node>
+      </current>
+      <toInstall>
+        <node>
+          <devDependencies>
+            - pg-mem: latest (optional - in-memory PostgreSQL for realistic testing)
+            - @vercel/postgres: May need to mock this module
+          </devDependencies>
+        </node>
+      </toInstall>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint id="C1">Must test all 12 functions in lib/db/conversations.ts</constraint>
+    <constraint id="C2">Must achieve minimum 90% code coverage (lines, branches, functions)</constraint>
+    <constraint id="C3">Must mock @vercel/postgres or use in-memory database for unit tests</constraint>
+    <constraint id="C4">Test file location: __tests__/unit/db/conversations.test.ts</constraint>
+    <constraint id="C5">Must test edge cases: null/undefined values, empty strings, invalid types</constraint>
+    <constraint id="C6">Must test concurrent operations and race conditions</constraint>
+    <constraint id="C7">Must verify SQL injection prevention (parameterized queries)</constraint>
+    <constraint id="C8">Database setup/teardown must be in beforeAll/afterAll or beforeEach/afterEach hooks</constraint>
+    <constraint id="C9">All tests must be deterministic and not flaky</constraint>
+    <constraint id="C10">Tests must run successfully in CI/CD environment</constraint>
+    <constraint id="C11">Prerequisites: Story 1.1 must be complete (Jest infrastructure ready)</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>createConversation</name>
+      <kind>database-function</kind>
+      <signature>
+        async function createConversation(data: {
+          user_name: string;
+          user_email: string;
+          user_phone: string;
+          user_company?: string;
+          slack_thread_ts: string;
+        }): Promise&lt;Conversation&gt;
+      </signature>
+      <path>revelateops-website/lib/db/conversations.ts:28-42</path>
+      <reason>Creates new conversation record. Must test required fields, optional fields, return value structure.</reason>
+    </interface>
+    <interface>
+      <name>getConversation</name>
+      <kind>database-function</kind>
+      <signature>
+        async function getConversation(id: number): Promise&lt;Conversation | null&gt;
+      </signature>
+      <path>revelateops-website/lib/db/conversations.ts:47-53</path>
+      <reason>Retrieves conversation by ID. Must test found/not-found cases, null handling.</reason>
+    </interface>
+    <interface>
+      <name>getConversationByThreadTs</name>
+      <kind>database-function</kind>
+      <signature>
+        async function getConversationByThreadTs(thread_ts: string): Promise&lt;Conversation | null&gt;
+      </signature>
+      <path>revelateops-website/lib/db/conversations.ts:58-64</path>
+      <reason>Retrieves conversation by Slack thread timestamp. Must test found/not-found, empty string handling.</reason>
+    </interface>
+    <interface>
+      <name>addMessage</name>
+      <kind>database-function</kind>
+      <signature>
+        async function addMessage(data: {
+          conversation_id: number;
+          sender: 'user' | 'drew';
+          message_text: string;
+          slack_ts?: string;
+        }): Promise&lt;Message&gt;
+      </signature>
+      <path>revelateops-website/lib/db/conversations.ts:69-82</path>
+      <reason>Adds message to conversation. Must test both sender types, optional slack_ts, empty text, non-existent conversation.</reason>
+    </interface>
+    <interface>
+      <name>getMessages</name>
+      <kind>database-function</kind>
+      <signature>
+        async function getMessages(conversation_id: number): Promise&lt;Message[]&gt;
+      </signature>
+      <path>revelateops-website/lib/db/conversations.ts:87-95</path>
+      <reason>Gets all messages ordered by sent_at ASC. Must test ordering, empty results, multiple messages.</reason>
+    </interface>
+    <interface>
+      <name>getNewMessages</name>
+      <kind>database-function</kind>
+      <signature>
+        async function getNewMessages(conversation_id: number, after: Date): Promise&lt;Message[]&gt;
+      </signature>
+      <path>revelateops-website/lib/db/conversations.ts:100-109</path>
+      <reason>Gets messages after timestamp for polling. Must test timestamp filtering, ordering, edge cases.</reason>
+    </interface>
+    <interface>
+      <name>markMessagesAsRead</name>
+      <kind>database-function</kind>
+      <signature>
+        async function markMessagesAsRead(conversation_id: number): Promise&lt;void&gt;
+      </signature>
+      <path>revelateops-website/lib/db/conversations.ts:114-122</path>
+      <reason>Marks drew's unread messages as read. Must test selective update (only drew, only unread), idempotency.</reason>
+    </interface>
+    <interface>
+      <name>getConversationsByEmail</name>
+      <kind>database-function</kind>
+      <signature>
+        async function getConversationsByEmail(email: string): Promise&lt;Conversation[]&gt;
+      </signature>
+      <path>revelateops-website/lib/db/conversations.ts:127-135</path>
+      <reason>Gets all conversations for email ordered by updated_at DESC. Must test ordering, multiple results, empty results.</reason>
+    </interface>
+    <interface>
+      <name>getLastMessages</name>
+      <kind>database-function</kind>
+      <signature>
+        async function getLastMessages(conversation_id: number, limit: number = 3): Promise&lt;Message[]&gt;
+      </signature>
+      <path>revelateops-website/lib/db/conversations.ts:140-150</path>
+      <reason>Gets last N messages in chronological order (reversed from query). Must test limit parameter, reverse logic, edge cases.</reason>
+    </interface>
+    <interface>
+      <name>getRecentActiveConversation</name>
+      <kind>database-function</kind>
+      <signature>
+        async function getRecentActiveConversation(): Promise&lt;Conversation | null&gt;
+      </signature>
+      <path>revelateops-website/lib/db/conversations.ts:156-168</path>
+      <reason>Gets most recently active conversation using complex JOIN and COALESCE. Must test status filtering, ordering logic, null case.</reason>
+    </interface>
+    <interface>
+      <name>closeConversation</name>
+      <kind>database-function</kind>
+      <signature>
+        async function closeConversation(id: number): Promise&lt;void&gt;
+      </signature>
+      <path>revelateops-website/lib/db/conversations.ts:173-179</path>
+      <reason>Sets conversation status to 'closed' and updates timestamp. Must test status change, timestamp update, idempotency.</reason>
+    </interface>
+    <interface>
+      <name>closeActiveConversationsForEmail</name>
+      <kind>database-function</kind>
+      <signature>
+        async function closeActiveConversationsForEmail(email: string): Promise&lt;void&gt;
+      </signature>
+      <path>revelateops-website/lib/db/conversations.ts:184-190</path>
+      <reason>Closes all active conversations for email. Must test bulk update, status filtering, timestamp updates.</reason>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      <![CDATA[
+        Testing framework: Jest 30.2.0 (from Story 1.1)
+        Test file: __tests__/unit/db/conversations.test.ts
+        Coverage requirement: Minimum 90% (lines, branches, functions, statements)
+        Database mocking strategy: Mock @vercel/postgres module OR use pg-mem
+        Test organization: Describe blocks for each function, nested describes for scenarios
+        Assertions: Verify return values, types, ordering, side effects
+        Edge cases: null/undefined, empty strings, invalid types, concurrent operations
+
+        Mock Strategy:
+        - Mock sql template literal from @vercel/postgres
+        - Return mock result objects with rows array
+        - Simulate database errors for error handling tests
+
+        Test Data:
+        - Create fixtures for Conversation and Message objects
+        - Use consistent test data across related tests
+        - Generate unique IDs/timestamps to avoid collisions
+      ]]>
+    </standards>
+
+    <locations>
+      __tests__/unit/db/conversations.test.ts     # Main test file for database functions
+      __tests__/unit/db/test-helpers.ts           # Optional: Test utilities and fixtures
+    </locations>
+
+    <ideas>
+      <test ac="AC1,AC2" priority="critical">
+        Create comprehensive test suite for createConversation:
+        - Test with all required fields
+        - Test with optional user_company included
+        - Test with optional user_company omitted (null handling)
+        - Verify returned Conversation has correct structure
+        - Verify all fields are set correctly
+        - Test error handling for missing required fields (if validation exists)
+      </test>
+
+      <test ac="AC1,AC3" priority="critical">
+        Test getConversation edge cases:
+        - Valid ID returns correct conversation
+        - Non-existent ID returns null
+        - Invalid ID type (negative, 0, NaN) - test error handling
+        - Verify database query is called with correct parameters
+      </test>
+
+      <test ac="AC1,AC3" priority="high">
+        Test message ordering in getMessages:
+        - Create multiple messages with different timestamps
+        - Verify messages returned in sent_at ASC order
+        - Verify all message fields are present and correct
+        - Test empty conversation (no messages)
+      </test>
+
+      <test ac="AC3" priority="high">
+        Test concurrent operations:
+        - Simulate concurrent addMessage calls to same conversation
+        - Verify all messages are created
+        - Verify no race conditions in markMessagesAsRead
+        - Test thread-safety of database operations
+      </test>
+
+      <test ac="AC3" priority="high">
+        Test SQL injection prevention:
+        - Pass malicious strings in all string parameters
+        - Verify parameterized queries prevent injection
+        - Test with special characters, SQL keywords, quotes
+      </test>
+
+      <test ac="AC4" priority="critical">
+        Verify coverage requirements:
+        - Run jest --coverage for db layer
+        - Check coverage report shows >= 90% for all metrics
+        - Add tests for any uncovered branches
+        - Ensure all error paths are tested
+      </test>
+
+      <test ac="AC2" priority="high">
+        Set up test database configuration:
+        - Mock @vercel/postgres sql function
+        - Create beforeEach to reset mock state
+        - Create afterEach to verify mock cleanup
+        - Implement helper to create mock result objects
+
+        Example mock structure:
+        jest.mock('@vercel/postgres', () => ({
+          sql: jest.fn()
+        }));
+      </test>
+
+      <test ac="AC1" priority="high">
+        Test markMessagesAsRead selective updates:
+        - Create conversation with mixed user/drew messages
+        - Create messages with read=true and read=false
+        - Call markMessagesAsRead
+        - Verify only drew's unread messages are marked as read
+        - Verify user messages unchanged
+        - Verify already-read messages unchanged
+      </test>
+
+      <test ac="AC1" priority="high">
+        Test getLastMessages reverse ordering:
+        - Create 5 messages in chronological order
+        - Call getLastMessages with limit=3
+        - Verify last 3 messages returned
+        - Verify returned in chronological order (not DESC)
+        - Test default limit parameter
+      </test>
+
+      <test ac="AC1" priority="high">
+        Test getRecentActiveConversation complex query:
+        - Create multiple conversations with different updated_at
+        - Create messages with various sent_at timestamps
+        - Verify conversation with most recent activity is returned
+        - Test status='active' filtering (closed conversations excluded)
+        - Test COALESCE logic when no messages exist
+      </test>
+    </ideas>
+  </tests>
+</story-context>
