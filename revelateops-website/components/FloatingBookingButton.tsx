@@ -227,14 +227,12 @@ export default function FloatingBookingButton() {
         const conversationId = parsed.conversationId;
         setActiveConversationId(conversationId);
 
-        // Don't check for messages if chat is currently open
-        if (chatOpenRef.current) {
-          setUnreadMessageCount(0);
-          return;
-        }
+        // Continue checking for messages even when chat is open
+        // The badge will clear naturally when messages are marked as read in the database
 
-        // Fetch messages to check for unread ones
-        const response = await fetch(`/api/conversations/${conversationId}/messages`);
+        // Fetch messages to check for unread ones WITHOUT marking them as read
+        // (markAsRead=false means we're just checking the count, not viewing them)
+        const response = await fetch(`/api/conversations/${conversationId}/messages?markAsRead=false`);
         if (response.ok) {
           const data = await response.json();
           const messages = data.messages || [];
@@ -264,12 +262,8 @@ export default function FloatingBookingButton() {
     };
   }, []);
 
-  // When chat opens, clear unread count
-  useEffect(() => {
-    if (isChatOpen) {
-      setUnreadMessageCount(0);
-    }
-  }, [isChatOpen]);
+  // Don't clear unread count when chat opens - let it clear naturally
+  // after messages are fetched and marked as read by the polling mechanism
 
   // Handle PDF generation after user submits info
   const handlePDFGeneration = (userInfo: UserInfo) => {

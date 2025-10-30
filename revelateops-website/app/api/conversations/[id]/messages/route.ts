@@ -34,8 +34,15 @@ export async function GET(
     // Get all messages
     const messages = await getMessages(conversationId);
 
-    // Mark Drew's messages as read
-    await markMessagesAsRead(conversationId);
+    // Check if we should mark messages as read
+    // Use ?markAsRead=true to mark messages as read (default: true for backwards compatibility)
+    const url = new URL(request.url);
+    const markAsRead = url.searchParams.get('markAsRead') !== 'false';
+
+    if (markAsRead) {
+      // Mark Drew's messages as read
+      await markMessagesAsRead(conversationId);
+    }
 
     return NextResponse.json({
       conversation,
