@@ -125,8 +125,19 @@ export async function POST(
     const slackData = await slackResponse.json();
 
     if (!slackData.ok) {
-      console.error('Slack API error:', slackData.error);
+      console.error('Slack API error:', {
+        error: slackData.error,
+        response_metadata: slackData.response_metadata,
+        ok: slackData.ok,
+        statusCode: slackResponse.status
+      });
       // Don't fail the request - message is already saved
+      // Return warning in response for debugging
+      return NextResponse.json({
+        success: true,
+        message: newMessage,
+        slack_warning: `Slack notification failed: ${slackData.error || 'Unknown error'}`
+      });
     }
 
     return NextResponse.json({
