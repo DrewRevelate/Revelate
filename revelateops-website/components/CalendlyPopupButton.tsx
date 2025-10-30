@@ -29,19 +29,6 @@ interface CalendlyPopupButtonProps {
   onEventScheduled?: (event: { uri: string }) => void;
 }
 
-declare global {
-  interface Window {
-    Calendly?: {
-      initPopupWidget: (options: {
-        url: string;
-        prefill?: Record<string, unknown>;
-        utm?: Record<string, unknown>;
-      }) => void;
-      showPopupWidget: (url: string) => void;
-    };
-  }
-}
-
 export default function CalendlyPopupButton({
   url = 'https://calendly.com/drewlambert/15-minute-consultation',
   text = 'Schedule a Call',

@@ -30,19 +30,6 @@ interface CalendlyWidgetProps {
   onProfilePageViewed?: () => void;
 }
 
-declare global {
-  interface Window {
-    Calendly?: {
-      initInlineWidget: (options: {
-        url: string;
-        parentElement: HTMLElement;
-        prefill?: Record<string, unknown>;
-        utm?: Record<string, unknown>;
-      }) => void;
-    };
-  }
-}
-
 export default function CalendlyWidget({
   url = 'https://calendly.com/drewlambert/15-minute-consultation',
   prefill,

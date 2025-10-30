@@ -2,19 +2,6 @@
 
 import { useEffect } from 'react';
 
-declare global {
-  interface Window {
-    Calendly?: {
-      initInlineWidget: (options: {
-        url: string;
-        parentElement: HTMLElement;
-        prefill?: object;
-        utm?: object;
-      }) => void;
-    };
-  }
-}
-
 export default function CalendlyEmbed() {
   useEffect(() => {
     // Load Calendly widget script

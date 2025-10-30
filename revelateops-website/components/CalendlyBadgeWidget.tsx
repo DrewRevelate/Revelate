@@ -10,21 +10,6 @@ interface CalendlyBadgeWidgetProps {
   branding?: boolean;
 }
 
-declare global {
-  interface Window {
-    Calendly?: {
-      initBadgeWidget: (options: {
-        url: string;
-        text: string;
-        color: string;
-        textColor: string;
-        branding: boolean;
-      }) => void;
-      destroyBadgeWidget: () => void;
-    };
-  }
-}
-
 export default function CalendlyBadgeWidget({
   url = 'https://calendly.com/drewlambert/15-minute-consultation',
   text = 'Schedule time with me',
