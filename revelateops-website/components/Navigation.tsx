@@ -54,6 +54,10 @@ export default function Navigation() {
     }
   }, [showCompact]);
 
+  // Determine if compact logo should be visible
+  // Show compact logo when: scrolled, not homepage, OR homepage on screens < xl
+  const showCompactLogo = showCompact || !isHomepage;
+
   return (
     <>
       {isHomepage && (
@@ -85,41 +89,46 @@ export default function Navigation() {
       <nav className="fixed inset-x-0 top-[28px] z-50 py-4 transition-all duration-500 lg:py-6" aria-label="Primary navigation">
         <div
           className={`mx-auto max-w-[1280px] rounded-2xl border px-6 py-3 transition-all duration-500 lg:px-8 ${
-            showCompact
+            showCompactLogo
               ? 'border-white/30 bg-gradient-to-b from-navy/95 via-navy/90 to-navy/85 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.1)] ring-1 ring-white/10'
-              : 'border-transparent bg-transparent shadow-none backdrop-blur-0'
+              : 'xl:border-transparent xl:bg-transparent xl:shadow-none xl:backdrop-blur-0 border-white/30 bg-gradient-to-b from-navy/95 via-navy/90 to-navy/85 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.1)] ring-1 ring-white/10'
           }`}
         >
           <div className="flex items-center justify-between">
             <Link href="/" className="group flex items-center gap-3.5">
               <span
                 className={`relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full transition-all ${
-                  showCompact
+                  showCompactLogo
                     ? 'border-[2px] border-white/60 bg-gradient-to-br from-white/5 via-transparent to-transparent shadow-[0_0_32px_rgba(0,217,255,0.4),0_0_16px_rgba(255,255,255,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] ring-1 ring-white/20 backdrop-blur-sm group-hover:border-white/80 group-hover:shadow-[0_0_48px_rgba(0,217,255,0.6),0_0_24px_rgba(255,255,255,0.25),inset_0_1px_2px_rgba(255,255,255,0.5)]'
-                    : 'border border-transparent bg-transparent shadow-none opacity-0'
+                    : 'xl:border xl:border-transparent xl:bg-transparent xl:shadow-none xl:opacity-0 border-[2px] border-white/60 bg-gradient-to-br from-white/5 via-transparent to-transparent shadow-[0_0_32px_rgba(0,217,255,0.4),0_0_16px_rgba(255,255,255,0.15),inset_0_1px_1px_rgba(255,255,255,0.4)] ring-1 ring-white/20 backdrop-blur-sm group-hover:border-white/80 group-hover:shadow-[0_0_48px_rgba(0,217,255,0.6),0_0_24px_rgba(255,255,255,0.25),inset_0_1px_2px_rgba(255,255,255,0.5)]'
                 }`}
               >
-                {showCompact && (
-                  <>
-                    <Image
-                      src="/revelate-logo.png"
-                      alt="Revelate"
-                      width={52}
-                      height={52}
-                      className="h-full w-full object-contain relative z-10"
-                      priority
-                    />
-                    <span className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                    <span className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-tl from-cyan/10 via-transparent to-transparent" />
-                  </>
-                )}
+                <Image
+                  src="/revelate-logo.png"
+                  alt="Revelate"
+                  width={52}
+                  height={52}
+                  className={`h-full w-full object-contain relative z-10 ${!showCompactLogo && isHomepage ? 'xl:opacity-0' : ''}`}
+                  priority
+                />
+                <span className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <span className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-tl from-cyan/10 via-transparent to-transparent" />
               </span>
-              {showCompact && (
+              {showCompactLogo ? (
                 <>
                   <span className="hidden md:inline text-lg font-semibold uppercase tracking-[0.24em] text-white transition group-hover:text-cyan">
                     Revelate Operations
                   </span>
                   <span className="md:hidden text-lg font-semibold uppercase tracking-[0.24em] text-white transition group-hover:text-cyan">
+                    RevOps
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="hidden xl:hidden md:inline text-lg font-semibold uppercase tracking-[0.24em] text-white transition group-hover:text-cyan">
+                    Revelate Operations
+                  </span>
+                  <span className="xl:hidden md:hidden text-lg font-semibold uppercase tracking-[0.24em] text-white transition group-hover:text-cyan">
                     RevOps
                   </span>
                 </>
@@ -147,9 +156,9 @@ export default function Navigation() {
             <button
               onClick={() => setIsOpen((prev) => !prev)}
               className={`rounded-lg border p-2 text-white transition md:hidden focus:outline-none focus:ring-2 focus:ring-cyan ${
-                showCompact
+                showCompactLogo
                   ? 'border-cyan/30 bg-navy/60 backdrop-blur-sm hover:border-cyan hover:bg-navy/80'
-                  : 'border-white/40 bg-white/10 backdrop-blur-sm hover:border-white hover:bg-white/20'
+                  : 'xl:border-white/40 xl:bg-white/10 xl:hover:border-white xl:hover:bg-white/20 border-cyan/30 bg-navy/60 hover:border-cyan hover:bg-navy/80 backdrop-blur-sm'
               }`}
               aria-label="Toggle navigation menu"
               aria-expanded={isOpen}
