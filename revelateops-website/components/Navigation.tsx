@@ -16,27 +16,19 @@ export default function Navigation() {
   const isHomepage = pathname === '/';
   const [isOpen, setIsOpen] = useState(false);
   const [showCompact, setShowCompact] = useState(!isHomepage);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024); // lg breakpoint
-    };
-
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      // On mobile, always show compact mode
-      // On desktop homepage, show compact after scrolling 200px
-      // On other pages, always stay compact
-      if (isMobile) {
-        setShowCompact(true);
-      } else if (isHomepage) {
-        setShowCompact(window.scrollY > 200);
+      // Responsive scroll thresholds for smooth transitions
+      const getScrollThreshold = () => {
+        const width = window.innerWidth;
+        if (width < 640) return 100;  // Mobile: tighter threshold
+        if (width < 1024) return 150; // Tablet: medium threshold
+        return 200;                    // Desktop: generous threshold
+      };
+
+      if (isHomepage) {
+        setShowCompact(window.scrollY > getScrollThreshold());
       } else {
         setShowCompact(true);
       }
@@ -45,7 +37,7 @@ export default function Navigation() {
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHomepage, isMobile]);
+  }, [isHomepage]);
 
   useEffect(() => {
     if (!showCompact) {
@@ -63,12 +55,12 @@ export default function Navigation() {
       {isHomepage && (
         <Link
           href="/"
-          className={`group fixed left-1/2 top-20 xl:top-24 2xl:top-28 z-40 hidden -translate-x-1/2 flex-col items-center gap-3 xl:gap-4 transition-all duration-500 ease-out xl:flex ${
+          className={`group fixed left-1/2 z-40 flex -translate-x-1/2 flex-col items-center gap-2 sm:gap-3 lg:gap-4 transition-all duration-500 ease-out top-12 sm:top-14 md:top-16 lg:top-20 xl:top-24 2xl:top-28 ${
             showCompact ? 'pointer-events-none -translate-y-12 scale-75 opacity-0' : 'scale-100 opacity-100'
           }`}
           aria-label="Revelate home"
         >
-        <span className="relative flex h-32 w-32 xl:h-36 xl:w-36 2xl:h-40 2xl:w-40 items-center justify-center overflow-hidden rounded-full border-[3px] border-white/60 bg-gradient-to-br from-white/5 via-transparent to-transparent shadow-[0_0_80px_rgba(0,217,255,0.4),0_0_40px_rgba(255,255,255,0.15),inset_0_1px_2px_rgba(255,255,255,0.4)] ring-1 ring-white/20 backdrop-blur-sm transition-all duration-500 group-hover:border-white/80 group-hover:shadow-[0_0_120px_rgba(0,217,255,0.6),0_0_60px_rgba(255,255,255,0.25),inset_0_1px_3px_rgba(255,255,255,0.5)]">
+        <span className="relative flex items-center justify-center overflow-hidden rounded-full border-[3px] border-white/60 bg-gradient-to-br from-white/5 via-transparent to-transparent shadow-[0_0_80px_rgba(0,217,255,0.4),0_0_40px_rgba(255,255,255,0.15),inset_0_1px_2px_rgba(255,255,255,0.4)] ring-1 ring-white/20 backdrop-blur-sm transition-all duration-500 group-hover:border-white/80 group-hover:shadow-[0_0_120px_rgba(0,217,255,0.6),0_0_60px_rgba(255,255,255,0.25),inset_0_1px_3px_rgba(255,255,255,0.5)] h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 lg:h-32 lg:w-32 xl:h-36 xl:w-36 2xl:h-40 2xl:w-40">
           <Image
             src="/revelate-logo.png"
             alt="Revelate"
@@ -80,7 +72,7 @@ export default function Navigation() {
           <span className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-br from-white/30 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
           <span className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-tl from-cyan/10 via-transparent to-transparent" />
         </span>
-        <span className="text-center text-sm font-semibold uppercase tracking-[0.5em] text-white/90 drop-shadow group-hover:text-cyan">
+        <span className="text-center font-semibold uppercase tracking-[0.5em] text-white/90 drop-shadow transition-colors duration-500 group-hover:text-cyan text-xs sm:text-sm">
           Revelate Operations
         </span>
       </Link>
@@ -91,11 +83,11 @@ export default function Navigation() {
           className={`mx-auto max-w-[1280px] rounded-2xl border px-6 py-3 transition-all duration-500 lg:px-8 ${
             showCompactLogo
               ? 'border-white/30 bg-gradient-to-b from-navy/95 via-navy/90 to-navy/85 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.1)] ring-1 ring-white/10'
-              : 'border-white/30 bg-gradient-to-b from-navy/95 via-navy/90 to-navy/85 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.1)] ring-1 ring-white/10 xl:border-transparent xl:bg-transparent xl:shadow-none xl:backdrop-blur-0 xl:ring-0'
+              : 'border-transparent bg-transparent shadow-none backdrop-blur-0 ring-0'
           }`}
         >
           <div className="flex items-center justify-between">
-            <Link href="/" className={`group flex items-center gap-3.5 ${!showCompactLogo && isHomepage ? 'xl:invisible' : ''}`}>
+            <Link href="/" className={`group flex items-center gap-3.5 ${!showCompactLogo && isHomepage ? 'invisible' : ''}`}>
               <span
                 className={`relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full transition-all ${
                   showCompactLogo
@@ -135,7 +127,7 @@ export default function Navigation() {
               )}
             </Link>
 
-            <div className={`hidden items-center gap-2 md:flex ${!showCompactLogo && isHomepage ? 'xl:invisible' : ''}`}>
+            <div className={`hidden items-center gap-2 md:flex ${!showCompactLogo && isHomepage ? 'invisible' : ''}`}>
               {links.map((link) => (
                 <Link
                   key={link.label}
