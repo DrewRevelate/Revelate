@@ -33,6 +33,8 @@ export default function Constellations({ density = 'medium', className = '' }: C
     };
 
     const starCount = starCounts[density];
+    const canvasWidth = canvas.width;
+    const canvasHeight = canvas.height;
 
     // Star class
     class Star {
@@ -44,8 +46,8 @@ export default function Constellations({ density = 'medium', className = '' }: C
       twinklePhase: number;
 
       constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        this.x = Math.random() * canvasWidth;
+        this.y = Math.random() * canvasHeight;
         this.radius = Math.random() * 1.5 + 0.5; // 0.5 to 2px
         this.opacity = Math.random() * 0.5 + 0.3; // 0.3 to 0.8
         this.twinkleSpeed = Math.random() * 0.02 + 0.01; // Slow twinkle

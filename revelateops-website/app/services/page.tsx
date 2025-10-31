@@ -1065,8 +1065,10 @@ export default function ServicesPage() {
 
       {showUserModal && (
         <UserInfoModal
+          isOpen={showUserModal}
           onClose={() => setShowUserModal(false)}
           onSubmit={handleUserInfoSubmit}
+          selectedServicesCount={selectedServices.size}
         />
       )}
 

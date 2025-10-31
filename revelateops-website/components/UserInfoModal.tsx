@@ -3,14 +3,12 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-interface UserInfo {
+export interface UserInfo {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
-  companyName: string;
-  title: string;
-  comments: string;
+  company: string;
+  phone?: string;
 }
 
 interface UserInfoModalProps {
@@ -30,10 +28,8 @@ export default function UserInfoModal({
     firstName: '',
     lastName: '',
     email: '',
+    company: '',
     phone: '',
-    companyName: '',
-    title: '',
-    comments: '',
   });
 
   const [errors, setErrors] = useState<Partial<Record<keyof UserInfo, string>>>({});
@@ -55,14 +51,8 @@ export default function UserInfoModal({
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email';
     }
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
-    }
-    if (!formData.companyName.trim()) {
-      newErrors.companyName = 'Company name is required';
-    }
-    if (!formData.title.trim()) {
-      newErrors.title = 'Title is required';
+    if (!formData.company.trim()) {
+      newErrors.company = 'Company name is required';
     }
 
     setErrors(newErrors);
@@ -234,10 +224,33 @@ export default function UserInfoModal({
             )}
           </div>
 
+          {/* Company Name */}
+          <div>
+            <label htmlFor="company" className="block text-sm font-medium text-navy mb-2">
+              Company name <span className="text-cyan">*</span>
+            </label>
+            <input
+              type="text"
+              id="company"
+              name="company"
+              value={formData.company}
+              onChange={handleChange}
+              className={`w-full rounded-lg border bg-white px-4 py-2.5 text-navy placeholder-navy/40 transition-all focus:outline-none focus:ring-2 ${
+                errors.company
+                  ? 'border-red-500 focus:ring-red-500/20'
+                  : 'border-navy/20 focus:border-cyan focus:ring-cyan/20'
+              }`}
+              placeholder="Acme Corp"
+            />
+            {errors.company && (
+              <p className="mt-1.5 text-xs text-red-600">{errors.company}</p>
+            )}
+          </div>
+
           {/* Phone */}
           <div>
             <label htmlFor="phone" className="block text-sm font-medium text-navy mb-2">
-              Phone <span className="text-cyan">*</span>
+              Phone (optional)
             </label>
             <input
               type="tel"
@@ -245,78 +258,8 @@ export default function UserInfoModal({
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className={`w-full rounded-lg border bg-white px-4 py-2.5 text-navy placeholder-navy/40 transition-all focus:outline-none focus:ring-2 ${
-                errors.phone
-                  ? 'border-red-500 focus:ring-red-500/20'
-                  : 'border-navy/20 focus:border-cyan focus:ring-cyan/20'
-              }`}
-              placeholder="+1 (555) 123-4567"
-            />
-            {errors.phone && (
-              <p className="mt-1.5 text-xs text-red-600">{errors.phone}</p>
-            )}
-          </div>
-
-          {/* Company Name & Title */}
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label htmlFor="companyName" className="block text-sm font-medium text-navy mb-2">
-                Company name <span className="text-cyan">*</span>
-              </label>
-              <input
-                type="text"
-                id="companyName"
-                name="companyName"
-                value={formData.companyName}
-                onChange={handleChange}
-                className={`w-full rounded-lg border bg-white px-4 py-2.5 text-navy placeholder-navy/40 transition-all focus:outline-none focus:ring-2 ${
-                  errors.companyName
-                    ? 'border-red-500 focus:ring-red-500/20'
-                    : 'border-navy/20 focus:border-cyan focus:ring-cyan/20'
-                }`}
-                placeholder="Acme Corp"
-              />
-              {errors.companyName && (
-                <p className="mt-1.5 text-xs text-red-600">{errors.companyName}</p>
-              )}
-            </div>
-
-            <div>
-              <label htmlFor="title" className="block text-sm font-medium text-navy mb-2">
-                Title <span className="text-cyan">*</span>
-              </label>
-              <input
-                type="text"
-                id="title"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                className={`w-full rounded-lg border bg-white px-4 py-2.5 text-navy placeholder-navy/40 transition-all focus:outline-none focus:ring-2 ${
-                  errors.title
-                    ? 'border-red-500 focus:ring-red-500/20'
-                    : 'border-navy/20 focus:border-cyan focus:ring-cyan/20'
-                }`}
-                placeholder="VP of Revenue Operations"
-              />
-              {errors.title && (
-                <p className="mt-1.5 text-xs text-red-600">{errors.title}</p>
-              )}
-            </div>
-          </div>
-
-          {/* Comments */}
-          <div>
-            <label htmlFor="comments" className="block text-sm font-medium text-navy mb-2">
-              Additional comments
-            </label>
-            <textarea
-              id="comments"
-              name="comments"
-              value={formData.comments}
-              onChange={handleChange}
-              rows={3}
               className="w-full rounded-lg border border-navy/20 bg-white px-4 py-2.5 text-navy placeholder-navy/40 transition-all focus:border-cyan focus:outline-none focus:ring-2 focus:ring-cyan/20"
-              placeholder="Tell us about your specific needs..."
+              placeholder="+1 (555) 123-4567"
             />
           </div>
 

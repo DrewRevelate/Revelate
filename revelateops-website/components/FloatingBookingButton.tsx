@@ -4,22 +4,21 @@ import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import CalendlyWidgetSimple from './CalendlyWidgetSimple';
-import UserInfoModal from './UserInfoModal';
+import UserInfoModal, { UserInfo } from './UserInfoModal';
 import ContactChat from './ContactChat';
 import { generateCustomPackagePDF } from '@/utils/generateCustomPackagePDF';
 
-interface UserInfo {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  companyName: string;
-  title: string;
-  comments: string;
+interface Service {
+  id: string;
+  name: string;
+  slug: string;
+  shortDescription?: string;
+  fullDescription?: string;
+  deliverables?: string[];
 }
 
-// Service capabilities - matching services/page.tsx
-const capabilities = [
+// Fallback hardcoded capabilities in case API fails
+const fallbackCapabilities = [
   {
     id: 'architecture',
     title: 'Salesforce Architecture & Design',
@@ -101,6 +100,37 @@ export default function FloatingBookingButton() {
   const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [showPackageNotification, setShowPackageNotification] = useState(false);
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
+  const [services, setServices] = useState<Service[]>([]);
+  const [capabilities, setCapabilities] = useState(fallbackCapabilities);
+
+  // Fetch services from database
+  useEffect(() => {
+    async function fetchServices() {
+      try {
+        const response = await fetch('/api/services');
+        const data = await response.json();
+
+        if (data.success && data.data) {
+          // Convert database services to capabilities format
+          const servicesData = data.data.map((service: any) => ({
+            id: service.slug,
+            title: service.name,
+            description: service.shortDescription || '',
+            detailedDescription: service.fullDescription || service.shortDescription || '',
+            deliverables: [], // Services from DB don't have deliverables yet
+          }));
+
+          setCapabilities(servicesData);
+          setServices(data.data);
+        }
+      } catch (error) {
+        console.error('Failed to fetch services, using fallback:', error);
+        // Keep using fallbackCapabilities
+      }
+    }
+
+    fetchServices();
+  }, []);
 
   // Button always visible
   useEffect(() => {
@@ -266,20 +296,80 @@ export default function FloatingBookingButton() {
   // after messages are fetched and marked as read by the polling mechanism
 
   // Handle PDF generation after user submits info
-  const handlePDFGeneration = (userInfo: UserInfo) => {
-    // Get full service details from selected IDs
-    const selectedServices = selectedServiceIds
-      .map(id => capabilities.find(cap => cap.id === id))
-      .filter(Boolean) as typeof capabilities;
+  const handlePDFGeneration = async (userInfo: UserInfo) => {
+    try {
+      // Get full service details from selected IDs
+      const selectedServices = selectedServiceIds
+        .map(id => capabilities.find(cap => cap.id === id))
+        .filter(Boolean) as typeof capabilities;
 
-    // Generate the PDF
-    generateCustomPackagePDF(userInfo, selectedServices);
+      // Map service slugs to service IDs for database storage
+      const selectedServiceDbIds = selectedServiceIds
+        .map(slug => services.find(s => s.slug === slug)?.id)
+        .filter(Boolean) as string[];
 
-    // Close user info modal
-    setIsUserInfoModalOpen(false);
+      // Get package ID from localStorage (if user selected a package)
+      const packageId = localStorage.getItem('selectedPackageId');
 
-    // Show discount promo modal
-    setShowDiscountPromo(true);
+      // Save quote to database
+      const quoteResponse = await fetch('/api/quotes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: userInfo.firstName,
+          lastName: userInfo.lastName,
+          userEmail: userInfo.email,
+          phone: userInfo.phone || '',
+          companyName: userInfo.company,
+          packageId: packageId || undefined,
+          selectedServices: selectedServiceDbIds,
+          status: 'draft',
+        }),
+      });
+
+      if (!quoteResponse.ok) {
+        const errorData = await quoteResponse.json().catch(() => ({}));
+        console.error('Failed to save quote to database:', {
+          status: quoteResponse.status,
+          statusText: quoteResponse.statusText,
+          error: errorData,
+          payload: {
+            firstName: userInfo.firstName,
+            lastName: userInfo.lastName,
+            userEmail: userInfo.email,
+            phone: userInfo.phone || '',
+            companyName: userInfo.company,
+            packageId: packageId || undefined,
+            selectedServices: selectedServiceDbIds,
+            status: 'draft',
+          },
+        });
+        // Continue with PDF generation even if save fails
+      } else {
+        const quoteData = await quoteResponse.json();
+        console.log('Quote saved successfully:', {
+          quoteId: quoteData.data?.id,
+          packageId: packageId || null,
+          serviceCount: selectedServiceDbIds.length,
+        });
+      }
+
+      // Generate the PDF
+      generateCustomPackagePDF(userInfo, selectedServices);
+
+      // Close user info modal
+      setIsUserInfoModalOpen(false);
+
+      // Show discount promo modal
+      setShowDiscountPromo(true);
+    } catch (error) {
+      console.error('Error in handlePDFGeneration:', error);
+      // Still show discount promo even if there's an error
+      setIsUserInfoModalOpen(false);
+      setShowDiscountPromo(true);
+    }
   };
 
   return (
