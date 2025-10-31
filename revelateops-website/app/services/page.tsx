@@ -1189,7 +1189,8 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          <div className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
+          {/* Desktop Table View (hidden on mobile) */}
+          <div className="relative hidden md:block overflow-hidden rounded-xl border border-white/10 bg-white/5 p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
             <div className="overflow-x-auto">
               <table className="w-full border-collapse">
                 <thead>
@@ -1230,6 +1231,85 @@ export default function ServicesPage() {
               </table>
             </div>
             <div className="mt-6 flex items-start gap-2 text-xs text-white/60">
+              <svg className="h-4 w-4 flex-shrink-0 mt-0.5 text-cyan/60" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 16v-4" />
+                <circle cx="12" cy="8" r="0.5" fill="currentColor" />
+              </svg>
+              <p className="leading-relaxed">
+                <span className="font-medium">Note:</span> Revelate pricing represents typical engagement ranges. All figures are estimates and non-binding. Actual project costs are determined through consultation and tailored to your specific requirements, scope, and organizational context.
+              </p>
+            </div>
+          </div>
+
+          {/* Mobile Card View (visible only on mobile) */}
+          <div className="md:hidden space-y-4">
+            {comparisonData.map((row, index) => (
+              <motion.div
+                key={row.solution}
+                className={`relative overflow-hidden rounded-xl border p-5 shadow-lg ${
+                  row.highlight
+                    ? 'border-cyan/40 bg-cyan/15'
+                    : 'border-white/15 bg-white/10'
+                }`}
+                initial={motionDisabled ? false : { opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: motionDisabled ? 0 : index * 0.1 }}
+              >
+                {row.highlight && (
+                  <div className="absolute top-0 right-0 bg-cyan px-3 py-1 text-xs font-bold text-navy rounded-bl-lg">
+                    RECOMMENDED
+                  </div>
+                )}
+
+                <div className="space-y-3">
+                  <h3 className="text-lg font-semibold text-white pr-20">
+                    {row.solution}
+                  </h3>
+
+                  <div className="grid grid-cols-2 gap-3 pt-3 border-t border-white/20">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-white/60 mb-1">
+                        Cost
+                      </p>
+                      <p className="text-sm font-medium text-white/90">
+                        {row.cost}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-white/60 mb-1">
+                        Risk
+                      </p>
+                      <p className="text-sm font-medium text-white/90">
+                        {row.risk}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-white/60 mb-1">
+                        Time to Value
+                      </p>
+                      <p className="text-sm font-medium text-white/90">
+                        {row.timeToValue}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-white/60 mb-1">
+                        Ongoing Cost
+                      </p>
+                      <p className="text-sm font-medium text-white/90">
+                        {row.ongoingCost}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+
+            <div className="mt-6 flex items-start gap-2 text-xs text-white/60 bg-white/5 rounded-lg p-4 border border-white/10">
               <svg className="h-4 w-4 flex-shrink-0 mt-0.5 text-cyan/60" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="10" />
                 <path d="M12 16v-4" />
