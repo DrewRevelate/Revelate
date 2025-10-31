@@ -310,7 +310,7 @@ export default function AboutPage() {
         ))}
       </div>
 
-      <div className="relative z-10 pt-32 pb-24 lg:pt-40 lg:pb-32">
+      <div className="relative z-10 pt-36 pb-24 md:pt-40 lg:pt-44 xl:pt-48 lg:pb-32">
         <div className="mx-auto max-w-6xl px-6 lg:max-w-7xl lg:px-12">
           <div className="pb-16">
             <span className="text-xs uppercase tracking-[0.4em] text-white/40">Founder story</span>

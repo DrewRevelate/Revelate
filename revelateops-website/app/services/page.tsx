@@ -735,7 +735,7 @@ export default function ServicesPage() {
       </div>
 
       {/* Hero Section */}
-      <section className="relative pt-24 pb-16 sm:pt-32 sm:pb-20 lg:pt-40 text-white z-10">
+      <section className="relative pt-36 pb-16 sm:pt-40 sm:pb-20 md:pt-44 lg:pt-48 text-white z-10">
         <div className="relative mx-auto max-w-4xl px-6 lg:px-8 text-center">
           <motion.span
             className="text-xs font-semibold uppercase tracking-[0.05em] text-cyan"

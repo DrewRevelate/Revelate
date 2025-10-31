@@ -57,7 +57,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative isolate z-0 flex h-full min-h-[100dvh] items-center justify-center overflow-hidden bg-navy text-white"
+      className="relative isolate z-0 flex h-full min-h-[100dvh] items-center justify-center overflow-hidden bg-navy text-white py-32 md:py-36 lg:py-40"
     >
       {/* Deep parallax backdrop */}
       <motion.div style={{ y: backgroundY }} className="pointer-events-none absolute inset-0" aria-hidden="true">
