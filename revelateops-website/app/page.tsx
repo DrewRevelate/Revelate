@@ -532,7 +532,7 @@ export default function Home() {
                   Traditional Agency
                 </span>
               </div>
-              <h3 className="text-xl font-semibold text-navy">The Conglomerate Model</h3>
+              <h3 className="pt-10 sm:pt-0 text-xl font-semibold text-navy">The Conglomerate Model</h3>
               <p className="mt-3 text-sm text-[#64748b]">What most consultancies offer</p>
 
               <ul className="mt-8 space-y-4">
@@ -627,7 +627,7 @@ export default function Home() {
                   Principal-Led Partner
                 </span>
               </div>
-              <h3 className="text-xl font-semibold text-navy">The Embedded Partner Model</h3>
+              <h3 className="pt-10 sm:pt-0 text-xl font-semibold text-navy">The Embedded Partner Model</h3>
               <p className="mt-3 text-sm text-[#64748b]">What you get working with me</p>
 
               <ul className="mt-8 space-y-4">
