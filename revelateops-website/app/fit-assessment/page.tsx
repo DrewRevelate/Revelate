@@ -1,246 +1,106 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import PackageQuiz from '@/components/PackageQuiz';
+import PackageRecommendation from '@/components/PackageRecommendation';
+
+interface PackageRecommendation {
+  packageType: 'stage' | 'targeted' | 'custom';
+  packageName: string;
+  packageSlug: string;
+  reason: string;
+  recommendedServices: string[];
+}
 
 export default function FitAssessmentPage() {
-  const [submitted, setSubmitted] = useState(false);
+  const router = useRouter();
+  const [showQuiz, setShowQuiz] = useState(true);
+  const [quizCompleted, setQuizCompleted] = useState(false);
+  const [recommendation, setRecommendation] = useState<PackageRecommendation | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleQuizComplete = (rec: PackageRecommendation) => {
+    setRecommendation(rec);
+    setQuizCompleted(true);
+    setShowQuiz(false);
 
-    const formData = new FormData(e.currentTarget);
-
-    try {
-      const response = await fetch('https://formspree.io/f/xanyyvbp', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          Accept: 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        setSubmitted(true);
-
-        // Track form submission in analytics
-        if (typeof window !== 'undefined' && (window as any).plausible) {
-          (window as any).plausible('Form Submitted', {
-            props: { form: 'fit-assessment' }
-          });
+    // Track completion in analytics
+    if (typeof window !== 'undefined' && (window as any).plausible) {
+      (window as any).plausible('Quiz Completed', {
+        props: {
+          page: 'fit-assessment',
+          packageType: rec.packageType,
+          packageName: rec.packageName
         }
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      alert('There was an error submitting the form. Please try again or email drew@revelateops.com directly.');
+      });
     }
   };
 
-  if (submitted) {
-    return (
-      <main className="relative flex min-h-screen items-center justify-center bg-[#f8fafc] px-6">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-lg text-center"
-        >
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-cyan/10">
-            <svg className="h-8 w-8 text-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <h1 className="mt-6 text-2xl font-semibold text-navy">Thanks for your interest!</h1>
-          <p className="mt-4 text-base text-[#64748b]">
-            I&apos;ll review your responses and get back to you within 24 hours with a personalized recommendation.
-          </p>
-          <div className="mt-8">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-blue hover:text-navy"
-            >
-              ← Back to homepage
-            </Link>
-          </div>
-        </motion.div>
-      </main>
-    );
-  }
+  const handleStartOver = () => {
+    setQuizCompleted(false);
+    setRecommendation(null);
+    setShowQuiz(true);
+  };
+
+  const handleProceedFromRecommendation = () => {
+    // Redirect to services page with recommendation pre-selected
+    if (recommendation) {
+      localStorage.setItem('quizRecommendation', JSON.stringify(recommendation));
+      router.push('/services');
+    }
+  };
+
+  const handleClose = () => {
+    // If user closes without completing, redirect to homepage
+    router.push('/');
+  };
 
   return (
-    <main className="relative bg-[#f8fafc]">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-navy pt-36 pb-20 text-white">
-        <div className="relative mx-auto max-w-4xl px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center"
-          >
-            <span className="text-xs font-semibold uppercase tracking-[0.05em] text-cyan">
-              Quick Assessment
-            </span>
-            <h1 className="mt-5 text-3xl font-semibold leading-[1.2] sm:text-4xl md:text-5xl">
-              Check If We&apos;re A Fit
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-white/90 md:text-lg">
-              Answer a few quick questions about your revenue operations. I&apos;ll review and send you a personalized recommendation within 24 hours.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+    <main className="relative min-h-screen overflow-hidden bg-navy">
+      {/* Background gradients - matching brand */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#080B16] via-[#09102A] to-[#070915]" />
+        <div className="absolute top-[-25%] right-[-20%] h-[34rem] w-[34rem] rounded-full bg-cyan/20 blur-[160px]" />
+        <div className="absolute bottom-[-30%] left-[-18%] h-[40rem] w-[40rem] rounded-full bg-cyan/15 blur-[190px]" />
+      </div>
 
-      {/* Form Section */}
-      <section className="py-20">
-        <div className="mx-auto max-w-2xl px-6">
-          <motion.form
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            onSubmit={handleSubmit}
-            className="space-y-8 rounded-xl border border-[#dbe3f0] bg-white p-8 shadow-sm"
-          >
-            {/* Company Stage */}
-            <div>
-              <label htmlFor="stage" className="block text-sm font-semibold text-navy">
-                What stage is your company? *
-              </label>
-              <select
-                id="stage"
-                name="stage"
-                required
-                className="mt-2 block w-full rounded-lg border border-[#dbe3f0] bg-white px-4 py-3 text-navy focus:border-cyan focus:outline-none focus:ring-2 focus:ring-cyan/20"
-              >
-                <option value="">Select stage...</option>
-                <option value="pre-a">Pre-Series A (&lt;$2M ARR)</option>
-                <option value="series-a">Series A ($2-10M ARR)</option>
-                <option value="series-b">Series B ($10-50M ARR)</option>
-                <option value="series-c">Series C+ ($50M+ ARR)</option>
-              </select>
-            </div>
+      {/* Constellation dots */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        {[
+          { x: '15%', y: '15%' }, { x: '25%', y: '12%' }, { x: '35%', y: '10%' },
+          { x: '45%', y: '14%' }, { x: '55%', y: '15%' }, { x: '65%', y: '12%' },
+          { x: '75%', y: '18%' }, { x: '85%', y: '15%' }, { x: '95%', y: '16%' },
+          { x: '12%', y: '35%' }, { x: '28%', y: '38%' }, { x: '42%', y: '40%' },
+          { x: '58%', y: '42%' }, { x: '72%', y: '38%' }, { x: '88%', y: '35%' },
+          { x: '10%', y: '60%' }, { x: '22%', y: '58%' }, { x: '38%', y: '65%' },
+          { x: '52%', y: '62%' }, { x: '68%', y: '60%' }, { x: '82%', y: '58%' },
+          { x: '18%', y: '82%' }, { x: '32%', y: '85%' }, { x: '48%', y: '88%' },
+          { x: '64%', y: '85%' }, { x: '78%', y: '82%' }, { x: '92%', y: '80%' }
+        ].map((pos, i) => (
+          <div
+            key={i}
+            className="absolute h-1 w-1 rounded-full bg-cyan opacity-30"
+            style={{ left: pos.x, top: pos.y }}
+          />
+        ))}
+      </div>
 
-            {/* Current Systems */}
-            <div>
-              <label htmlFor="systems" className="block text-sm font-semibold text-navy">
-                Which revenue systems are you currently using? *
-              </label>
-              <p className="mt-1 text-xs text-[#64748b]">Select all that apply</p>
-              <div className="mt-3 space-y-2">
-                {[
-                  'Salesforce',
-                  'HubSpot',
-                  'NetSuite',
-                  'Spreadsheets (primary)',
-                  'Other CRM',
-                  'Integration platform (Workato, Zapier, etc.)',
-                ].map((system) => (
-                  <label key={system} className="flex items-center gap-3">
-                    <input
-                      type="checkbox"
-                      name="systems"
-                      value={system}
-                      className="h-4 w-4 rounded border-[#dbe3f0] text-cyan focus:ring-cyan"
-                    />
-                    <span className="text-sm text-[#334155]">{system}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
+      {/* Quiz Modal */}
+      {showQuiz && !quizCompleted && (
+        <PackageQuiz
+          onComplete={handleQuizComplete}
+          onClose={handleClose}
+        />
+      )}
 
-            {/* Biggest Pain Point */}
-            <div>
-              <label htmlFor="pain" className="block text-sm font-semibold text-navy">
-                What&apos;s the biggest pain point right now? *
-              </label>
-              <textarea
-                id="pain"
-                name="pain"
-                required
-                rows={4}
-                placeholder="e.g., Forecast accuracy is terrible, data is inconsistent, integrations keep breaking..."
-                className="mt-2 block w-full rounded-lg border border-[#dbe3f0] bg-white px-4 py-3 text-navy placeholder:text-[#94a3b8] focus:border-cyan focus:outline-none focus:ring-2 focus:ring-cyan/20"
-              />
-            </div>
-
-            {/* Timeline */}
-            <div>
-              <label htmlFor="timeline" className="block text-sm font-semibold text-navy">
-                How urgent is this? *
-              </label>
-              <select
-                id="timeline"
-                name="timeline"
-                required
-                className="mt-2 block w-full rounded-lg border border-[#dbe3f0] bg-white px-4 py-3 text-navy focus:border-cyan focus:outline-none focus:ring-2 focus:ring-cyan/20"
-              >
-                <option value="">Select timeline...</option>
-                <option value="now">Urgent - Need help now</option>
-                <option value="month">Within the next month</option>
-                <option value="quarter">This quarter</option>
-                <option value="exploring">Just exploring options</option>
-              </select>
-            </div>
-
-            {/* Contact Info */}
-            <div className="grid gap-6 sm:grid-cols-2">
-              <div>
-                <label htmlFor="name" className="block text-sm font-semibold text-navy">
-                  Your Name *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  className="mt-2 block w-full rounded-lg border border-[#dbe3f0] bg-white px-4 py-3 text-navy focus:border-cyan focus:outline-none focus:ring-2 focus:ring-cyan/20"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-navy">
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  className="mt-2 block w-full rounded-lg border border-[#dbe3f0] bg-white px-4 py-3 text-navy focus:border-cyan focus:outline-none focus:ring-2 focus:ring-cyan/20"
-                />
-              </div>
-            </div>
-
-            {/* Submit Button */}
-            <div className="pt-4">
-              <button
-                type="submit"
-                className="w-full rounded-lg bg-magenta px-8 py-4 text-base font-semibold text-white shadow-lg transition hover:bg-[#c235d9] hover:shadow-xl"
-              >
-                Get My Personalized Recommendation
-              </button>
-              <p className="mt-3 text-center text-xs text-[#64748b]">
-                I&apos;ll review your responses and get back to you within 24 hours
-              </p>
-            </div>
-          </motion.form>
-
-          {/* Trust Signals */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-8 text-center"
-          >
-            <p className="text-sm text-[#64748b]">
-              Prefer to talk first?{' '}
-              <Link href="/book" className="font-semibold text-blue hover:text-navy">
-                Book a 15-minute call instead
-              </Link>
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      {/* Recommendation Modal */}
+      {recommendation && (
+        <PackageRecommendation
+          recommendation={recommendation}
+          onStartOver={handleStartOver}
+          onProceed={handleProceedFromRecommendation}
+        />
+      )}
     </main>
   );
 }
