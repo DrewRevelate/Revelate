@@ -6,6 +6,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import FloatingBookingButton from "@/components/FloatingBookingButton";
 import KeyboardScrollProvider from "@/components/KeyboardScrollProvider";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -141,6 +142,7 @@ export default function RootLayout({
         </main>
         <Footer />
         <FloatingBookingButton />
+        <GoogleAnalytics />
         <Script
           id="structured-data"
           type="application/ld+json"

@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { analytics } from '@/lib/analytics';
 
 interface QuizQuestion {
   id: string;
@@ -101,6 +102,11 @@ export default function PackageQuiz({ onComplete, onClose }: PackageQuizProps) {
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [showResults, setShowResults] = useState(false);
 
+  // Track quiz started on mount
+  useEffect(() => {
+    analytics.quiz.started();
+  }, []);
+
   const currentQuestion = questions[currentStep];
   const progress = ((currentStep + 1) / questions.length) * 100;
 
@@ -135,6 +141,10 @@ export default function PackageQuiz({ onComplete, onClose }: PackageQuizProps) {
       // Generate recommendation
       const recommendation = generateRecommendation(answers);
       setShowResults(true);
+
+      // Track quiz completion with recommended package
+      analytics.quiz.completed(recommendation.packageName);
+
       onComplete(recommendation);
     }
   };
