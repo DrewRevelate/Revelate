@@ -78,9 +78,7 @@ export default function Navigation() {
       </Link>
       )}
 
-      <nav className={`fixed inset-x-0 top-[28px] z-50 py-4 transition-all duration-500 lg:py-6 ${
-        isHomepage && !showCompact ? 'xl:opacity-0 xl:pointer-events-none' : 'opacity-100'
-      }`} aria-label="Primary navigation">
+      <nav className="fixed inset-x-0 top-[28px] z-50 py-4 transition-all duration-500 lg:py-6" aria-label="Primary navigation">
         <div
           className={`mx-auto max-w-[1280px] rounded-2xl border px-6 py-3 transition-all duration-500 lg:px-8 ${
             showCompactLogo
@@ -89,7 +87,9 @@ export default function Navigation() {
           }`}
         >
           <div className="flex items-center justify-between">
-            <Link href="/" className="group flex items-center gap-3.5">
+            <Link href="/" className={`group flex items-center gap-3.5 transition-opacity duration-500 ${
+              showCompactLogo ? 'opacity-100' : 'xl:opacity-0 xl:pointer-events-none'
+            }`}>
               <span
                 className={`relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full transition-all ${
                   showCompactLogo
