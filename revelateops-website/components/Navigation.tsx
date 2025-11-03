@@ -55,7 +55,7 @@ export default function Navigation() {
       {isHomepage && (
         <Link
           href="/"
-          className={`group fixed left-1/2 z-40 flex -translate-x-1/2 flex-col items-center gap-2 sm:gap-3 lg:gap-4 transition-all duration-500 ease-out top-12 sm:top-14 md:top-16 lg:top-20 xl:top-24 2xl:top-28 ${
+          className={`group fixed left-1/2 z-40 hidden xl:flex -translate-x-1/2 flex-col items-center gap-2 sm:gap-3 lg:gap-4 transition-all duration-500 ease-out top-12 sm:top-14 md:top-16 lg:top-20 xl:top-24 2xl:top-28 ${
             showCompact ? 'pointer-events-none -translate-y-12 scale-75 opacity-0' : 'scale-100 opacity-100'
           }`}
           aria-label="Revelate home"
@@ -87,7 +87,7 @@ export default function Navigation() {
           }`}
         >
           <div className="flex items-center justify-between">
-            <Link href="/" className={`group flex items-center gap-3.5 ${!showCompactLogo && isHomepage ? 'invisible' : ''}`}>
+            <Link href="/" className="group flex items-center gap-3.5">
               <span
                 className={`relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full transition-all ${
                   showCompactLogo
@@ -127,7 +127,7 @@ export default function Navigation() {
               )}
             </Link>
 
-            <div className={`hidden items-center gap-2 md:flex ${!showCompactLogo && isHomepage ? 'invisible' : ''}`}>
+            <div className="hidden items-center gap-2 md:flex">
               {links.map((link) => (
                 <Link
                   key={link.label}
