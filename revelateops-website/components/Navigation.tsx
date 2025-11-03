@@ -78,7 +78,9 @@ export default function Navigation() {
       </Link>
       )}
 
-      <nav className="fixed inset-x-0 top-[28px] z-50 py-4 transition-all duration-500 lg:py-6" aria-label="Primary navigation">
+      <nav className={`fixed inset-x-0 top-[28px] z-50 py-4 transition-all duration-500 lg:py-6 ${
+        isHomepage && !showCompact ? 'xl:opacity-0 xl:pointer-events-none' : 'opacity-100'
+      }`} aria-label="Primary navigation">
         <div
           className={`mx-auto max-w-[1280px] rounded-2xl border px-6 py-3 transition-all duration-500 lg:px-8 ${
             showCompactLogo
