@@ -3,16 +3,10 @@
 import Script from 'next/script';
 
 export default function GoogleAnalytics() {
-  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  // Hardcode for now to test if component renders
+  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-M24D05ZWGN';
 
-  // Debug logging
-  console.log('[GoogleAnalytics] GA_MEASUREMENT_ID:', GA_MEASUREMENT_ID);
-  console.log('[GoogleAnalytics] All NEXT_PUBLIC env vars:', Object.keys(process.env).filter(k => k.startsWith('NEXT_PUBLIC_')));
-
-  if (!GA_MEASUREMENT_ID) {
-    console.warn('[Analytics] Google Analytics Measurement ID not found. Expected NEXT_PUBLIC_GA_MEASUREMENT_ID');
-    return null;
-  }
+  console.log('[GoogleAnalytics] Using GA_MEASUREMENT_ID:', GA_MEASUREMENT_ID);
 
   return (
     <>
