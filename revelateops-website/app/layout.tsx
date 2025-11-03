@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
@@ -126,10 +125,9 @@ export default function RootLayout({
         <Footer />
         <FloatingBookingButton />
         <GoogleAnalytics />
-        <Script
+        <script
           id="structured-data"
           type="application/ld+json"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(homepageSchemas) }}
         />
       </body>
