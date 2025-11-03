@@ -124,7 +124,7 @@ export default function UserInfoModal({
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan/10 border border-cyan/20">
                   <div className="w-1.5 h-1.5 rounded-full bg-cyan"></div>
-                  <span className="text-sm font-semibold text-cyan">{selectedServicesCount} service{selectedServicesCount !== 1 ? 's' : ''}</span>
+                  <span className="text-sm font-semibold text-navy">{selectedServicesCount} service{selectedServicesCount !== 1 ? 's' : ''}</span>
                 </div>
                 <span className="text-sm text-navy/60">• Ready for download</span>
               </div>
@@ -146,7 +146,7 @@ export default function UserInfoModal({
                   <span className="w-1 h-1 rounded-full bg-magenta"></span>
                 </div>
                 <p className="text-base text-navy/90 font-medium">
-                  Book within <span className="font-bold text-cyan">10 days</span> and get <span className="font-bold text-cyan text-lg">10% off</span> your first contract
+                  Book within <span className="font-bold text-blue-700">10 days</span> and get <span className="font-bold text-blue-700 text-lg">10% off</span> your first contract
                 </p>
               </div>
             </div>
@@ -159,7 +159,7 @@ export default function UserInfoModal({
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
               <label htmlFor="firstName" className="block text-sm font-medium text-navy mb-2">
-                First name <span className="text-cyan">*</span>
+                First name <span className="text-red-600">*</span>
               </label>
               <input
                 type="text"
@@ -181,7 +181,7 @@ export default function UserInfoModal({
 
             <div>
               <label htmlFor="lastName" className="block text-sm font-medium text-navy mb-2">
-                Last name <span className="text-cyan">*</span>
+                Last name <span className="text-red-600">*</span>
               </label>
               <input
                 type="text"
@@ -205,7 +205,7 @@ export default function UserInfoModal({
           {/* Email */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-navy mb-2">
-              Email <span className="text-cyan">*</span>
+              Email <span className="text-red-600">*</span>
             </label>
             <input
               type="email"
@@ -228,7 +228,7 @@ export default function UserInfoModal({
           {/* Company Name */}
           <div>
             <label htmlFor="company" className="block text-sm font-medium text-navy mb-2">
-              Company name <span className="text-cyan">*</span>
+              Company name <span className="text-red-600">*</span>
             </label>
             <input
               type="text"
