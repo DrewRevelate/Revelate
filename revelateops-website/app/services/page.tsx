@@ -812,7 +812,7 @@ export default function ServicesPage() {
                       Low
                     </span>
                   </td>
-                  <td className="py-4 px-4 text-sm font-semibold text-white">Flexible hourly</td>
+                  <td className="py-4 px-4 text-sm font-semibold text-white">$75-110/hr</td>
                 </tr>
               </tbody>
             </table>
@@ -915,7 +915,7 @@ export default function ServicesPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-white/60">Ongoing Cost:</span>
-                  <span className="text-sm font-semibold text-white">Flexible hourly</span>
+                  <span className="text-sm font-semibold text-white">$75-110/hr</span>
                 </div>
               </div>
             </div>
