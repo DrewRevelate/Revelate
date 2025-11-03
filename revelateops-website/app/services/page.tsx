@@ -272,7 +272,7 @@ export default function ServicesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#0A0F1E] via-[#1a1f3a] to-[#0A0F1E] flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-[#080B16] via-[#09102A] to-[#070915] flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#00d9ff] mb-4"></div>
           <p className="text-gray-400">Loading services...</p>
@@ -283,7 +283,7 @@ export default function ServicesPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-[#0A0F1E] via-[#1a1f3a] to-[#0A0F1E] flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-[#080B16] via-[#09102A] to-[#070915] flex items-center justify-center">
         <div className="bg-red-900/20 border border-red-500 rounded-lg p-6 max-w-md">
           <h2 className="text-xl font-bold text-red-400 mb-2">Error Loading Services</h2>
           <p className="text-gray-300">{error}</p>
@@ -293,7 +293,7 @@ export default function ServicesPage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-[#0A0F1E] via-[#1a1f3a] to-[#0A0F1E]">
+    <div className="relative min-h-screen bg-gradient-to-b from-[#080B16] via-[#09102A] to-[#070915]">
       {/* Subtle Constellation Background */}
       <Constellations density="medium" />
 
@@ -309,10 +309,10 @@ export default function ServicesPage() {
             <span className="text-xs font-semibold uppercase tracking-[0.05em] text-[#00d9ff]">
               Salesforce Expertise for Series B SaaS
             </span>
-            <h1 className="mt-5 text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.2] tracking-[-0.02em] text-white">
+            <h1 className="font-heading mt-5 text-4xl sm:text-5xl md:text-6xl font-semibold leading-[1.2] tracking-[-0.02em] text-white">
               Fix Your Salesforce, Close More Deals
             </h1>
-            <p className="mt-6 mx-auto max-w-2xl text-lg md:text-xl leading-[1.6] text-white/80">
+            <p className="font-body mt-6 mx-auto max-w-2xl text-lg md:text-xl leading-[1.6] text-white/80">
               Stop losing revenue to broken forecasting, manual data entry, and disconnected systems. Get your revenue operations fixed in 6-16 weeks—no full rebuild required.
             </p>
 
@@ -367,10 +367,10 @@ export default function ServicesPage() {
             <span className="text-xs font-semibold uppercase tracking-[0.05em] text-[#00d9ff]">
               Three breaking points
             </span>
-            <h2 className="mt-5 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-[1.2] text-white">
+            <h2 className="font-heading mt-5 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-[1.2] text-white">
               Your Salesforce instance is the bottleneck preventing $50M ARR
             </h2>
-            <p className="mt-4 text-lg leading-8 text-white/80">
+            <p className="font-body mt-4 text-lg leading-8 text-white/80">
               These are the symptoms that signal it's time for intervention
             </p>
           </div>
@@ -398,7 +398,7 @@ export default function ServicesPage() {
                 <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/80">
                   Problem 01
                 </div>
-                <h3 className="text-lg font-semibold leading-snug text-white">
+                <h3 className="font-heading text-lg font-semibold leading-snug text-white">
                   Your board wants forecast accuracy. Your CRM gives you guesses.
                 </h3>
               </div>
@@ -423,7 +423,7 @@ export default function ServicesPage() {
                 <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/80">
                   Problem 02
                 </div>
-                <h3 className="text-lg font-semibold leading-snug text-white">
+                <h3 className="font-heading text-lg font-semibold leading-snug text-white">
                   Your sales team spends 4 hours/day on manual data entry.
                 </h3>
               </div>
@@ -455,7 +455,7 @@ export default function ServicesPage() {
                 <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/80">
                   Problem 03
                 </div>
-                <h3 className="text-lg font-semibold leading-snug text-white">
+                <h3 className="font-heading text-lg font-semibold leading-snug text-white">
                   Your revenue stack doesn't talk to itself.
                 </h3>
               </div>
@@ -476,10 +476,10 @@ export default function ServicesPage() {
             <span className="text-xs font-semibold uppercase tracking-[0.05em] text-white/60">
               Our Expertise
             </span>
-            <h2 className="mt-5 text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+            <h2 className="font-heading mt-5 text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               Build Your Custom Package
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+            <p className="font-body text-xl text-gray-300 max-w-3xl mx-auto mb-8">
               Choose a pre-built package tailored to your stage, take our quiz for a personalized recommendation, or design your own custom solution
             </p>
 

@@ -57,7 +57,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative isolate z-0 flex h-full min-h-[100dvh] items-center justify-center overflow-hidden bg-navy text-white pt-48 sm:pt-52 md:pt-60 lg:pt-72 xl:pt-80 2xl:pt-96 pb-32"
+      className="relative isolate z-0 flex h-full min-h-[100dvh] items-center justify-center overflow-hidden bg-navy text-white pt-36 pb-24 md:pt-40 lg:pt-44 xl:pt-48 lg:pb-32"
     >
       {/* Deep parallax backdrop */}
       <motion.div style={{ y: backgroundY }} className="pointer-events-none absolute inset-0" aria-hidden="true">
@@ -125,7 +125,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            className="text-2xl font-bold leading-[1.2] tracking-[-0.02em] text-white sm:text-3xl md:text-4xl lg:text-5xl"
+            className="font-heading text-2xl font-bold leading-[1.2] tracking-[-0.02em] text-white sm:text-3xl md:text-4xl lg:text-5xl"
           >
             {executivePainPoints[currentPainIndex]}
           </motion.h1>
@@ -138,48 +138,129 @@ export default function Hero() {
             className="mx-auto mt-6 h-1 w-24 rounded-full bg-cyan"
           />
 
-          {/* Subhead - proper sizing */}
-          <motion.p
+          {/* NEW: Cause Diagnosis - Why the pain exists */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg md:text-xl"
+            className="mx-auto mt-8 max-w-2xl text-left"
           >
-            Hi, I&apos;m Drew. I take on 2-3 clients at a time as your embedded RevOps partner—not an agency, not a full-time hire. Deep focus. No handoffs. I join your team, map what&apos;s broken, and ship production improvements on a regular cadence. With deep expertise across enterprise platforms like Salesforce, NetSuite, and modern integration tools, most clients see meaningful improvements within 6-16 weeks.
-          </motion.p>
+            <p className="font-body text-base leading-relaxed text-white/95 sm:text-lg">
+              That&apos;s not a training problem. Your revenue stack is <strong className="text-white">misconfigured</strong>, your data pipelines are <strong className="text-white">broken</strong>, and your team routed around the system because it slowed them down. Agencies audit and leave. You need someone who stays and fixes it in production.
+            </p>
+          </motion.div>
 
-          {/* CTAs */}
+          {/* Solution Statement - Outcome focused */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-center"
+            className="mx-auto mt-6 max-w-2xl text-left"
           >
-            <Link
-              href="/book"
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-magenta px-8 py-4 text-base font-semibold text-white shadow-[0_4px_12px_rgba(217,70,239,0.2)] transition hover:bg-[#c235d9] hover:shadow-[0_6px_12px_rgba(217,70,239,0.4)] hover:-translate-y-0.5"
-            >
-              See What You&apos;re Missing
-              <svg
-                viewBox="0 0 24 24"
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M5 12h14" />
-                <path d="m12 5 7 7-7 7" />
-              </svg>
-            </Link>
+            <p className="font-body text-base leading-relaxed text-white/90 sm:text-lg">
+              I embed in your team for <strong className="text-cyan">8-16 weeks</strong>, diagnose what&apos;s actually broken, rebuild your revenue architecture, and stay until your team trusts the system again. Two clients max. Principal-only delivery.
+            </p>
+          </motion.div>
 
-            <Link
-              href="/services"
-              className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white px-8 py-4 text-base font-semibold text-white transition hover:bg-white hover:text-navy"
-            >
-              How We Work
-            </Link>
+          {/* NEW: Proof Banner with Testimonial */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="mx-auto mt-10 max-w-2xl"
+          >
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/5 p-5">
+              <div className="flex items-start gap-3">
+                <svg className="h-5 w-5 text-white/70 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div className="flex-1">
+                  <p className="text-sm text-white leading-relaxed">
+                    <strong className="text-white">94% forecast accuracy</strong> · 8 weeks · $47M Series B SaaS
+                  </p>
+                  <p className="text-xs text-white/60 mt-1">— VP Revenue Operations</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* NEW: Segmented CTAs - Three paths for different buyers */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="mt-12"
+          >
+            <div className="mx-auto max-w-4xl grid gap-4 md:grid-cols-3">
+              {/* Path A: See How I Work - For VP RevOps */}
+              <Link
+                href="/how-i-work"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).plausible) {
+                    (window as any).plausible('CTA Click', {
+                      props: { path: 'how-i-work', persona: 'vp-revops' }
+                    });
+                  }
+                }}
+                className="group relative overflow-hidden rounded-xl border-2 border-white/20 bg-white/5 p-6 text-left transition-all hover:border-white/40 hover:bg-white/10"
+              >
+                <div className="flex items-start gap-3">
+                  <svg className="h-6 w-6 text-cyan flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <div className="flex-1">
+                    <h3 className="font-heading text-base font-semibold text-white">See How I Work</h3>
+                    <p className="font-body mt-1 text-sm text-white/70">Case studies, process, and results</p>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Path B: Book A Diagnostic - For Founders/CROs (Primary CTA) */}
+              <Link
+                href="/book"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).plausible) {
+                    (window as any).plausible('CTA Click', {
+                      props: { path: 'book-diagnostic', persona: 'founder-cro' }
+                    });
+                  }
+                }}
+                className="group relative overflow-hidden rounded-xl border-2 border-magenta bg-magenta p-6 text-left transition-all hover:bg-[#c235d9]"
+              >
+                <div className="flex items-start gap-3">
+                  <svg className="h-6 w-6 text-white flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <div className="flex-1">
+                    <h3 className="font-heading text-base font-semibold text-white">Book A Diagnostic</h3>
+                    <p className="font-body mt-1 text-sm text-white/90">Schedule a 45-min strategy call</p>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Path C: Check If We're A Fit - For CFOs/Cautious buyers */}
+              <Link
+                href="/fit-assessment"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).plausible) {
+                    (window as any).plausible('CTA Click', {
+                      props: { path: 'fit-assessment', persona: 'cfo-cautious' }
+                    });
+                  }
+                }}
+                className="group relative overflow-hidden rounded-xl border-2 border-white/20 bg-white/5 p-6 text-left transition-all hover:border-white/40 hover:bg-white/10"
+              >
+                <div className="flex items-start gap-3">
+                  <svg className="h-6 w-6 text-cyan flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <div className="flex-1">
+                    <h3 className="font-heading text-base font-semibold text-white">Check If We&apos;re A Fit</h3>
+                    <p className="font-body mt-1 text-sm text-white/70">Take the 5-min assessment</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
           </motion.div>
 
           {/* Platform Logo Showcase - Infinite Scroll Marquee */}
