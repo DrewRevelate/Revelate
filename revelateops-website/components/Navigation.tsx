@@ -9,6 +9,8 @@ const links = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
   { href: '/about', label: 'About' },
+  { href: '/crm', label: 'CRM' },
+  { href: '/admin', label: 'Admin' },
 ];
 
 export default function Navigation() {
