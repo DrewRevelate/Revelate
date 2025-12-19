@@ -250,3 +250,154 @@ model AdminAuditLog {
   @@index([tableName, recordId])
   @@map("admin_audit_log")
 }
+
+// =====================================================
+// TASKFLOW - Personal Task Management System
+// =====================================================
+
+model TFProject {
+  id          String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String          @db.VarChar(255)
+  description String?         @db.Text
+  color       String?         @db.VarChar(20)
+  status      TFProjectStatus @default(ACTIVE)
+  ownerId     String          @map("owner_id") @db.VarChar(255)
+  createdAt   DateTime        @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt   DateTime        @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  tasks TFTask[]
+
+  @@index([ownerId, status])
+  @@map("tf_projects")
+}
+
+enum TFProjectStatus {
+  ACTIVE
+  ARCHIVED
+  COMPLETED
+}
+
+model TFTask {
+  id            String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title         String         @db.VarChar(500)
+  description   String?        @db.Text
+  status        TFTaskStatus   @default(TODO)
+  priority      TFTaskPriority @default(MEDIUM)
+  taskType      TFTaskType     @default(TASK) @map("task_type")
+  labels        String[]       @default([])
+  estimatedDays Int?           @map("estimated_days")
+  order         Int            @default(0)
+  dueDate       DateTime?      @map("due_date") @db.Date
+
+  projectId     String?        @map("project_id") @db.Uuid
+  project       TFProject?     @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  // Self-referencing for parent task (subtasks)
+  parentId      String?        @map("parent_id") @db.Uuid
+  parent        TFTask?        @relation("TaskSubtasks", fields: [parentId], references: [id], onDelete: Cascade)
+  subtasks      TFTask[]       @relation("TaskSubtasks")
+
+  // Dependencies (tasks that must be completed before this one)
+  dependencies  String[]       @default([])
+
+  assigneeId    String?        @map("assignee_id") @db.VarChar(255)
+  creatorId     String         @map("creator_id") @db.VarChar(255)
+
+  createdAt     DateTime       @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt     DateTime       @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  comments      TFComment[]
+  activities    TFActivity[]
+
+  @@index([status, order])
+  @@index([projectId])
+  @@index([creatorId])
+  @@index([assigneeId])
+  @@index([dueDate])
+  @@index([parentId])
+  @@map("tf_tasks")
+}
+
+enum TFTaskStatus {
+  BACKLOG
+  TODO
+  IN_PROGRESS
+  IN_REVIEW
+  DONE
+}
+
+enum TFTaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum TFTaskType {
+  STORY
+  TASK
+  SUBTASK
+  BUG
+}
+
+model TFComment {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  content   String   @db.Text
+  taskId    String   @map("task_id") @db.Uuid
+  task      TFTask   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  authorId  String   @map("author_id") @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  @@index([taskId])
+  @@map("tf_comments")
+}
+
+model TFActivity {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  type        String   @db.VarChar(50)
+  entityType  String   @map("entity_type") @db.VarChar(50)
+  entityId    String   @map("entity_id") @db.Uuid
+  title       String   @db.VarChar(500)
+  description String?  @db.Text
+  metadata    Json?    @db.JsonB
+  userId      String   @map("user_id") @db.VarChar(255)
+
+  projectId   String?  @map("project_id") @db.Uuid
+  taskId      String?  @map("task_id") @db.Uuid
+  task        TFTask?  @relation(fields: [taskId], references: [id], onDelete: SetNull)
+
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+
+  @@index([entityType, entityId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("tf_activities")
+}
+
+model TFNotification {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  type      String   @db.VarChar(50)
+  title     String   @db.VarChar(255)
+  message   String   @db.Text
+  read      Boolean  @default(false)
+  taskId    String?  @map("task_id") @db.Uuid
+  userId    String   @map("user_id") @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+
+  @@index([userId, read])
+  @@index([createdAt])
+  @@map("tf_notifications")
+}
+
+model TFSavedFilter {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String   @db.VarChar(100)
+  filters   Json     @db.JsonB
+  viewType  String   @map("view_type") @db.VarChar(50)
+  userId    String   @map("user_id") @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(6)
+
+  @@index([userId, viewType])
+  @@map("tf_saved_filters")
+}
