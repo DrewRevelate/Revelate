@@ -93,13 +93,13 @@ export default function Dashboard() {
           title="Total Tasks"
           value={stats.total}
           icon={CheckSquare}
-          color="#00d9ff"
+          color="cyan"
         />
         <StatsCard
           title="Completed"
           value={stats.completed}
           icon={CheckSquare}
-          color="#22c55e"
+          color="green"
           trend="up"
           trendValue={`${stats.total > 0 ? Math.round((stats.completed / stats.total) * 100) : 0}%`}
         />
@@ -107,13 +107,13 @@ export default function Dashboard() {
           title="In Progress"
           value={stats.inProgress}
           icon={Clock}
-          color="#0084ff"
+          color="blue"
         />
         <StatsCard
           title="Overdue"
           value={stats.overdue}
           icon={AlertTriangle}
-          color="#ef4444"
+          color="red"
         />
       </div>
 
@@ -248,8 +248,8 @@ export default function Dashboard() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div
-                        className="w-3 h-3 rounded-full"
-                        style={{ backgroundColor: project.color || '#00d9ff' }}
+                        className="w-3 h-3 rounded-full bg-cyan"
+                        style={project.color ? { backgroundColor: project.color } : undefined}
                       />
                       <span className="text-sm font-medium text-navy">{project.name}</span>
                     </div>

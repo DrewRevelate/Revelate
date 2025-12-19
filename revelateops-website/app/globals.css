@@ -63,6 +63,50 @@
   --color-muted: var(--charcoal);
   --color-muted-light: var(--slate);
 
+  /* TaskFlow-specific backgrounds */
+  --color-verylightgray: #f8fafc;
+  --color-lightgray: #f1f5f9;
+
+  /* === SHADCN/UI DESIGN TOKENS === */
+  /* Maps shadcn's design system to Revelate brand colors */
+
+  /* Primary (Cyan - main accent for TaskFlow) */
+  --color-primary: var(--cyan);
+  --color-primary-foreground: var(--navy);
+
+  /* Secondary (Navy - supporting) */
+  --color-secondary: var(--navy);
+  --color-secondary-foreground: var(--white);
+
+  /* Accent (Light backgrounds for hover states) */
+  --color-accent: var(--light-gray);
+  --color-accent-foreground: var(--navy);
+
+  /* Destructive (Red for delete/error) */
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: var(--white);
+
+  /* Card styling */
+  --color-card: var(--white);
+  --color-card-foreground: var(--navy);
+
+  /* Popover styling (dropdowns, modals) */
+  --color-popover: var(--white);
+  --color-popover-foreground: var(--navy);
+
+  /* Muted states */
+  --color-muted-foreground: var(--slate);
+
+  /* Input/Form styling */
+  --color-input: var(--border);
+  --color-ring: var(--cyan);
+
+  /* Radius */
+  --radius: 0.75rem;
+
+  /* Shadow utilities */
+  --shadow-cyan-sm: 0 2px 8px -2px rgba(0, 217, 255, 0.15);
+
   /* === TYPOGRAPHY === */
   --font-sans: var(--font-body, "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
   --font-heading: var(--font-heading, "Space Grotesk", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
@@ -180,4 +224,19 @@ p {
   pointer-events: auto;
   opacity: 1;
   transform: translateY(0);
+}
+
+/* === TASKFLOW CUSTOM UTILITIES === */
+
+/* Cyan glow shadow for cards and interactive elements */
+.shadow-cyan-sm {
+  box-shadow: 0 2px 8px -2px rgba(0, 217, 255, 0.15);
+}
+
+.shadow-cyan {
+  box-shadow: 0 4px 16px -4px rgba(0, 217, 255, 0.25);
+}
+
+.shadow-cyan-lg {
+  box-shadow: 0 8px 24px -6px rgba(0, 217, 255, 0.35);
 }

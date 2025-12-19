@@ -91,8 +91,8 @@ export function TaskCard({ task, index, onClick }: TaskCardProps) {
           {task.project && (
             <div className="flex items-center gap-1.5 mt-2 pt-2 border-t border-slate/10">
               <div
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: task.project.color || '#00d9ff' }}
+                className="w-2 h-2 rounded-full bg-cyan"
+                style={task.project.color ? { backgroundColor: task.project.color } : undefined}
               />
               <span className="text-xs text-slate truncate">{task.project.name}</span>
             </div>

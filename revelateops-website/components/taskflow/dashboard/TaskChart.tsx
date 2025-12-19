@@ -6,7 +6,25 @@ import {
   Tooltip, ResponsiveContainer, Legend
 } from 'recharts'
 
-const COLORS = ['#64748b', '#0084ff', '#00d9ff', '#d946ef', '#22c55e']
+// Brand colors for Recharts (requires hex strings)
+// Maps to: slate, blue, cyan, magenta, green
+const CHART_COLORS = {
+  slate: '#64748b',
+  blue: '#0084ff',
+  cyan: '#00d9ff',
+  magenta: '#d946ef',
+  green: '#22c55e',
+  navy: '#1a1f3a',
+  border: '#dbe3f0',
+}
+
+const PIE_COLORS = [
+  CHART_COLORS.slate,
+  CHART_COLORS.blue,
+  CHART_COLORS.cyan,
+  CHART_COLORS.magenta,
+  CHART_COLORS.green,
+]
 
 interface ChartData {
   name: string
@@ -22,7 +40,7 @@ interface TaskChartProps {
 export function TaskChart({ data, type, title }: TaskChartProps) {
   if (data.every(d => d.value === 0)) {
     return (
-      <Card className="border-slate/20">
+      <Card>
         <CardHeader className="pb-2">
           <CardTitle className="text-lg font-semibold">{title}</CardTitle>
         </CardHeader>
@@ -34,7 +52,7 @@ export function TaskChart({ data, type, title }: TaskChartProps) {
   }
 
   return (
-    <Card className="border-slate/20">
+    <Card>
       <CardHeader className="pb-2">
         <CardTitle className="text-lg font-semibold">{title}</CardTitle>
       </CardHeader>
@@ -42,17 +60,17 @@ export function TaskChart({ data, type, title }: TaskChartProps) {
         <ResponsiveContainer width="100%" height="100%">
           {type === 'bar' ? (
             <BarChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-              <XAxis dataKey="name" fontSize={12} tick={{ fill: '#64748b' }} />
-              <YAxis fontSize={12} tick={{ fill: '#64748b' }} />
+              <CartesianGrid strokeDasharray="3 3" stroke={CHART_COLORS.border} />
+              <XAxis dataKey="name" fontSize={12} tick={{ fill: CHART_COLORS.slate }} />
+              <YAxis fontSize={12} tick={{ fill: CHART_COLORS.slate }} />
               <Tooltip
                 contentStyle={{
                   backgroundColor: 'white',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '8px',
+                  border: `1px solid ${CHART_COLORS.border}`,
+                  borderRadius: '12px',
                 }}
               />
-              <Bar dataKey="value" fill="#00d9ff" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="value" fill={CHART_COLORS.cyan} radius={[4, 4, 0, 0]} />
             </BarChart>
           ) : (
             <PieChart>
@@ -66,21 +84,21 @@ export function TaskChart({ data, type, title }: TaskChartProps) {
                 dataKey="value"
               >
                 {data.filter(d => d.value > 0).map((_, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
                 ))}
               </Pie>
               <Tooltip
                 contentStyle={{
                   backgroundColor: 'white',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '8px',
+                  border: `1px solid ${CHART_COLORS.border}`,
+                  borderRadius: '12px',
                 }}
               />
               <Legend
                 verticalAlign="bottom"
                 height={36}
                 formatter={(value) => (
-                  <span style={{ color: '#1a1f3a', fontSize: '12px' }}>{value}</span>
+                  <span style={{ color: CHART_COLORS.navy, fontSize: '12px' }}>{value}</span>
                 )}
               />
             </PieChart>

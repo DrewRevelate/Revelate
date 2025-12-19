@@ -3,18 +3,31 @@
 import { LucideIcon } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 
+type ColorVariant = 'cyan' | 'blue' | 'green' | 'red' | 'magenta' | 'slate'
+
+const colorStyles: Record<ColorVariant, { bg: string; text: string }> = {
+  cyan: { bg: 'bg-cyan/10', text: 'text-cyan' },
+  blue: { bg: 'bg-blue/10', text: 'text-blue' },
+  green: { bg: 'bg-green-500/10', text: 'text-green-600' },
+  red: { bg: 'bg-red-500/10', text: 'text-red-600' },
+  magenta: { bg: 'bg-magenta/10', text: 'text-magenta' },
+  slate: { bg: 'bg-slate/10', text: 'text-slate' },
+}
+
 interface StatsCardProps {
   title: string
   value: number | string
   icon: LucideIcon
-  color?: string
+  color?: ColorVariant
   trend?: 'up' | 'down'
   trendValue?: string
 }
 
-export function StatsCard({ title, value, icon: Icon, color = '#00d9ff', trend, trendValue }: StatsCardProps) {
+export function StatsCard({ title, value, icon: Icon, color = 'cyan', trend, trendValue }: StatsCardProps) {
+  const styles = colorStyles[color]
+
   return (
-    <Card className="border-slate/20 hover:shadow-cyan-sm transition-shadow duration-200">
+    <Card>
       <CardContent className="p-6">
         <div className="flex items-start justify-between">
           <div>
@@ -28,11 +41,8 @@ export function StatsCard({ title, value, icon: Icon, color = '#00d9ff', trend, 
               </p>
             )}
           </div>
-          <div
-            className="w-12 h-12 rounded-xl flex items-center justify-center"
-            style={{ backgroundColor: `${color}15` }}
-          >
-            <Icon className="w-6 h-6" style={{ color }} />
+          <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${styles.bg}`}>
+            <Icon className={`w-6 h-6 ${styles.text}`} />
           </div>
         </div>
       </CardContent>
