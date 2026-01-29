@@ -77,12 +77,12 @@ export default function Navigation() {
       {isHomepage && (
         <Link
           href="/"
-          className={`group fixed left-1/2 z-40 hidden xl:flex -translate-x-1/2 flex-col items-center transition-all duration-500 ease-out top-16 sm:top-18 md:top-20 lg:top-24 xl:top-28 2xl:top-32 ${
+          className={`group fixed left-1/2 z-40 hidden xl:flex -translate-x-1/2 flex-col items-center transition-all duration-500 ease-out top-24 sm:top-28 md:top-32 lg:top-36 xl:top-40 2xl:top-44 ${
             showCompact ? 'pointer-events-none -translate-y-8 opacity-0' : 'opacity-100'
           }`}
           aria-label="Revelate home"
         >
-        <span className="text-center font-semibold uppercase tracking-[0.4em] text-white drop-shadow-lg transition-colors duration-500 group-hover:text-cyan text-lg sm:text-xl md:text-2xl lg:text-3xl">
+        <span className="text-center font-bold uppercase tracking-[0.4em] text-white drop-shadow-lg transition-colors duration-500 group-hover:text-cyan text-xl sm:text-2xl md:text-3xl lg:text-4xl">
           Revelate Operations
         </span>
       </Link>
