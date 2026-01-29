@@ -48,6 +48,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     },
+    {
+      url: `${baseUrl}/privacy-policy`,
+      lastModified: currentDate,
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/eula`,
+      lastModified: currentDate,
+      changeFrequency: 'yearly' as const,
+      priority: 0.3,
+    },
   ];
 
   return routes;
