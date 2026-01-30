@@ -28,7 +28,6 @@ export default function BookingPageClient() {
   }, [showSuccess]);
 
   const handleEventScheduled = (event: { uri: string }) => {
-    console.log('Event scheduled:', event);
     setShowSuccess(true);
     setShowConfetti(true);
 

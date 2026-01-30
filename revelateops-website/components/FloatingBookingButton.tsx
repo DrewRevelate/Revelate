@@ -348,12 +348,7 @@ export default function FloatingBookingButton() {
         });
         // Continue with PDF generation even if save fails
       } else {
-        const quoteData = await quoteResponse.json();
-        console.log('Quote saved successfully:', {
-          quoteId: quoteData.data?.id,
-          packageId: packageId || null,
-          serviceCount: selectedServiceDbIds.length,
-        });
+        // Quote saved successfully - continue to PDF generation
       }
 
       // Generate the PDF

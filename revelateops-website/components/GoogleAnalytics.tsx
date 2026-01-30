@@ -6,8 +6,6 @@ export default function GoogleAnalytics() {
   // Hardcode for now to test if component renders
   const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-M24D05ZWGN';
 
-  console.log('[GoogleAnalytics] Using GA_MEASUREMENT_ID:', GA_MEASUREMENT_ID);
-
   return (
     <>
       <Script

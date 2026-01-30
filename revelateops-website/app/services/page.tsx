@@ -138,10 +138,9 @@ export default function ServicesPage() {
 
         if (serviceIds.length > 0) {
           setSelectedServices(new Set(serviceIds));
-          console.log('Restored', serviceIds.length, 'selected services from localStorage');
         }
-      } catch (e) {
-        console.error('Failed to restore selected services:', e);
+      } catch {
+        // Ignore localStorage errors
       }
     }
   }, [services]); // Only run when services are loaded

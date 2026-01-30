@@ -45,8 +45,6 @@ export default function CalcomBooking({
       const startTime = currentWeekStart.toISOString();
       const endTime = addDays(currentWeekStart, 7).toISOString();
 
-      console.log('Fetching availability:', { startTime, endTime, eventTypeId });
-
       const response = await fetch(
         `/api/calcom/availability?startTime=${startTime}&endTime=${endTime}&eventTypeId=${eventTypeId}`
       );
@@ -58,7 +56,6 @@ export default function CalcomBooking({
       }
 
       const data = await response.json();
-      console.log('Cal.com API Response:', data);
 
       // Transform API response into our format
       // Cal.com API returns { slots: { "2024-01-01": ["09:00:00", "10:00:00"] } }

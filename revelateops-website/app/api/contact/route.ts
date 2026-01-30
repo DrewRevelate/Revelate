@@ -84,6 +84,25 @@ export async function POST(request: Request) {
       );
     }
 
+    // Validate email format (RFC 5322 simplified)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+      logger.warn(
+        createLogContext({
+          action: 'validation_failed',
+          endpoint: '/api/contact',
+          user_email: data.email,
+          reason: 'invalid_email_format',
+          duration_ms: performance.now() - startTime,
+        }),
+        'Contact form validation failed - invalid email format'
+      );
+      return NextResponse.json(
+        { error: 'Please provide a valid email address' },
+        { status: 400 }
+      );
+    }
+
     // Format the message for Slack DM using blocks
     const blocks = [
       {

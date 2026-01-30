@@ -65,7 +65,6 @@ export default function CalendlyWidget({
   useEffect(() => {
     // Check if script is already loaded
     if (window.Calendly) {
-      console.log('Calendly already loaded');
       setIsScriptLoaded(true);
       return;
     }
@@ -73,18 +72,14 @@ export default function CalendlyWidget({
     // Check if script tag already exists
     const existingScript = document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]');
     if (existingScript) {
-      console.log('Calendly script tag exists, waiting for load...');
       const checkCalendly = setInterval(() => {
         if (window.Calendly) {
-          console.log('Calendly loaded from existing script');
           setIsScriptLoaded(true);
           clearInterval(checkCalendly);
         }
       }, 100);
       return () => clearInterval(checkCalendly);
     }
-
-    console.log('Loading Calendly script...');
 
     // Load stylesheet
     const existingLink = document.querySelector('link[href="https://assets.calendly.com/assets/external/widget.css"]');
@@ -100,11 +95,9 @@ export default function CalendlyWidget({
     script.src = 'https://assets.calendly.com/assets/external/widget.js';
     script.async = true;
     script.onload = () => {
-      console.log('Calendly script loaded successfully');
       setIsScriptLoaded(true);
     };
-    script.onerror = (error) => {
-      console.error('Failed to load Calendly script:', error);
+    script.onerror = () => {
       setError('Failed to load Calendly. Please refresh the page.');
       setIsLoading(false);
     };
@@ -116,11 +109,8 @@ export default function CalendlyWidget({
   // Initialize Calendly widget
   useEffect(() => {
     if (!isScriptLoaded || !containerRef.current || !window.Calendly) {
-      console.log('Calendly not ready:', { isScriptLoaded, hasContainer: !!containerRef.current, hasCalendly: !!window.Calendly });
       return;
     }
-
-    console.log('Initializing Calendly with URL:', url);
 
     // Get UTM from sessionStorage or props
     const storedUtm = sessionStorage.getItem('calendly_utm');
@@ -135,18 +125,14 @@ export default function CalendlyWidget({
         utm: finalUtm || {},
       });
 
-      console.log('Calendly widget initialized');
-
       // Hide loading state after a short delay to ensure widget starts rendering
       const timer = setTimeout(() => {
-        console.log('Hiding loading state');
         setIsLoading(false);
       }, 1500);
 
       return () => clearTimeout(timer);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to initialize Calendly';
-      console.error('Calendly initialization error:', err);
       setError(errorMessage);
       setIsLoading(false);
     }

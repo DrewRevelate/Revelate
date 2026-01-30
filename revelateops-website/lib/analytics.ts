@@ -48,15 +48,12 @@ export function trackEvent(
         ...properties,
       });
 
-      console.log(`[Analytics] Tracked: ${eventName}`, properties);
-    } else {
-      console.warn(
-        '[Analytics] Google Analytics not loaded. Event not tracked:',
-        eventName
-      );
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`[Analytics] Tracked: ${eventName}`, properties);
+      }
     }
-  } catch (error) {
-    console.error('[Analytics] Error tracking event:', error);
+  } catch {
+    // Silently fail - analytics should never break the app
   }
 }
 
